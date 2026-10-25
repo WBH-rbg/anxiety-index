@@ -26,7 +26,7 @@ import pandas as pd
 WIKI_API = "https://en.wikipedia.org/w/api.php"
 WIKI_PAGES = [
     "Opinion polling on the second Trump presidency",
-    "2024 opinion polling on the Biden administration",
+    "2024–2025 opinion polling on the Biden administration",
     "2023 opinion polling on the Biden administration",
     "2022 opinion polling on the Biden administration",
     "2021 opinion polling on the Biden administration",
@@ -36,7 +36,12 @@ WIKI_PAGES = [
     "2018 opinion polling on the Trump administration",
     "2017 opinion polling on the Trump administration",
 ]
-APP_URL = "https://www.presidency.ucsb.edu/statistics/data/presidential-job-approval-all-data"
+APP_PAGES = {  # American Presidency Project, Gallup-based approval by president
+    "George W. Bush": "https://www.presidency.ucsb.edu/statistics/data/george-w-bush-public-approval",
+    "Barack Obama": "https://www.presidency.ucsb.edu/statistics/data/barack-obama-public-approval",
+    "Donald J. Trump": "https://www.presidency.ucsb.edu/statistics/data/donald-j-trump-public-approval",
+    "Joseph R. Biden": "https://www.presidency.ucsb.edu/statistics/data/joseph-r-biden-public-approval",
+}
 
 MONTHS = {m.lower(): i for i, m in enumerate(
     ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], 1)}
@@ -180,15 +185,19 @@ def collect(col, series: list[dict]) -> None:
         total += n
         col.info(f"{page}: {len(polls)} polls parsed, {n} in window")
     if col.mode == "backfill":
-        try:
-            content, uri = col.fetch(APP_URL, name="app_all_data", ext="html")
-            polls = polls_from_app(content.decode("utf-8", errors="replace"))
-            n = sum(col.add_event(event_id=poll_id(p), uri=uri, event_date=p["end_date"], event_type="approval_poll",
-                                  title="Gallup", magnitude=p["approve"] - p["disapprove"],
-                                  attributes={k: (str(v) if isinstance(v, dt.date) else v) for k, v in p.items()})
-                    for p in polls if p["end_date"] >= dt.date(1999, 1, 1))
-            total += n
-            col.info(f"American Presidency Project: {len(polls)} Gallup readings parsed, {n} since 1999")
-        except Exception as exc:
-            col.warn(f"American Presidency Project: {type(exc).__name__}: {str(exc)[:200]}")
+        for president, url in APP_PAGES.items():
+            try:
+                content, uri = col.fetch(url, name=f"app_{president}", ext="html")
+                html = content.decode("utf-8", errors="replace")
+                polls = polls_from_app(html)
+                if not polls:
+                    col.warn(f"APP {president}: no polls parsed; {len(html)} bytes; starts {html[:200]!r}")
+                n = sum(col.add_event(event_id=poll_id(p), uri=uri, event_date=p["end_date"], event_type="approval_poll",
+                                      title="Gallup", magnitude=p["approve"] - p["disapprove"],
+                                      attributes={k: (str(v) if isinstance(v, dt.date) else v) for k, v in p.items()})
+                        for p in polls if p["end_date"] >= dt.date(1999, 1, 1))
+                total += n
+                col.info(f"APP {president}: {len(polls)} Gallup readings parsed, {n} loaded")
+            except Exception as exc:
+                col.warn(f"APP {president}: {type(exc).__name__}: {str(exc)[:200]}")
     col.info(f"{total} polls loaded")
