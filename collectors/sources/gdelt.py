@@ -20,7 +20,7 @@ from collectors.core import to_date
 
 API = "https://api.gdeltproject.org/api/v2/doc/doc"
 DATA_START = dt.date(2017, 1, 1)
-PAUSE_SECONDS = 5.5
+PAUSE_SECONDS = 6.0
 
 # Each query is restricted to US-based outlets (sourcecountry:US) so the series
 # measure what Americans are reading, not world coverage.
@@ -46,7 +46,7 @@ def year_chunks(start: dt.date, end: dt.date):
 
 def parse_timeline(content: bytes) -> list[tuple[dt.date, float]]:
     """Timeline CSV: Date,Series,Value (one row per day)."""
-    text = content.decode("utf-8", errors="replace")
+    text = content.decode("utf-8-sig", errors="replace")  # strips the byte-order mark
     rows = []
     for rec in csv.DictReader(io.StringIO(text)):
         d = to_date((rec.get("Date") or "").strip())
@@ -76,7 +76,7 @@ def collect(col, series: list[dict]) -> None:
             try:
                 content, uri = col.fetch(url, name=f"{s['id']}_{a.year}", ext="csv", retries=5)
             except Exception as exc:
-                col.warn(f"{s['id']} {a.year}: {str(exc)[:200]}")
+                col.warn(f"{s['id']} {a.year}: {str(exc)[-300:]}")
                 time.sleep(PAUSE_SECONDS)
                 continue
             rows = parse_timeline(content)
