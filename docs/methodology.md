@@ -43,8 +43,15 @@ lens and signal contributions.
    3-month annualized change, deviation from a 12-month or 5-year average, log of coverage vs. the
    trailing-year median, or the level). See `config/signals.yaml`.
 4. **Standardization.** Each signal is converted to a robust z-score (median and interquartile
-   range) using only its own past, with at least two years of history, capped at ±3. Signals whose
-   higher values mean less anxiety are inverted.
+   range). A series' first ten years serve as its base period; after that, each week is compared
+   only with its own past (point-in-time). Scores are capped asymmetrically: fear up to +3 spreads,
+   relief only down to −1.5 (negativity bias: good news calms less than bad news alarms). Signals
+   whose higher values mean less anxiety are inverted first.
+   Fast inputs are exponentially smoothed first (daily series with a three-week half-life, weekly
+   counts with eight weeks), so a spike enters at once and fades gradually.
+   Attention and tone are measured against a three-year norm, so a year-long crisis doesn't become
+   "normal" within a year. Prices also enter as their three-year cumulative change, since people
+   compare prices with what they remember, not with last year alone.
 5. **Staleness.** A value that hasn't updated keeps contributing at full weight for a while
    (monthly: 6 weeks), then fades to zero (monthly: 16 weeks). Other signals renormalize.
 6. **Lenses, dimensions, headline.** Weighted averages at each level, each re-standardized against
@@ -58,7 +65,14 @@ Presidential approval (when added) enters as change from the president's own tra
 never as a level. Political signals measure uncertainty, policy churn, coverage volume and tone,
 all symmetric across administrations.
 
-## 5. What this version lacks
+## 5. Face validity (prototype, October 25, 2026)
+
+Reading as Severe or High: late 2001 (9/11), March 2003 (Iraq), autumn 2008 through 2009, 2011
+(debt ceiling, gas prices, Arab Spring), early 2017, March 2020, summer 2020, January 2021, 2022
+(Ukraine, inflation peak), spring 2025 (tariffs). Reading as Low: 2004–2007, 2012–2015. Cost of
+living stays at the top from mid-2021 through 2023. Median week-to-week move: about 4 points.
+
+## 6. What this version lacks
 
 - Attention signals before 2015 (Wikipedia) and 2017 (GDELT). The GDELT events table (1979 onward)
   is the planned fix.
