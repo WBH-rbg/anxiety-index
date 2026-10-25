@@ -4,22 +4,43 @@
   warnings.warn(
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2122: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
   warnings.warn(
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "/home/runner/work/anxiety-index/anxiety-index/index/validate.py", line 194, in <module>
-    raise SystemExit(main())
-                     ^^^^^^
-  File "/home/runner/work/anxiety-index/anxiety-index/index/validate.py", line 179, in main
-    corr = external_correlations(head, ext)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/anxiety-index/anxiety-index/index/validate.py", line 88, in external_correlations
-    joined = pd.concat([h, x.rename("x")], axis=1).dropna()
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/reshape/concat.py", line 442, in concat
-    all(
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/reshape/concat.py", line 443, in <genexpr>
-    prev[-1] <= curr[0] and prev.is_monotonic_increasing
-    ^^^^^^^^^^^^^^^^^^^
-  File "pandas/_libs/tslibs/timestamps.pyx", line 649, in pandas._libs.tslibs.timestamps._Timestamp.__richcmp__
-TypeError: Cannot compare tz-naive and tz-aware timestamps
+# Validation report
+
+Generated 2026-10-25. Methodology v0.1 prototype.
+
+## 1. Face validity
+
+Does the index read tense when everyone remembers tension, and calm when they remember calm?
+
+| Period | Expected | Mean | Max | Weeks ≥80 | Weeks | Verdict |
+|---|---|---|---|---|---|---|
+| 9/11 and aftermath | tense | 83.2 | 99.3 | 8 | 11 | pass |
+| Iraq invasion | tense | 96.4 | 99.0 | 7 | 7 | pass |
+| Mid-2000s calm | calm | 21.3 | 78.6 | 0 | 131 | pass |
+| Financial crisis | tense | 80.8 | 98.1 | 15 | 29 | pass |
+| Debt-ceiling summer | tense | 73.6 | 90.7 | 2 | 7 | pass |
+| 2013-2015 calm | calm | 16.4 | 68.0 | 0 | 156 | pass |
+| COVID onset | tense | 60.4 | 67.8 | 0 | 8 | check |
+| Summer 2020 | tense | 93.6 | 100.0 | 6 | 7 | pass |
+| Jan 6 week | tense | 77.0 | 89.1 | 2 | 3 | pass |
+| Ukraine invasion | tense | 86.2 | 90.9 | 5 | 5 | pass |
+| Inflation peak | tense | 91.2 | 93.2 | 6 | 6 | pass |
+| Spring 2025 tariffs | tense | 99.6 | 99.7 | 4 | 4 | pass |
+
+## 2. External series
+
+Correlation of the weekly headline with series that should track public anxiety but are not inputs to the headline (detrended with a 52-week rolling median). 'lead+k' means the index this week vs. the series k weeks later.
+
+| Series | Weeks | Level | Detrended | lead−4 | lead−2 | lead−1 | lead+1 | lead+2 | lead+4 |
+|---|---|---|---|---|---|---|---|---|---|
+| Wikipedia views: Anxiety | 591 | -0.1 | -0.12 | -0.11 | -0.11 | -0.111 | -0.143 | -0.158 | -0.181 |
+| Wikipedia views: Anxiety disorder | 591 | -0.17 | -0.151 | -0.131 | -0.154 | -0.147 | -0.159 | -0.156 | -0.154 |
+| Wikipedia views: Panic attack | 591 | -0.163 | -0.095 | -0.059 | -0.072 | -0.077 | -0.117 | -0.132 | -0.154 |
+| News share: boycotts | 608 | 0.052 | 0.052 | 0.015 | 0.026 | 0.039 | 0.051 | 0.036 | 0.02 |
+| Average tone of all US news (sign flipped) | 608 | 0.053 | 0.181 | 0.23 | 0.287 | 0.285 | 0.078 | 0.027 | -0.052 |
+| Share of US event coverage: conflict | 1400 | -0.015 | 0.121 | 0.081 | 0.14 | 0.165 | 0.094 | 0.073 | 0.046 |
+
+## 3. Corporate backlash events (curated outcome log)
+
+No outcome log loaded yet.
+

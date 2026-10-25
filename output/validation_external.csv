@@ -1,0 +1,7 @@
+series,weeks,corr_level,corr_detrended,corr_lead-4,corr_lead-2,corr_lead-1,corr_lead+1,corr_lead+2,corr_lead+4
+Wikipedia views: Anxiety,591,-0.1,-0.12,-0.11,-0.11,-0.111,-0.143,-0.158,-0.181
+Wikipedia views: Anxiety disorder,591,-0.17,-0.151,-0.131,-0.154,-0.147,-0.159,-0.156,-0.154
+Wikipedia views: Panic attack,591,-0.163,-0.095,-0.059,-0.072,-0.077,-0.117,-0.132,-0.154
+News share: boycotts,608,0.052,0.052,0.015,0.026,0.039,0.051,0.036,0.02
+Average tone of all US news (sign flipped),608,0.053,0.181,0.23,0.287,0.285,0.078,0.027,-0.052
+Share of US event coverage: conflict,1400,-0.015,0.121,0.081,0.14,0.165,0.094,0.073,0.046
