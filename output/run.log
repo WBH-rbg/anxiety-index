@@ -14,6 +14,6 @@
   warnings.warn(
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/_pandas_helpers.py:486: FutureWarning: Loading pandas DataFrame into BigQuery will require pandas-gbq package version 0.26.1 or greater in the future. Tried to import pandas-gbq and got: No module named 'pandas_gbq'
   warnings.warn(
-inputs: 466,580 observations, 65,859 events, 132 catalog series
-latest: week 2026-10-24 score 70.3 (Elevated)
+inputs: 466,580 observations, 67,047 events, 132 catalog series
+latest: week 2026-10-24 score 69.1 (Elevated)
 BigQuery tables written
