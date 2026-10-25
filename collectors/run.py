@@ -17,7 +17,7 @@ import traceback
 from collectors import core
 
 SOURCES = ["bls", "eia", "usgs", "fema", "gpr", "epu", "wikipedia",
-           "gdelt_gkg", "gdelt_events", "dol", "treasury", "fedreg", "markets", "umich", "freddiemac", "nyfed", "tpu", "approval"]
+           "gdelt_gkg", "gdelt_events", "dol", "treasury", "fedreg", "markets", "umich", "freddiemac", "nyfed", "tpu", "approval", "shootings"]
 RETIRED = ["gdelt"]  # DOC API collector: throttled too hard for daily use; runnable by name only
 
 

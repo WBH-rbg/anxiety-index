@@ -115,6 +115,10 @@ def event_severity(events: pd.DataFrame, source: str) -> pd.Series:
         sev = np.power(10.0, (mag - 5.0).clip(lower=-1, upper=3))
         sev = sev * np.where(e["area"].fillna("").str.startswith("us_"), 1.0, 0.3)
         return pd.Series(sev.values, index=e["week"].values).groupby(level=0).sum()
+    if source == "shootings":
+        # fatalities, with a floor of 3 so every qualifying incident registers; a 20-death event counts ~7x a 3-death one
+        fat = pd.to_numeric(e["magnitude"], errors="coerce").fillna(3).clip(lower=3)
+        return pd.Series(fat.values, index=e["week"].values).groupby(level=0).sum()
     if source == "fema":
         # One unit per declared county for major disasters and emergencies
         kind = e["attributes"].apply(lambda a: (a or {}).get("declarationType") if isinstance(a, dict) else None)

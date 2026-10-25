@@ -127,7 +127,8 @@ signals:
   - {series: wiki_coup,                 transform: log_att, weight: 0.3}
   - {series: wiki_insurrection_act,     transform: log_att, weight: 0.3}
 
-  # ------------------------------------------------------------ Public safety and unrest: conditions (event sources to come)
+  # ------------------------------------------------------------ Public safety and unrest: conditions
+  - {series: shooting_impulse,          transform: level,   weight: 1.0, smooth: 1}
   # ------------------------------------------------------------ Public safety and unrest: attention
   - {series: gkg_share_safety_unrest,   transform: log_att, weight: 1.5}
   - {series: gkg_tone_safety_unrest,  transform: dev156,   weight: 0.7, invert: true}
@@ -184,3 +185,4 @@ poll_series:
 events:
   - {id: usgs_impulse, source: usgs, dimension: disasters_health, lens: conditions, name: "Earthquake shock impulse (US, magnitude-weighted)"}
   - {id: fema_impulse, source: fema, dimension: disasters_health, lens: conditions, name: "Disaster declaration impulse (declared counties per week)"}
+  - {id: shooting_impulse, source: shootings, dimension: safety_unrest, lens: conditions, name: "Mass shooting impulse (fatality-weighted, Mother Jones database)"}
