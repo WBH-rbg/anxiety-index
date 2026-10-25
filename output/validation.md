@@ -8,18 +8,18 @@ Does the index read tense when everyone remembers tension, and calm when they re
 
 | Period | Expected | Mean | Max | Weeks ≥80 | Weeks | Verdict |
 |---|---|---|---|---|---|---|
-| 9/11 and aftermath | tense | 83.2 | 99.3 | 8 | 11 | pass |
-| Iraq invasion | tense | 96.4 | 99.0 | 7 | 7 | pass |
-| Mid-2000s calm | calm | 21.3 | 78.6 | 0 | 131 | pass |
-| Financial crisis | tense | 80.8 | 98.1 | 15 | 29 | pass |
-| Debt-ceiling summer | tense | 73.6 | 90.7 | 2 | 7 | pass |
-| 2013-2015 calm | calm | 16.4 | 68.0 | 0 | 156 | pass |
-| COVID onset | tense | 60.4 | 67.8 | 0 | 8 | check |
-| Summer 2020 | tense | 93.6 | 100.0 | 6 | 7 | pass |
-| Jan 6 week | tense | 77.0 | 89.1 | 2 | 3 | pass |
-| Ukraine invasion | tense | 86.2 | 90.9 | 5 | 5 | pass |
-| Inflation peak | tense | 91.2 | 93.2 | 6 | 6 | pass |
-| Spring 2025 tariffs | tense | 99.6 | 99.7 | 4 | 4 | pass |
+| 9/11 and aftermath | tense | 79.5 | 96.9 | 8 | 11 | pass |
+| Iraq invasion | tense | 82.2 | 86.2 | 5 | 7 | pass |
+| Mid-2000s calm | calm | 22.7 | 68.1 | 0 | 131 | pass |
+| Financial crisis | tense | 87.7 | 97.8 | 23 | 29 | pass |
+| Debt-ceiling summer | tense | 68.0 | 81.3 | 1 | 7 | pass |
+| 2013-2015 calm | calm | 19.5 | 73.4 | 0 | 156 | pass |
+| COVID onset | tense | 88.6 | 98.1 | 6 | 8 | pass |
+| Summer 2020 | tense | 99.3 | 100.0 | 7 | 7 | pass |
+| Jan 6 week | tense | 74.1 | 85.0 | 2 | 3 | pass |
+| Ukraine invasion | tense | 99.3 | 99.5 | 5 | 5 | pass |
+| Inflation peak | tense | 93.6 | 98.0 | 6 | 6 | pass |
+| Spring 2025 tariffs | tense | 88.9 | 89.7 | 4 | 4 | pass |
 
 ## 2. External series
 
@@ -27,12 +27,12 @@ Correlation of the weekly headline with series that should track public anxiety 
 
 | Series | Weeks | Level | Detrended | lead−4 | lead−2 | lead−1 | lead+1 | lead+2 | lead+4 |
 |---|---|---|---|---|---|---|---|---|---|
-| Wikipedia views: Anxiety | 591 | -0.1 | -0.12 | -0.11 | -0.11 | -0.111 | -0.143 | -0.158 | -0.181 |
-| Wikipedia views: Anxiety disorder | 591 | -0.17 | -0.151 | -0.131 | -0.154 | -0.147 | -0.159 | -0.156 | -0.154 |
-| Wikipedia views: Panic attack | 591 | -0.163 | -0.095 | -0.059 | -0.072 | -0.077 | -0.117 | -0.132 | -0.154 |
-| News share: boycotts | 608 | 0.052 | 0.052 | 0.015 | 0.026 | 0.039 | 0.051 | 0.036 | 0.02 |
-| Average tone of all US news (sign flipped) | 608 | 0.053 | 0.181 | 0.23 | 0.287 | 0.285 | 0.078 | 0.027 | -0.052 |
-| Share of US event coverage: conflict | 1400 | -0.015 | 0.121 | 0.081 | 0.14 | 0.165 | 0.094 | 0.073 | 0.046 |
+| Wikipedia views: Anxiety | 591 | -0.18 | -0.257 | -0.252 | -0.255 | -0.247 | -0.273 | -0.278 | -0.278 |
+| Wikipedia views: Anxiety disorder | 591 | -0.279 | -0.183 | -0.146 | -0.179 | -0.173 | -0.195 | -0.192 | -0.184 |
+| Wikipedia views: Panic attack | 591 | -0.21 | -0.13 | -0.107 | -0.118 | -0.115 | -0.146 | -0.159 | -0.169 |
+| News share: boycotts | 608 | -0.091 | -0.033 | -0.043 | -0.043 | -0.044 | -0.047 | -0.061 | -0.054 |
+| Average tone of all US news (sign flipped) | 608 | -0.026 | 0.112 | 0.12 | 0.168 | 0.177 | 0.054 | 0.03 | -0.028 |
+| Share of US event coverage: conflict | 1400 | -0.07 | 0.073 | 0.037 | 0.081 | 0.107 | 0.055 | 0.05 | 0.042 |
 
 ## 3. Corporate backlash events (curated outcome log)
 
