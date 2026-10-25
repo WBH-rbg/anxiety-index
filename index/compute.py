@@ -172,12 +172,18 @@ TERM_STARTS = [pd.Timestamp(d) for d in ("1993-01-20", "2001-01-20", "2009-01-20
 
 
 # ----------------------------------------------------------------------------- step 3: transforms
-DEFAULT_SMOOTH = {"daily": 4, "weekly": 1, "monthly": 1}
+DEFAULT_SMOOTH = {"daily": 3, "weekly": 1, "monthly": 1}
 
 
-def smooth(x: pd.Series, weeks: int) -> pd.Series:
-    """Trailing mean over `weeks` weeks (1 = no smoothing). Keeps the series point-in-time."""
-    return x if weeks <= 1 else x.rolling(weeks, min_periods=max(1, weeks // 2)).mean()
+def smooth(x: pd.Series, half_life_weeks: float) -> pd.Series:
+    """Exponentially weighted mean with the given half-life (<=1 = no smoothing).
+
+    A spike enters immediately and fades gradually, instead of dropping out of a
+    flat window all at once. Point-in-time: uses only past and current values.
+    """
+    if half_life_weeks <= 1:
+        return x
+    return x.ewm(halflife=half_life_weeks, ignore_na=True, min_periods=1).mean().where(x.notna() | x.ffill().notna())
 
 
 def transform(x: pd.Series, kind: str) -> pd.Series:
@@ -209,13 +215,32 @@ def transform(x: pd.Series, kind: str) -> pd.Series:
 
 
 # ----------------------------------------------------------------------------- step 4: standardization
-def standardize(x: pd.Series, min_history: int, cap: float) -> pd.Series:
-    """Robust z-score against the series' own PAST (expanding window, shifted one week)."""
+WARMUP_WEEKS = 520  # a series' first ten years serve as its base period
+
+
+def standardize(x: pd.Series, min_history: int, cap: float, warmup: int = WARMUP_WEEKS) -> pd.Series:
+    """Robust z-score (median, interquartile range) against the series' own history.
+
+    Point-in-time once a series has `warmup` weeks of history: each week is
+    compared only with its past. Before that, the series' first `warmup` weeks
+    serve as a fixed base period (so early years aren't judged against two or
+    three calm years alone). `min_history` valid weeks are needed before any
+    score is produced.
+    """
+    valid = x.dropna()
+    if len(valid) < min_history:
+        return pd.Series(np.nan, index=x.index)
+    base = valid.iloc[:warmup]
+    med0, q1, q3 = base.median(), base.quantile(0.25), base.quantile(0.75)
+    scale0 = (q3 - q1) / 1.349
     past = x.shift(1)
-    med = past.expanding(min_periods=min_history).median()
-    q1 = past.expanding(min_periods=min_history).quantile(0.25)
-    q3 = past.expanding(min_periods=min_history).quantile(0.75)
-    scale = (q3 - q1) / 1.349
+    n_past = past.notna().cumsum()
+    med = past.expanding(min_periods=warmup).median()
+    iqr = past.expanding(min_periods=warmup).quantile(0.75) - past.expanding(min_periods=warmup).quantile(0.25)
+    scale = iqr / 1.349
+    use_base = n_past < warmup
+    med = med.where(~use_base, med0)
+    scale = scale.where(~use_base, scale0)
     scale = scale.where(scale > 1e-12)
     z = (x - med) / scale
     return z.clip(lower=-cap, upper=cap)

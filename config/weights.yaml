@@ -6,10 +6,11 @@ version: "0.1"
 # Reference period for percentile bands (fixed until the next methodology version)
 reference_period: {start: "2005-01-01", end: "2025-12-31"}
 
-# Point-in-time standardization: a signal needs this much history before it contributes,
-# and each aggregate level (lens, dimension, headline) needs this much of its own history
-min_history_weeks: 104
-min_history_weeks_aggregate: 52
+# Standardization: each series' first ten years are its base period; after that it is
+# point-in-time (compared only with its own past). A signal needs this much history
+# before it contributes; aggregate levels (lens, dimension, headline) need the second figure.
+min_history_weeks: 52
+min_history_weeks_aggregate: 26
 
 # Standardized scores are capped at +/- this many spreads
 z_cap: 3.0
