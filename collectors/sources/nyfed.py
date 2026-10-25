@@ -9,7 +9,7 @@ from collectors.sources.tables import collect_files
 FILES = {
     "sce": ("https://www.newyorkfed.org/medialibrary/interactives/sce/sce/downloads/data/frbny-sce-data.xlsx", "xlsx", "Inflation expectations", {"skiprows": 3}),
     "sce_labor": ("https://www.newyorkfed.org/medialibrary/interactives/sce/sce/downloads/data/frbny-sce-data.xlsx", "xlsx", "Labor market expectations", {"skiprows": 3}),
-    "gscpi": ("https://www.newyorkfed.org/medialibrary/research/interactives/gscpi/downloads/gscpi_data.xlsx", "xlsx", "GSCPI Monthly Data", {"skiprows": 4}),
+    "gscpi": ("https://www.newyorkfed.org/medialibrary/research/interactives/gscpi/downloads/gscpi_data.xlsx", "xlsx", "GSCPI Monthly Data", {"header": None}),
 }
 
 

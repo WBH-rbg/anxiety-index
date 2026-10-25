@@ -278,7 +278,7 @@ def to_date(value) -> dt.date | None:
         text = str(int(value))
     else:
         text = str(value).strip()
-    for fmt in ("%Y%m%d", "%Y-%m-%d", "%Y-%m-%dT%H:%M:%S", "%m/%d/%Y", "%Y-%m", "%YM%m", "%Y%m"):
+    for fmt in ("%Y%m%d", "%Y-%m-%d", "%Y-%m-%dT%H:%M:%S", "%m/%d/%Y", "%d-%b-%Y", "%b-%Y", "%Y-%m", "%YM%m", "%Y%m"):
         try:
             return dt.datetime.strptime(text[:len(dt.datetime(2000, 1, 1).strftime(fmt))], fmt).date()
         except ValueError:

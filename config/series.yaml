@@ -159,7 +159,7 @@ series:
   - {id: sce_inflation_3y,     source: nyfed, code: "sce:Median three-year ahead expected inflation rate", name: "SCE: expected inflation, 3 years (median)",     dimension: cost_of_living, lens: sentiment, unit: "percent", frequency: monthly}
   - {id: sce_job_loss_prob,    source: nyfed, code: "sce_labor:Mean probability of losing one's job in the next 12 months", name: "SCE: perceived chance of losing job", dimension: jobs_financial, lens: sentiment, unit: "percent", frequency: monthly}
   - {id: sce_find_job_prob,    source: nyfed, code: "sce_labor:Mean probability of finding a job in the next 3 months if one lost their job today", name: "SCE: perceived chance of finding a job", dimension: jobs_financial, lens: sentiment, unit: "percent", frequency: monthly}
-  - {id: gscpi,                source: nyfed, code: "gscpi:GSCPI", name: "Global Supply Chain Pressure Index", dimension: cost_of_living, lens: conditions, unit: "std devs from average", frequency: monthly}
+  - {id: gscpi,                source: nyfed, code: "gscpi:1", name: "Global Supply Chain Pressure Index", dimension: cost_of_living, lens: conditions, unit: "std devs from average", frequency: monthly}
 
   # ---------------------------------------------------------------- Trade Policy Uncertainty (news-based, CC BY)
   - {id: tpu_monthly, source: tpu, code: "tpu:TPU", name: "Trade Policy Uncertainty index", dimension: cost_of_living, lens: attention, unit: "index", frequency: monthly, notes: "Tariff and trade-war uncertainty, from 1960"}

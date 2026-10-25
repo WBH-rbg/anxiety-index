@@ -109,7 +109,13 @@ def collect_files(col, series: list[dict], files: dict[str, tuple]) -> None:
             content, uri = col.fetch(url, name=key, ext=ext)
             frame = read_table(content, ext, sheet, **kwargs)
         except Exception as exc:
-            col.warn(f"{key}: {type(exc).__name__}: {str(exc)[:300]}")
+            detail = ""
+            if ext != "csv" and "content" in locals():
+                try:
+                    detail = f"; sheets={pd.ExcelFile(io.BytesIO(content)).sheet_names}"
+                except Exception:
+                    pass
+            col.warn(f"{key}: {type(exc).__name__}: {str(exc)[:300]}{detail}")
             continue
         found, missing = extract_series(frame, wanted)
         if missing:

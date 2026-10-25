@@ -5,7 +5,7 @@ Codes: 'tpu:<column>'.
 from collectors.sources.tables import collect_files
 
 FILES = {
-    "tpu": ("https://www.matteoiacoviello.com/tpu_files/tpu_web_latest.xlsx", "xlsx", 0),
+    "tpu": ("https://www.matteoiacoviello.com/tpu_files/tpu_web_latest.xlsx", "xlsx", "TPU_MONTHLY"),
 }
 
 
