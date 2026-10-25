@@ -47,6 +47,9 @@ jobs:
           mkdir -p output
           python -m index.run 2>&1 | tee output/run.log
 
+      - name: Run scenarios
+        run: python -m index.scenario 2>&1 | tee output/scenarios.log
+
       - name: Commit outputs
         if: always()
         run: |
