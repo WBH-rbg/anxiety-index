@@ -76,6 +76,58 @@ def charts(headline: pd.DataFrame, dimensions: pd.DataFrame) -> None:
     fig.tight_layout(); fig.savefig(OUT / "dimensions.png", dpi=110); plt.close(fig)
 
 
+DIM_LABELS = {"cost_of_living": "Cost of living", "jobs_financial": "Jobs and financial security",
+              "political_institutional": "Political and institutional", "safety_unrest": "Public safety and unrest",
+              "disasters_health": "Disasters, climate and health", "geopolitical": "Geopolitical"}
+
+
+def explanation(out: dict, catalog: pd.DataFrame, signals_cfg: dict) -> str:
+    """Structured explanation of the latest week: what moved and which signals drove it."""
+    names = dict(zip(catalog["series_id"], catalog["name"]))
+    for d in signals_cfg.get("derived", []) + signals_cfg.get("events", []) + signals_cfg.get("poll_series", []):
+        names[d["id"]] = d["name"]
+    h = out["headline"].dropna(subset=["score"])
+    if h.empty:
+        return "No scored weeks yet."
+    last = h.iloc[-1]
+    week = last["week"]
+    lines = [f"# Anxiety Index: week ending {week.date()}", "",
+             f"**{last['score']:.0f} ({last['band']})**, {last['change_1w']:+.1f} vs last week, {last['change_4w']:+.1f} vs four weeks ago.", ""]
+    dims = out["dimensions"]
+    contrib = out["contributions"]
+    dc = contrib.pivot(index="week", columns="dimension", values="contribution")
+    dchange = (dc.loc[week] - dc.shift(1).loc[week]).sort_values(key=abs, ascending=False)
+    lines.append("## Dimensions")
+    lines.append("")
+    lines.append("| Dimension | Score | Band | Change (1w) | Push on headline |")
+    lines.append("|---|---|---|---|---|")
+    for dim in dchange.index:
+        d = dims[(dims["dimension"] == dim)].set_index("week")
+        if week not in d.index or pd.isna(d.loc[week, "score"]):
+            continue
+        prev = d["score"].shift(1).loc[week]
+        chg = d.loc[week, "score"] - prev if pd.notna(prev) else float("nan")
+        lines.append(f"| {DIM_LABELS.get(dim, dim)} | {d.loc[week, 'score']:.0f} | {d.loc[week, 'band']} | {chg:+.0f} | {dchange[dim]:+.3f} |")
+    sig = out["signals"]
+    sig = sig[sig["week"].isin([week, week - pd.Timedelta(days=7)])].copy()
+    piv = sig.pivot_table(index="signal", columns="week", values="z")
+    if piv.shape[1] == 2:
+        dz = (piv.iloc[:, 1] - piv.iloc[:, 0])
+        wts = sig[sig["week"] == week].set_index("signal")["weight"]
+        meta = sig[sig["week"] == week].set_index("signal")[["series", "transform", "dimension", "lens", "z"]]
+        impact = (dz * wts).dropna().sort_values(key=abs, ascending=False)
+        lines += ["", "## Biggest movers among signals", "",
+                  "| Signal | Dimension | Lens | Now (z) | Change | Weight |", "|---|---|---|---|---|---|"]
+        for key in impact.index[:12]:
+            m = meta.loc[key]
+            lines.append(f"| {names.get(m['series'], m['series'])} ({m['transform']}) | {DIM_LABELS.get(m['dimension'], m['dimension'])} | {m['lens']} | {m['z']:+.2f} | {dz[key]:+.2f} | {wts[key]:.2f} |")
+        lines += ["", "## Most elevated signals right now", "", "| Signal | Dimension | Lens | z |", "|---|---|---|---|"]
+        top = meta[meta["z"].notna()].sort_values("z", ascending=False).head(12)
+        for key, m in top.iterrows():
+            lines.append(f"| {names.get(m['series'], m['series'])} ({m['transform']}) | {DIM_LABELS.get(m['dimension'], m['dimension'])} | {m['lens']} | {m['z']:+.2f} |")
+    return "\n".join(lines) + "\n"
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-write", action="store_true", help="don't write BigQuery tables")
@@ -105,6 +157,7 @@ def main(argv=None) -> int:
         "change_1w": None if pd.isna(latest["change_1w"]) else float(latest["change_1w"]),
         "methodology_version": str(weights["version"]), "computed_at": computed_at.isoformat()}, indent=2))
     charts(out["headline"], out["dimensions"])
+    (OUT / "explanation.md").write_text(explanation(out, catalog, signals))
     print(f"latest: week {latest['week'].date()} score {latest['score']} ({latest['band']})")
 
     if not args.no_write:
