@@ -47,13 +47,19 @@ EXTERNAL = {
 
 def load(client):
     head = client.query("SELECT week, score, band, z FROM `ai_index.headline_weekly` WHERE score IS NOT NULL ORDER BY week").to_dataframe()
-    head["week"] = pd.to_datetime(head["week"])
+    head["week"] = naive(head["week"])
     dims = client.query("SELECT week, dimension, score FROM `ai_index.dimension_weekly` WHERE score IS NOT NULL").to_dataframe()
-    dims["week"] = pd.to_datetime(dims["week"])
+    dims["week"] = naive(dims["week"])
     ext = client.query(f"""SELECT series_id, obs_date, value FROM `ai_clean.observations_latest`
                            WHERE series_id IN ({','.join("'" + s + "'" for s in EXTERNAL)}) AND value IS NOT NULL""").to_dataframe()
-    ext["obs_date"] = pd.to_datetime(ext["obs_date"])
+    ext["obs_date"] = naive(ext["obs_date"])
     return head, dims, ext
+
+
+def naive(col: pd.Series) -> pd.Series:
+    """Timestamps without a time zone (BigQuery TIMESTAMP columns arrive as UTC-aware)."""
+    out = pd.to_datetime(col)
+    return out.dt.tz_localize(None) if getattr(out.dt, "tz", None) is not None else out
 
 
 def weekly(ext: pd.DataFrame, sid: str) -> pd.Series:
