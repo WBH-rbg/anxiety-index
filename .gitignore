@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Local data and credentials (never commit)
+data/
+*.env
+.env*
+*credentials*.json
+*service-account*.json
+*.key
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
