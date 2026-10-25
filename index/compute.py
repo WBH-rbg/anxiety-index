@@ -179,14 +179,28 @@ DEFAULT_SMOOTH = {"daily": 3, "weekly": 1, "monthly": 1}
 
 
 def smooth(x: pd.Series, half_life_weeks: float) -> pd.Series:
-    """Exponentially weighted mean with the given half-life (<=1 = no smoothing).
+    """Fast-attack, slow-release smoothing of an anxiety-oriented signal (up = more anxiety).
 
-    A spike enters immediately and fades gradually, instead of dropping out of a
-    flat window all at once. Point-in-time: uses only past and current values.
+    A rise enters in full immediately; a fall fades with the given half-life.
+    Fear arrives at once and subsides gradually. Point-in-time: uses only past
+    and current values. half_life_weeks <= 1 means no smoothing.
     """
     if half_life_weeks <= 1:
         return x
-    return x.ewm(halflife=half_life_weeks, ignore_na=True, min_periods=1).mean().where(x.notna() | x.ffill().notna())
+    decay = 0.5 ** (1.0 / half_life_weeks)
+    out = np.full(len(x), np.nan)
+    prev = np.nan
+    for i, v in enumerate(x.values):
+        if np.isnan(v):
+            out[i] = prev if not np.isnan(prev) else np.nan
+            continue
+        if np.isnan(prev):
+            prev = v
+        else:
+            released = prev * decay + v * (1 - decay)
+            prev = v if v >= released else released
+        out[i] = prev
+    return pd.Series(out, index=x.index)
 
 
 def transform(x: pd.Series, kind: str) -> pd.Series:
@@ -321,10 +335,11 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
             print(f"signal skipped, no data: {sid} {spec['transform']}")
             continue
         fclass = FREQ_CLASS.get(meta[sid]["frequency"], "monthly")
-        sm = int(spec.get("smooth", DEFAULT_SMOOTH[fclass]))
-        raw = transform(smooth(values[sid].astype(float), sm), spec["transform"])
+        sm = float(spec.get("smooth", DEFAULT_SMOOTH[fclass]))
+        raw = transform(values[sid].astype(float), spec["transform"])
         if spec.get("invert"):
             raw = -raw
+        raw = smooth(raw, sm)  # after orientation, so "up" always means more anxiety
         z = standardize(raw, min_hist, cap, cap_low=cap_low)
         w = staleness_weight(ages[sid], fclass, weights_cfg["staleness"]) * float(spec.get("weight", 1.0))
         key = f"{sid}|{spec['transform']}"

@@ -15,7 +15,8 @@
 #   log_att    log(x / trailing 3-year median)   (attention: coverage vs normal)
 #   level      the level itself, standardized against its history
 # invert: true  means higher values mean LESS anxiety (sentiment indexes, tone, hiring)
-# smooth: exponential smoothing half-life in weeks, applied before the transform (default: 3 for daily series, 1 = none)
+# smooth: release half-life in weeks for fast-attack/slow-release smoothing of the oriented signal
+#         (rises enter at once, falls fade; default 3 for daily series, 1 = none)
 #
 # derived series are built first from the formulas at the bottom.
 
