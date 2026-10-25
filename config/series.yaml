@@ -59,7 +59,6 @@ series:
   - {id: gpr_daily_threats,   source: gpr, code: "daily:GPRD_THREAT",  name: "Geopolitical Risk: threats, daily",      dimension: geopolitical, lens: attention, unit: "index", frequency: daily}
 
   # ---------------------------------------------------------------- Economic Policy Uncertainty (news-based)
-  - {id: epu_us_monthly,        source: epu, code: "monthly:Three_Component_Index",           name: "US Economic Policy Uncertainty (three-component)", dimension: political_institutional, lens: conditions, unit: "index", frequency: monthly}
   - {id: epu_us_monthly_news,   source: epu, code: "monthly:News_Based_Policy_Uncert_Index",  name: "US Economic Policy Uncertainty (news-based)",      dimension: political_institutional, lens: attention,  unit: "index", frequency: monthly}
   - {id: epu_us_daily,          source: epu, code: "daily:daily_policy_index",               name: "US Economic Policy Uncertainty, daily",             dimension: political_institutional, lens: attention,  unit: "index", frequency: daily}
   - {id: epu_trade_policy,      source: epu, code: "categorical:Trade policy",               name: "Policy uncertainty: trade policy",                  dimension: cost_of_living,          lens: attention,  unit: "index", frequency: monthly, notes: "Tariff and trade-war uncertainty"}
