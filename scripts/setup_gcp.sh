@@ -168,10 +168,19 @@ else
   ok "provider ${PROVIDER_ID}"
 fi
 
-gcloud iam service-accounts add-iam-policy-binding "$SA_EMAIL" \
-  --role="roles/iam.workloadIdentityUser" \
-  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_ID}/attribute.repository/${GITHUB_REPO}" \
-  --quiet >/dev/null
+# A brand-new service account can take a minute or two to be usable here,
+# so retry a few times before giving up.
+WIF_MEMBER="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_ID}/attribute.repository/${GITHUB_REPO}"
+for attempt in 1 2 3 4 5 6; do
+  if gcloud iam service-accounts add-iam-policy-binding "$SA_EMAIL" \
+       --role="roles/iam.workloadIdentityUser" --member="$WIF_MEMBER" \
+       --quiet >/dev/null 2>&1; then
+    break
+  fi
+  [[ $attempt -lt 6 ]] || fail "Couldn't link GitHub to the service account after several tries. Wait a few minutes and run this script again."
+  echo "    waiting for the new service account to be ready (try ${attempt} of 6)..."
+  sleep 20
+done
 ok "GitHub repository can act as the pipeline service account"
 
 # ---- Budget alert -----------------------------------------------------------
