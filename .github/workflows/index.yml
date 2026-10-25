@@ -50,6 +50,9 @@ jobs:
       - name: Run scenarios
         run: python -m index.scenario 2>&1 | tee output/scenarios.log
 
+      - name: Validate
+        run: python -m index.validate 2>&1 | tee output/validation.log
+
       - name: Commit outputs
         if: always()
         run: |
