@@ -56,9 +56,14 @@ lens and signal contributions.
    compare prices with what they remember, not with last year alone.
 5. **Staleness.** A value that hasn't updated keeps contributing at full weight for a while
    (monthly: 6 weeks), then fades to zero (monthly: 16 weeks). Other signals renormalize.
-6. **Lenses, dimensions, headline.** Weighted averages at each level, each re-standardized against
-   its own past (at least one year) so levels with many signals aren't quieter than levels with few.
-7. **Percentiles and bands.** The headline and each dimension are ranked against the 2005–2025
+6. **Lenses and dimensions.** Weighted averages, each re-standardized against its own past (at least
+   half a year) so levels with many signals aren't quieter than levels with few.
+7. **Headline.** A weighted *soft maximum* of the six dimension scores (log of the weighted mean of
+   exp(z)): the hottest dimensions dominate, but every dimension still counts, and each dimension's
+   share of the week's anxiety is exact. Anxiety is driven by the worst thing happening, not the
+   average thing; a weighted mean let calm dimensions cancel out the COVID onset. The headline is
+   ranked directly against the reference period, with no further standardization.
+8. **Percentiles and bands.** The headline and each dimension are ranked against the 2005–2025
    reference period.
 
 ## 4. Nonpartisanship

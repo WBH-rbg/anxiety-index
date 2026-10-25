@@ -406,7 +406,9 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
     else:
         combined = weighted_mean(dim_z, {d: float(dw[d]) for d in dim_z})
         shares = None
-    head_z = standardize(combined, min_hist_agg, cap, cap_low=cap_low)
+    # The headline is the combined score itself, ranked against the reference period below.
+    # Re-standardizing here would let the drifting "normal" level penalize later weeks.
+    head_z = combined.clip(lower=-cap_low, upper=cap)
 
     # --- percentiles against the reference period
     ref = weights_cfg["reference_period"]
