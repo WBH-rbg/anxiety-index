@@ -1,0 +1,51 @@
+# Anxiety Index weights, methodology v0.1 (October 2026).
+# Everything here is a published prior. Changes are versioned.
+
+version: "0.1"
+
+# Reference period for percentile bands (fixed until the next methodology version)
+reference_period: {start: "2005-01-01", end: "2025-12-31"}
+
+# Point-in-time standardization: a signal needs this much history before it contributes,
+# and each aggregate level (lens, dimension, headline) needs this much of its own history
+min_history_weeks: 104
+min_history_weeks_aggregate: 52
+
+# Standardized scores are capped at +/- this many spreads
+z_cap: 3.0
+
+# Event shocks decay with this half-life
+event_half_life_weeks: 2
+
+# How a stale value fades. Full weight until `full`, zero weight at `zero` (weeks since the value became available).
+staleness:
+  daily:   {full: 1,  zero: 3}
+  weekly:  {full: 2,  zero: 6}
+  monthly: {full: 6,  zero: 16}
+
+# Dimension weights into the headline (sum to 100)
+dimensions:
+  cost_of_living:          25
+  jobs_financial:          20
+  political_institutional: 15
+  safety_unrest:           15
+  geopolitical:            15
+  disasters_health:        10
+
+# Lens weights within each dimension (sum to 100).
+# Fast, directly felt things lean on conditions; event-driven dimensions lean on attention.
+lenses:
+  cost_of_living:          {conditions: 50, sentiment: 20, attention: 30}
+  jobs_financial:          {conditions: 45, sentiment: 20, attention: 35}
+  political_institutional: {conditions: 25, sentiment: 30, attention: 45}
+  safety_unrest:           {conditions: 30, sentiment: 15, attention: 55}
+  disasters_health:        {conditions: 35, sentiment: 10, attention: 55}
+  geopolitical:            {conditions: 30, sentiment: 15, attention: 55}
+
+# Bands by percentile of the reference period
+bands:
+  - {name: Low,      upto: 20}
+  - {name: Moderate, upto: 50}
+  - {name: Elevated, upto: 80}
+  - {name: High,     upto: 95}
+  - {name: Severe,   upto: 100}

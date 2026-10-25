@@ -1,0 +1,55 @@
+name: Compute index
+
+# Recomputes the full weekly index from BigQuery, writes ai_index.* tables,
+# and commits charts and CSVs to output/ for review. Runs after the daily
+# collection and on demand.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "45 12 * * *"
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: index
+  cancel-in-progress: false
+
+env:
+  GCP_PROJECT_ID: anxiety-index
+
+jobs:
+  compute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt matplotlib db-dtypes pyarrow
+
+      - name: Sign in to Google Cloud (keyless)
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/328553067411/locations/global/workloadIdentityPools/github/providers/anxiety-index-repo
+          service_account: anxiety-index-pipeline@anxiety-index.iam.gserviceaccount.com
+
+      - name: Compute the index
+        run: python -m index.run
+
+      - name: Commit outputs
+        run: |
+          git config user.name "anxiety-index-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add output/
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -m "Index output $(date -u +%Y-%m-%d): $(python -c 'import json;d=json.load(open("output/latest.json"));print(f"{d[\"score\"]} ({d[\"band\"]}) for week {d[\"week\"]}")')"
+          git pull --rebase -q
+          git push

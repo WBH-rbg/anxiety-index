@@ -1,0 +1,164 @@
+# Signals: how each collected series is turned into an anxiety-pressure measure.
+# Every signal is standardized against its own point-in-time history, then averaged
+# into its lens with the weight below (weights are renormalized among signals that
+# have data in a given week).
+#
+# transform (applied to the weekly, forward-filled series x):
+#   yoy        12-month change:           x / x[t-52] - 1
+#   q_ann      3-month change, annualized: (x / x[t-13])^4 - 1
+#   dev12      level minus trailing 12-month mean
+#   dev12_pct  level vs trailing 12-month mean, in percent
+#   chg13      13-week change
+#   dev260     level minus trailing 5-year mean
+#   log_att    log(x / trailing 52-week median)   (attention: coverage vs normal)
+#   level      the level itself, standardized against its history
+# invert: true  means higher values mean LESS anxiety (sentiment indexes, tone, hiring)
+#
+# derived series are built first from the formulas at the bottom.
+
+signals:
+  # ------------------------------------------------------------ Cost of living: conditions
+  - {series: bls_cpi_all_sa,        transform: yoy,       weight: 1.0}
+  - {series: bls_cpi_all_sa,        transform: q_ann,     weight: 0.6}
+  - {series: bls_cpi_core_nsa,      transform: yoy,       weight: 0.5}
+  - {series: bls_cpi_food_at_home,  transform: yoy,       weight: 1.0}
+  - {series: bls_cpi_food_at_home,  transform: q_ann,     weight: 0.5}
+  - {series: bls_cpi_food_away,     transform: yoy,       weight: 0.3}
+  - {series: bls_cpi_shelter,       transform: yoy,       weight: 0.8}
+  - {series: bls_cpi_rent,          transform: yoy,       weight: 0.5}
+  - {series: bls_cpi_electricity,   transform: yoy,       weight: 0.5}
+  - {series: bls_cpi_utility_gas,   transform: yoy,       weight: 0.3}
+  - {series: bls_cpi_gasoline,      transform: yoy,       weight: 0.4}
+  - {series: bls_cpi_auto_insurance, transform: yoy,      weight: 0.4}
+  - {series: bls_cpi_medical,       transform: yoy,       weight: 0.5}
+  - {series: bls_cpi_used_cars,     transform: yoy,       weight: 0.2}
+  - {series: bls_price_eggs,        transform: dev12_pct, weight: 0.5}
+  - {series: bls_price_ground_beef, transform: dev12_pct, weight: 0.4}
+  - {series: bls_price_coffee,      transform: dev12_pct, weight: 0.3}
+  - {series: bls_price_milk,        transform: dev12_pct, weight: 0.3}
+  - {series: bls_price_bread,       transform: dev12_pct, weight: 0.3}
+  - {series: bls_price_electricity, transform: dev12_pct, weight: 0.4}
+  - {series: eia_gas_regular_weekly, transform: dev12_pct, weight: 1.2}
+  - {series: eia_gas_regular_weekly, transform: chg13,    weight: 0.6}
+  - {series: eia_diesel_weekly,     transform: dev12_pct, weight: 0.4}
+  - {series: eia_wti_daily,         transform: dev12_pct, weight: 0.5}
+  - {series: eia_henry_hub_daily,   transform: dev12_pct, weight: 0.3}
+  - {series: pmms_30y,              transform: chg13,     weight: 0.6}
+  - {series: pmms_30y,              transform: level,     weight: 0.3}
+  - {series: gscpi,                 transform: level,     weight: 0.6}
+  # ------------------------------------------------------------ Cost of living: sentiment and expectations
+  - {series: umich_inflation_1y,    transform: level,     weight: 1.0}
+  - {series: umich_inflation_5y,    transform: level,     weight: 0.5}
+  - {series: sce_inflation_1y,      transform: level,     weight: 1.0}
+  - {series: sce_inflation_3y,      transform: level,     weight: 0.5}
+  - {series: breakeven_5y,          transform: level,     weight: 0.6}
+  - {series: breakeven_5y,          transform: chg13,     weight: 0.4}
+  # ------------------------------------------------------------ Cost of living: attention
+  - {series: gdelt_vol_cost_of_living,  transform: log_att, weight: 1.5}
+  - {series: gdelt_tone_cost_of_living, transform: dev12,   weight: 0.7, invert: true}
+  - {series: wiki_inflation,            transform: log_att, weight: 0.6}
+  - {series: wiki_cost_of_living,       transform: log_att, weight: 0.5}
+  - {series: wiki_tariff,               transform: log_att, weight: 0.5}
+  - {series: wiki_shrinkflation,        transform: log_att, weight: 0.2}
+  - {series: wiki_price_gouging,        transform: log_att, weight: 0.2}
+  - {series: wiki_stagflation,          transform: log_att, weight: 0.3}
+  - {series: tpu_monthly,               transform: dev260,  weight: 0.6}
+  - {series: epu_trade_policy,          transform: dev260,  weight: 0.5}
+
+  # ------------------------------------------------------------ Jobs and financial: conditions
+  - {series: bls_unemployment_rate,   transform: chg13,     weight: 1.2}
+  - {series: bls_unemployment_rate,   transform: dev12,     weight: 0.6}
+  - {series: bls_payrolls,            transform: q_ann,     weight: 0.8, invert: true}
+  - {series: bls_jolts_openings,      transform: dev12_pct, weight: 0.4, invert: true}
+  - {series: bls_jolts_layoffs,       transform: dev12_pct, weight: 0.6}
+  - {series: bls_jolts_quits_rate,    transform: dev12,     weight: 0.3, invert: true}
+  - {series: dol_initial_claims_nsa,  transform: yoy,       weight: 1.2}
+  - {series: dol_continued_claims_nsa, transform: yoy,      weight: 0.6}
+  - {series: spread_10y_3m,           transform: level,     weight: 0.5, invert: true}
+  - {series: ust_2y,                  transform: chg13,     weight: 0.4}
+  - {series: vix_close,               transform: level,     weight: 1.0}
+  - {series: vix_close,               transform: dev12,     weight: 0.5}
+  # ------------------------------------------------------------ Jobs and financial: sentiment and expectations
+  - {series: umich_sentiment,         transform: level,     weight: 1.0, invert: true}
+  - {series: umich_sentiment,         transform: chg13,     weight: 0.5, invert: true}
+  - {series: sce_job_loss_prob,       transform: level,     weight: 0.8}
+  - {series: sce_find_job_prob,       transform: level,     weight: 0.5, invert: true}
+  # ------------------------------------------------------------ Jobs and financial: attention
+  - {series: gdelt_vol_jobs_financial,  transform: log_att, weight: 1.5}
+  - {series: gdelt_tone_jobs_financial, transform: dev12,   weight: 0.7, invert: true}
+  - {series: wiki_recession,            transform: log_att, weight: 0.7}
+  - {series: wiki_unemployment,         transform: log_att, weight: 0.4}
+  - {series: wiki_layoff,               transform: log_att, weight: 0.5}
+  - {series: wiki_stock_market_crash,   transform: log_att, weight: 0.5}
+  - {series: wiki_federal_reserve,      transform: log_att, weight: 0.3}
+  - {series: wiki_unemployment_benefits, transform: log_att, weight: 0.3}
+  - {series: epu_monetary_policy,       transform: dev260,  weight: 0.4}
+
+  # ------------------------------------------------------------ Political and institutional: conditions
+  - {series: epu_us_daily,              transform: dev260,  weight: 1.0}
+  - {series: epu_fiscal_policy,         transform: dev260,  weight: 0.4}
+  - {series: fedreg_executive_orders,   transform: dev260,  weight: 0.6}
+  - {series: fedreg_presidential_docs,  transform: dev260,  weight: 0.3}
+  - {series: fedreg_rules,              transform: dev260,  weight: 0.2}
+  # ------------------------------------------------------------ Political and institutional: sentiment (approval average to come)
+  # ------------------------------------------------------------ Political and institutional: attention
+  - {series: gdelt_vol_political,       transform: log_att, weight: 1.5}
+  - {series: gdelt_tone_political,      transform: dev12,   weight: 0.7, invert: true}
+  - {series: epu_us_monthly_news,       transform: dev260,  weight: 0.5}
+  - {series: wiki_impeachment,          transform: log_att, weight: 0.4}
+  - {series: wiki_government_shutdown,  transform: log_att, weight: 0.5}
+  - {series: wiki_martial_law,          transform: log_att, weight: 0.4}
+  - {series: wiki_constitutional_crisis, transform: log_att, weight: 0.4}
+  - {series: wiki_coup,                 transform: log_att, weight: 0.3}
+  - {series: wiki_insurrection_act,     transform: log_att, weight: 0.3}
+
+  # ------------------------------------------------------------ Public safety and unrest: conditions (event sources to come)
+  # ------------------------------------------------------------ Public safety and unrest: attention
+  - {series: gdelt_vol_safety_unrest,   transform: log_att, weight: 1.5}
+  - {series: gdelt_tone_safety_unrest,  transform: dev12,   weight: 0.7, invert: true}
+  - {series: wiki_mass_shooting,        transform: log_att, weight: 0.8}
+  - {series: wiki_school_shooting,      transform: log_att, weight: 0.5}
+  - {series: wiki_protest,              transform: log_att, weight: 0.5}
+  - {series: wiki_riot,                 transform: log_att, weight: 0.5}
+  - {series: wiki_political_violence,   transform: log_att, weight: 0.5}
+  - {series: wiki_domestic_terrorism,   transform: log_att, weight: 0.4}
+
+  # ------------------------------------------------------------ Disasters, climate and health: conditions
+  - {series: usgs_impulse,              transform: level,   weight: 0.6}
+  - {series: fema_impulse,              transform: level,   weight: 1.0}
+  - {series: epu_health_care,           transform: dev260,  weight: 0.3}
+  # ------------------------------------------------------------ Disasters, climate and health: attention
+  - {series: gdelt_vol_disasters_health,  transform: log_att, weight: 1.5}
+  - {series: gdelt_tone_disasters_health, transform: dev12,   weight: 0.7, invert: true}
+  - {series: wiki_pandemic,             transform: log_att, weight: 0.6}
+  - {series: wiki_hurricane,            transform: log_att, weight: 0.5}
+  - {series: wiki_earthquake,           transform: log_att, weight: 0.3}
+  - {series: wiki_wildfire,             transform: log_att, weight: 0.4}
+  - {series: wiki_tornado,              transform: log_att, weight: 0.3}
+  - {series: wiki_measles,              transform: log_att, weight: 0.3}
+
+  # ------------------------------------------------------------ Geopolitical: conditions
+  - {series: gpr_daily,                 transform: dev260,  weight: 1.0}
+  - {series: gpr_daily_acts,            transform: dev260,  weight: 0.5}
+  - {series: gpr_daily_threats,         transform: dev260,  weight: 0.5}
+  - {series: gpr_usa_monthly,           transform: dev260,  weight: 0.5}
+  - {series: eia_brent_daily,           transform: chg13,   weight: 0.4}
+  - {series: epu_national_security,     transform: dev260,  weight: 0.4}
+  # ------------------------------------------------------------ Geopolitical: attention
+  - {series: gdelt_vol_geopolitical,    transform: log_att, weight: 1.5}
+  - {series: gdelt_tone_geopolitical,   transform: dev12,   weight: 0.7, invert: true}
+  - {series: wiki_world_war_3,          transform: log_att, weight: 0.6}
+  - {series: wiki_nuclear_warfare,      transform: log_att, weight: 0.5}
+  - {series: wiki_us_conscription,      transform: log_att, weight: 0.4}
+  - {series: wiki_terrorism,            transform: log_att, weight: 0.4}
+  - {series: wiki_economic_sanctions,   transform: log_att, weight: 0.3}
+
+# Series built from others before signals are computed
+derived:
+  - {id: breakeven_5y,   formula: "ust_5y - ust_real_5y",   frequency: daily, dimension: cost_of_living, lens: sentiment, name: "5-year breakeven inflation"}
+  - {id: spread_10y_3m,  formula: "ust_10y - ust_3m",       frequency: daily, dimension: jobs_financial, lens: conditions, name: "Yield curve: 10-year minus 3-month"}
+
+# Event sources become weekly impulse series: severity summed per week, decaying with the half-life in weights.yaml
+events:
+  - {id: usgs_impulse, source: usgs, dimension: disasters_health, lens: conditions, name: "Earthquake shock impulse (US, magnitude-weighted)"}
+  - {id: fema_impulse, source: fema, dimension: disasters_health, lens: conditions, name: "Disaster declaration impulse (declared counties per week)"}
