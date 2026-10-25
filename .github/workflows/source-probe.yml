@@ -1,0 +1,79 @@
+name: Source probe
+
+# Run by hand to check which public data sources GitHub can reach without API
+# keys. Results are written to BigQuery table ai_raw._source_probe.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  PROJECT_ID: anxiety-index
+  UA: "AnxietyIndex/0.1 (research index; +https://github.com/WBH-rbg/anxiety-index)"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Probe sources
+        run: |
+          probe() {
+            local name="$1" url="$2" code bytes sample
+            code=$(curl -sS -L --max-time 60 -A "$UA" -o body.bin -w '%{http_code}' "$url" || echo 0)
+            bytes=$(stat -c %s body.bin 2>/dev/null || echo 0)
+            sample=$(head -c 300 body.bin 2>/dev/null | LC_ALL=C tr -c '[:print:]' ' ' | tr -d '",' | cut -c1-200)
+            printf '%s,%s,%s,%s,"%s"\n' "$name" "$(echo "$url" | tr -d ',')" "$code" "$bytes" "$sample" >> results.csv
+            rm -f body.bin
+          }
+          : > results.csv
+
+          # FRED public downloads (no key)
+          for s in CPIAUCSL CPIUFDSL UNRATE ICSA GASREGW DCOILWTICO DFF MORTGAGE30US VIXCLS UMCSENT STLFSI4 SP500; do
+            probe "fred_csv_${s}" "https://fred.stlouisfed.org/graph/fredgraph.csv?id=${s}"
+          done
+          # FRED API without a key (expected to fail; confirms the key requirement)
+          probe "fred_api_nokey" "https://api.stlouisfed.org/fred/series/observations?series_id=CPIAUCSL&file_type=json"
+
+          # BLS: public API v1 (no key) and bulk files
+          probe "bls_api_v1_cpi" "https://api.bls.gov/publicAPI/v1/timeseries/data/CUUR0000SA0"
+          probe "bls_bulk_cpi" "https://download.bls.gov/pub/time.series/cu/cu.series"
+
+          # EIA: weekly retail gasoline history file and API without key
+          probe "eia_gas_weekly_xls" "https://www.eia.gov/dnav/pet/hist_xls/EMM_EPM0_PTE_NUS_DPGw.xls"
+          probe "eia_api_nokey" "https://api.eia.gov/v2/petroleum/pri/gnd/data/?frequency=weekly"
+
+          # Disasters and safety
+          probe "usgs_quakes" "https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=2026-10-01&minmagnitude=5"
+          probe "openfema_declarations" "https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries?\$top=1&\$orderby=declarationDate%20desc"
+          probe "nifc_wildfire_news" "https://www.nifc.gov/fire-information/nfn"
+
+          # Uncertainty / geopolitical indexes
+          probe "epu_us_monthly" "https://www.policyuncertainty.com/media/US_Policy_Uncertainty_Data.xlsx"
+          probe "gpr_index" "https://www.matteoiacoviello.com/gpr_files/data_gpr_export.xls"
+
+          # Attention
+          probe "wikipedia_pageviews" "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Inflation/daily/20261001/20261020"
+          probe "gdelt_doc_api" "https://api.gdeltproject.org/api/v2/doc/doc?query=inflation&mode=timelinevol&format=csv&timespan=7d"
+
+          cat results.csv
+
+      - name: Sign in to Google Cloud (keyless)
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/328553067411/locations/global/workloadIdentityPools/github/providers/anxiety-index-repo
+          service_account: anxiety-index-pipeline@anxiety-index.iam.gserviceaccount.com
+
+      - name: Set up the Google Cloud tools
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Save results to BigQuery
+        run: |
+          bq --project_id="${PROJECT_ID}" load --replace --source_format=CSV \
+            ai_raw._source_probe results.csv \
+            source:STRING,url:STRING,http_code:INT64,bytes:INT64,sample:STRING
