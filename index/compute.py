@@ -135,6 +135,14 @@ def event_impulses(events: pd.DataFrame, specs: list[dict], weeks: pd.DatetimeIn
 
 
 # ----------------------------------------------------------------------------- step 3: transforms
+DEFAULT_SMOOTH = {"daily": 4, "weekly": 1, "monthly": 1}
+
+
+def smooth(x: pd.Series, weeks: int) -> pd.Series:
+    """Trailing mean over `weeks` weeks (1 = no smoothing). Keeps the series point-in-time."""
+    return x if weeks <= 1 else x.rolling(weeks, min_periods=max(1, weeks // 2)).mean()
+
+
 def transform(x: pd.Series, kind: str) -> pd.Series:
     if kind == "level":
         return x
@@ -229,11 +237,12 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
         if sid not in values.columns or sid not in meta:
             print(f"signal skipped, no data: {sid} {spec['transform']}")
             continue
-        raw = transform(values[sid].astype(float), spec["transform"])
+        fclass = FREQ_CLASS.get(meta[sid]["frequency"], "monthly")
+        sm = int(spec.get("smooth", DEFAULT_SMOOTH[fclass]))
+        raw = transform(smooth(values[sid].astype(float), sm), spec["transform"])
         z = standardize(raw, min_hist, cap)
         if spec.get("invert"):
             z = -z
-        fclass = FREQ_CLASS.get(meta[sid]["frequency"], "monthly")
         w = staleness_weight(ages[sid], fclass, weights_cfg["staleness"]) * float(spec.get("weight", 1.0))
         key = f"{sid}|{spec['transform']}"
         sig_z[key], sig_w[key] = z, w

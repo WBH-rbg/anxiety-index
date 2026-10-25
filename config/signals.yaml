@@ -13,6 +13,7 @@
 #   log_att    log(x / trailing 52-week median)   (attention: coverage vs normal)
 #   level      the level itself, standardized against its history
 # invert: true  means higher values mean LESS anxiety (sentiment indexes, tone, hiring)
+# smooth: trailing mean over N weeks before the transform (default: 4 for daily series, 1 otherwise)
 #
 # derived series are built first from the formulas at the bottom.
 
@@ -97,9 +98,9 @@ signals:
   # ------------------------------------------------------------ Political and institutional: conditions
   - {series: epu_us_daily,              transform: dev260,  weight: 1.0}
   - {series: epu_fiscal_policy,         transform: dev260,  weight: 0.4}
-  - {series: fedreg_executive_orders,   transform: dev260,  weight: 0.6}
-  - {series: fedreg_presidential_docs,  transform: dev260,  weight: 0.3}
-  - {series: fedreg_rules,              transform: dev260,  weight: 0.2}
+  - {series: fedreg_executive_orders,   transform: dev260,  weight: 0.6, smooth: 13}
+  - {series: fedreg_presidential_docs,  transform: dev260,  weight: 0.3, smooth: 13}
+  - {series: fedreg_rules,              transform: dev260,  weight: 0.2, smooth: 13}
   # ------------------------------------------------------------ Political and institutional: sentiment (approval average to come)
   # ------------------------------------------------------------ Political and institutional: attention
   - {series: gdelt_vol_political,       transform: log_att, weight: 1.5}
@@ -127,8 +128,8 @@ signals:
   - {series: wiki_domestic_terrorism,   transform: log_att, weight: 0.4}
 
   # ------------------------------------------------------------ Disasters, climate and health: conditions
-  - {series: usgs_impulse,              transform: level,   weight: 0.6}
-  - {series: fema_impulse,              transform: level,   weight: 1.0}
+  - {series: usgs_impulse,              transform: level,   weight: 0.6, smooth: 1}
+  - {series: fema_impulse,              transform: level,   weight: 1.0, smooth: 2}
   - {series: epu_health_care,           transform: dev260,  weight: 0.3}
   # ------------------------------------------------------------ Disasters, climate and health: attention
   - {series: gdelt_vol_disasters_health,  transform: log_att, weight: 1.5}
