@@ -47,8 +47,10 @@ lens and signal contributions.
    only with its own past (point-in-time). Scores are capped asymmetrically: fear up to +3 spreads,
    relief only down to −1.5 (negativity bias: good news calms less than bad news alarms). Signals
    whose higher values mean less anxiety are inverted first.
-   Fast inputs are exponentially smoothed first (daily series with a three-week half-life, weekly
-   counts with eight weeks), so a spike enters at once and fades gradually.
+   Fast inputs are smoothed with a fast-attack, slow-release rule applied after the signal is
+   oriented so that "up" means more anxiety: a rise enters in full immediately, a fall fades with a
+   three-week half-life (eight weeks for weekly counts). Fear arrives at once and subsides gradually,
+   which keeps the index responsive to shocks without week-to-week whiplash.
    Attention and tone are measured against a three-year norm, so a year-long crisis doesn't become
    "normal" within a year. Prices also enter as their three-year cumulative change, since people
    compare prices with what they remember, not with last year alone.
