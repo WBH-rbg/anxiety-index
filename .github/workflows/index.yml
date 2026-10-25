@@ -42,9 +42,13 @@ jobs:
           service_account: anxiety-index-pipeline@anxiety-index.iam.gserviceaccount.com
 
       - name: Compute the index
-        run: python -m index.run
+        run: |
+          set -o pipefail
+          mkdir -p output
+          python -m index.run 2>&1 | tee output/run.log
 
       - name: Commit outputs
+        if: always()
         run: |
           git config user.name "anxiety-index-bot"
           git config user.email "bot@users.noreply.github.com"

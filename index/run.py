@@ -31,7 +31,7 @@ def load_inputs(client):
         WHERE value IS NOT NULL""").to_dataframe()
     obs["obs_date"] = pd.to_datetime(obs["obs_date"])
     events = client.query("""
-        SELECT source, event_date, event_type, area, magnitude, attributes
+        SELECT source, event_date, event_type, area, magnitude, title, attributes
         FROM `ai_clean.events_latest` WHERE event_date IS NOT NULL""").to_dataframe()
     events["event_date"] = pd.to_datetime(events["event_date"])
     events["attributes"] = events["attributes"].apply(lambda a: json.loads(a) if isinstance(a, str) else a)
