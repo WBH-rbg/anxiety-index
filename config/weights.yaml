@@ -12,8 +12,10 @@ reference_period: {start: "2005-01-01", end: "2025-12-31"}
 min_history_weeks: 52
 min_history_weeks_aggregate: 26
 
-# Standardized scores are capped at +/- this many spreads
+# Standardized signal scores are capped: fear up to +3 spreads, relief only down to -1.5.
+# Negativity bias: good news calms less than bad news alarms.
 z_cap: 3.0
+z_cap_relief: 1.5
 
 # Event shocks decay with this half-life
 event_half_life_weeks: 2

@@ -71,9 +71,12 @@ def weekly_series(obs: pd.DataFrame, catalog: pd.DataFrame, weeks: pd.DatetimeIn
         if freq == "daily":
             wk = week_end(g["obs_date"])
             per_week = g.groupby(wk)["value"].mean()
-            avail_week = per_week.index + pd.to_timedelta(release_lag(sid, source), unit="D")
-            avail_week = week_end(pd.Series(avail_week))
-            s = pd.Series(per_week.values, index=avail_week.values)
+            lag = release_lag(sid, source)
+            if lag <= 2:  # published within a couple of days: the week's average is known by week end
+                s = pd.Series(per_week.values, index=per_week.index)
+            else:
+                avail_week = week_end(pd.Series(per_week.index + pd.to_timedelta(lag, unit="D")))
+                s = pd.Series(per_week.values, index=avail_week.values)
         else:
             avail = available_date(g["obs_date"], freq, release_lag(sid, source))
             aw = week_end(avail)
@@ -202,8 +205,13 @@ def transform(x: pd.Series, kind: str) -> pd.Series:
         return x - x.shift(13)
     if kind == "dev260":
         return x - x.rolling(260, min_periods=52).mean().shift(1)
+    if kind == "dev156":
+        return x - x.rolling(156, min_periods=26).mean().shift(1)
+    if kind == "cum3y":
+        return x / x.shift(156) - 1
     if kind == "log_att":
-        base = x.rolling(52, min_periods=26).median().shift(1)
+        # attention vs. a three-year norm, so a year-long crisis doesn't become "normal" within a year
+        base = x.rolling(156, min_periods=26).median().shift(1)
         with np.errstate(divide="ignore", invalid="ignore"):
             return np.log(x.where(x > 0) / base.where(base > 0))
     if kind == "dev_term":
@@ -218,7 +226,7 @@ def transform(x: pd.Series, kind: str) -> pd.Series:
 WARMUP_WEEKS = 520  # a series' first ten years serve as its base period
 
 
-def standardize(x: pd.Series, min_history: int, cap: float, warmup: int = WARMUP_WEEKS) -> pd.Series:
+def standardize(x: pd.Series, min_history: int, cap: float, warmup: int = WARMUP_WEEKS, cap_low: float | None = None) -> pd.Series:
     """Robust z-score (median, interquartile range) against the series' own history.
 
     Point-in-time once a series has `warmup` weeks of history: each week is
@@ -243,7 +251,7 @@ def standardize(x: pd.Series, min_history: int, cap: float, warmup: int = WARMUP
     scale = scale.where(~use_base, scale0)
     scale = scale.where(scale > 1e-12)
     z = (x - med) / scale
-    return z.clip(lower=-cap, upper=cap)
+    return z.clip(lower=-(cap if cap_low is None else cap_low), upper=cap)
 
 
 def staleness_weight(age: pd.Series, freq_class: str, rules: dict) -> pd.Series:
@@ -277,6 +285,7 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
     min_hist = int(weights_cfg["min_history_weeks"])
     min_hist_agg = int(weights_cfg.get("min_history_weeks_aggregate", 52))
     cap = float(weights_cfg["z_cap"])
+    cap_low = float(weights_cfg.get("z_cap_relief", cap))
 
     # --- weekly point-in-time values
     values, ages = weekly_series(obs, catalog, weeks)
@@ -314,9 +323,9 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
         fclass = FREQ_CLASS.get(meta[sid]["frequency"], "monthly")
         sm = int(spec.get("smooth", DEFAULT_SMOOTH[fclass]))
         raw = transform(smooth(values[sid].astype(float), sm), spec["transform"])
-        z = standardize(raw, min_hist, cap)
         if spec.get("invert"):
-            z = -z
+            raw = -raw
+        z = standardize(raw, min_hist, cap, cap_low=cap_low)
         w = staleness_weight(ages[sid], fclass, weights_cfg["staleness"]) * float(spec.get("weight", 1.0))
         key = f"{sid}|{spec['transform']}"
         sig_z[key], sig_w[key] = z, w
