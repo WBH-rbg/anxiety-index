@@ -1,11 +1,11 @@
 scenario,title,headline_before,headline_after,headline_change,band_after,z_change,cost_of_living_change,jobs_financial_change,political_institutional_change,safety_unrest_change,disasters_health_change,geopolitical_change
-gas_up_10pct,Gasoline up 10% this week,63.7,66.3,2.6,Elevated,0.083,4.6,0.0,0.0,0.0,0.0,0.0
-hot_cpi_print,CPI comes in 0.5 points hotter than last month's level implies,63.7,66.2,2.5,Elevated,0.082,4.6,0.0,0.0,0.0,0.0,0.0
-fed_surprise_hike,"Fed surprise: 2-year yield jumps 50bp, VIX +8, markets coverage doubles",63.7,64.1,0.4,Elevated,0.016,0.0,1.2,0.0,0.0,0.0,0.0
-jobless_claims_spike,Initial jobless claims jump 30% for the week,63.7,68.6,4.9,Elevated,0.173,0.0,16.9,0.0,0.0,0.0,0.0
-major_california_quake,Magnitude 7.0 earthquake near Los Angeles,63.7,66.4,2.7,Elevated,0.103,0.0,0.0,0.0,0.0,15.7,0.0
-gulf_hurricane_landfall,"Major hurricane landfall: 60 counties declared, disaster coverage triples",63.7,68.1,4.4,Elevated,0.152,0.0,0.0,0.0,0.0,22.3,0.0
-war_coverage_doubles,"Geopolitical flare-up: conflict coverage doubles, GPR threats +50%, Brent +15%",63.7,66.5,2.8,Elevated,0.105,0.0,0.0,0.0,0.0,0.0,1.9
-mass_shooting_national,"Mass shooting dominates the week: violence coverage +80%, shooting pageviews x10",63.7,69.8,6.1,Elevated,0.205,0.0,0.0,0.0,33.4,0.0,0.0
-government_shutdown,"Government shutdown begins: political crisis coverage +120%, EPU +60%",63.7,65.8,2.1,Elevated,0.063,0.0,0.0,7.9,0.0,0.0,0.0
-calm_week,Quiet week: coverage of every dimension 25% below current,63.7,63.7,0.0,Elevated,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+gas_up_10pct,Gasoline up 10% this week,70.7,74.2,3.5,Elevated,0.09,5.3,0.0,0.0,0.0,0.0,0.0
+hot_cpi_print,CPI comes in 0.5 points hotter than last month's level implies,70.7,73.8,3.1,Elevated,0.079,4.6,0.0,0.0,0.0,0.0,0.0
+fed_surprise_hike,"Fed surprise: 2-year yield jumps 50bp, VIX +8, markets coverage doubles",70.7,73.4,2.7,Elevated,0.06,0.0,5.6,0.0,0.0,0.0,0.0
+jobless_claims_spike,Initial jobless claims jump 30% for the week,70.7,77.5,6.8,Elevated,0.201,0.0,18.5,0.0,0.0,0.0,0.0
+major_california_quake,Magnitude 7.0 earthquake near Los Angeles,70.7,74.4,3.7,Elevated,0.1,0.0,0.0,0.0,0.0,14.3,0.0
+gulf_hurricane_landfall,"Major hurricane landfall: 60 counties declared, disaster coverage triples",70.7,75.5,4.8,Elevated,0.135,0.0,0.0,0.0,0.0,17.6,0.0
+war_coverage_doubles,"Geopolitical flare-up: conflict coverage doubles, GPR threats +50%, Brent +15%",70.7,79.7,9.0,Elevated,0.259,0.0,0.0,0.0,0.0,0.0,4.6
+mass_shooting_national,"Mass shooting dominates the week: violence coverage +80%, shooting pageviews x10",70.7,80.1,9.4,High,0.28,0.0,0.0,0.0,33.4,0.0,0.0
+government_shutdown,"Government shutdown begins: political crisis coverage +120%, EPU +60%",70.7,75.0,4.3,Elevated,0.114,0.0,0.0,8.8,0.0,0.0,0.0
+calm_week,Quiet week: coverage of every dimension 25% below current,70.7,70.7,0.0,Elevated,0.0,0.0,0.0,0.0,0.0,0.0,0.0

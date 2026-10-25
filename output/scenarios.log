@@ -4,15 +4,15 @@
   warnings.warn(
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2122: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
   warnings.warn(
-gas_up_10pct: 64 -> 66 (+2.6, Elevated)
-hot_cpi_print: 64 -> 66 (+2.5, Elevated)
-fed_surprise_hike: 64 -> 64 (+0.4, Elevated)
-jobless_claims_spike: 64 -> 69 (+4.9, Elevated)
-major_california_quake: 64 -> 66 (+2.7, Elevated)
-gulf_hurricane_landfall: 64 -> 68 (+4.4, Elevated)
-war_coverage_doubles: 64 -> 66 (+2.8, Elevated)
-mass_shooting_national: 64 -> 70 (+6.1, Elevated)
-government_shutdown: 64 -> 66 (+2.1, Elevated)
-calm_week: 64 -> 64 (+0.0, Elevated)
+gas_up_10pct: 71 -> 74 (+3.5, Elevated)
+hot_cpi_print: 71 -> 74 (+3.1, Elevated)
+fed_surprise_hike: 71 -> 73 (+2.7, Elevated)
+jobless_claims_spike: 71 -> 78 (+6.8, Elevated)
+major_california_quake: 71 -> 74 (+3.7, Elevated)
+gulf_hurricane_landfall: 71 -> 76 (+4.8, Elevated)
+war_coverage_doubles: 71 -> 80 (+9.0, Elevated)
+mass_shooting_national: 71 -> 80 (+9.4, High)
+government_shutdown: 71 -> 75 (+4.3, Elevated)
+calm_week: 71 -> 71 (+0.0, Elevated)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/_pandas_helpers.py:486: FutureWarning: Loading pandas DataFrame into BigQuery will require pandas-gbq package version 0.26.1 or greater in the future. Tried to import pandas-gbq and got: No module named 'pandas_gbq'
   warnings.warn(
