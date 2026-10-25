@@ -1,0 +1,26 @@
+# Google Cloud settings for the Anxiety Index pipeline.
+# Created by scripts/setup_gcp.sh on 2026-10-25. None of these values are secrets.
+
+gcp:
+  project_id: anxiety-index
+  project_number: "328553067411"
+  location: US
+
+storage:
+  raw_archive_bucket: anxiety-index-raw-archive   # private, versioned, append-only for the pipeline
+
+bigquery:
+  datasets:
+    raw: ai_raw            # source data exactly as collected
+    clean: ai_clean        # standardized weekly series
+    index: ai_index        # readings, theme scores, attributions, release archive
+    outcomes: ai_outcomes  # curated outcome log
+
+github_actions:
+  repository: WBH-rbg/anxiety-index
+  service_account: anxiety-index-pipeline@anxiety-index.iam.gserviceaccount.com
+  workload_identity_provider: projects/328553067411/locations/global/workloadIdentityPools/github/providers/anxiety-index-repo
+
+budget:
+  monthly_usd: 25
+  alerts_at_percent: [50, 90, 100]

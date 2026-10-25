@@ -1,0 +1,48 @@
+name: Connection check
+
+# Run by hand from the Actions tab to confirm GitHub can reach Google Cloud
+# without stored keys: writes a small file to the raw archive, writes a tiny
+# BigQuery table, and lists the datasets.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write   # lets GitHub prove its identity to Google Cloud (no stored keys)
+
+env:
+  PROJECT_ID: anxiety-index
+  BUCKET: anxiety-index-raw-archive
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Sign in to Google Cloud (keyless)
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/328553067411/locations/global/workloadIdentityPools/github/providers/anxiety-index-repo
+          service_account: anxiety-index-pipeline@anxiety-index.iam.gserviceaccount.com
+
+      - name: Set up the Google Cloud tools
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Write a test file to the raw archive
+        run: |
+          ts="$(date -u +%Y%m%dT%H%M%SZ)"
+          echo "connection check ${ts} (run ${GITHUB_RUN_ID})" > check.txt
+          gcloud storage cp check.txt "gs://${BUCKET}/_connection_checks/${ts}.txt"
+          gcloud storage ls "gs://${BUCKET}/_connection_checks/"
+
+      - name: Write a tiny BigQuery table
+        run: |
+          bq --project_id="${PROJECT_ID}" query --use_legacy_sql=false --nouse_cache \
+            "CREATE OR REPLACE TABLE ai_index._connection_check AS
+             SELECT CURRENT_TIMESTAMP() AS checked_at, '${GITHUB_RUN_ID}' AS run_id"
+
+      - name: List datasets
+        run: bq ls --project_id="${PROJECT_ID}"
