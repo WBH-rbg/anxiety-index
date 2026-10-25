@@ -20,7 +20,7 @@ from collectors.core import to_date
 
 API = "https://api.gdeltproject.org/api/v2/doc/doc"
 DATA_START = dt.date(2017, 1, 1)
-PAUSE_SECONDS = 6.0
+PAUSE_SECONDS = 8.0
 
 # Each query is restricted to US-based outlets (sourcecountry:US) so the series
 # measure what Americans are reading, not world coverage.
@@ -73,10 +73,19 @@ def collect(col, series: list[dict]) -> None:
             params = {"query": QUERIES[key], "mode": mode, "format": "csv",
                       "startdatetime": f"{a:%Y%m%d}000000", "enddatetime": f"{b:%Y%m%d}235959"}
             url = f"{API}?{urlencode(params)}"
-            try:
-                content, uri = col.fetch(url, name=f"{s['id']}_{a.year}", ext="csv", retries=5)
-            except Exception as exc:
-                col.warn(f"{s['id']} {a.year}: {str(exc)[-300:]}")
+            content = None
+            for attempt in range(6):
+                try:
+                    content, uri = col.fetch(url, name=f"{s['id']}_{a.year}", ext="csv", retries=1)
+                    break
+                except Exception as exc:
+                    if "429" in str(exc) or "limit requests" in str(exc):
+                        time.sleep(45)  # the API's limiter wants a real pause, not a quick retry
+                        continue
+                    col.warn(f"{s['id']} {a.year}: {str(exc)[-300:]}")
+                    break
+            if content is None:
+                col.warn(f"{s['id']} {a.year}: still rate-limited after 6 attempts")
                 time.sleep(PAUSE_SECONDS)
                 continue
             rows = parse_timeline(content)
