@@ -136,6 +136,11 @@ def outcome_tests(head: pd.DataFrame, dims: pd.DataFrame, ev: pd.DataFrame) -> d
     by_band = by_band.reindex([b for b in order if b in by_band.index])
     by_band["any_event_rate"] = (100 * by_band["any_event_rate"]).round(1)
     by_band["major_event_rate"] = (100 * by_band["major_event_rate"]).round(1)
+    # era split: is the gradient there within the era where the log's density is steady?
+    weeks["era"] = np.where(weeks.index < pd.Timestamp("2024-01-01"), "2015-2023", "2024-2026")
+    weeks["group"] = pd.cut(weeks["score"], [-1, 50, 80, 101], labels=["Low/Moderate", "Elevated", "High/Severe"])
+    by_era = weeks.groupby(["era", "group"], observed=True).agg(weeks=("score", "size"), major_rate=("major_next_2w", "mean"))
+    by_era["major_rate"] = (100 * by_era["major_rate"]).round(1)
     # which dimension is most elevated before events
     d = dims.pivot(index="week", columns="dimension", values="score")
     before = ev["week"].map(lambda w: d.loc[w - pd.Timedelta(days=7)] if (w - pd.Timedelta(days=7)) in d.index else None)
@@ -143,7 +148,7 @@ def outcome_tests(head: pd.DataFrame, dims: pd.DataFrame, ev: pd.DataFrame) -> d
     dim_all = d.loc[d.index >= ev["event_date"].min()].mean().round(1)
     dim_table = pd.DataFrame({"before_events": dim_before, "all_weeks": dim_all.reindex(dim_before.index)})
     dim_table["difference"] = (dim_table["before_events"] - dim_table["all_weeks"]).round(1)
-    return {"events": ev, "base_mean": round(base_mean, 1), "by_severity": by_sev, "by_band": by_band, "dim_table": dim_table,
+    return {"events": ev, "base_mean": round(base_mean, 1), "by_severity": by_sev, "by_band": by_band, "by_era": by_era, "dim_table": dim_table,
             "mean_before": round(ev["score_before"].mean(), 1), "n": int(ev["score_before"].notna().sum())}
 
 
@@ -169,6 +174,10 @@ def report(face: pd.DataFrame, corr: pd.DataFrame, oc: dict) -> str:
         L += ["", "Episodes in the following two weeks, per 100 weeks, by the band shown that week:", "", "| Band | Weeks | Any episode | Severity ≥3 |", "|---|---|---|---|"]
         for band, r in oc["by_band"].iterrows():
             L.append(f"| {band} | {int(r['weeks'])} | {r['any_event_rate']} | {r['major_event_rate']} |")
+        L += ["", "Same test split by era (the log is denser after 2023, and those years were tenser, so each era is checked on its own):", "",
+              "| Era | Reading | Weeks | Severity ≥3 episodes in next two weeks, per 100 weeks |", "|---|---|---|---|"]
+        for (era, grp), r in oc["by_era"].iterrows():
+            L.append(f"| {era} | {grp} | {int(r['weeks'])} | {r['major_rate']} |")
         L += ["", "Dimension readings the week before episodes vs. all weeks:", "", "| Dimension | Before episodes | All weeks | Difference |", "|---|---|---|---|"]
         for dim, r in oc["dim_table"].iterrows():
             L.append(f"| {DIM_LABELS.get(dim, dim)} | {r['before_events']} | {r['all_weeks']} | {r['difference']:+.1f} |")
