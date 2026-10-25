@@ -97,17 +97,19 @@ def explanation(out: dict, catalog: pd.DataFrame, signals_cfg: dict) -> str:
     contrib = out["contributions"]
     dc = contrib.pivot(index="week", columns="dimension", values="contribution")
     dchange = (dc.loc[week] - dc.shift(1).loc[week]).sort_values(key=abs, ascending=False)
+    shares = contrib.pivot(index="week", columns="dimension", values="share").loc[week] if "share" in contrib.columns else None
     lines.append("## Dimensions")
     lines.append("")
-    lines.append("| Dimension | Score | Band | Change (1w) | Push on headline |")
-    lines.append("|---|---|---|---|---|")
+    lines.append("| Dimension | Score | Band | Change (1w) | Share of this week's anxiety | Push on headline |")
+    lines.append("|---|---|---|---|---|---|")
     for dim in dchange.index:
         d = dims[(dims["dimension"] == dim)].set_index("week")
         if week not in d.index or pd.isna(d.loc[week, "score"]):
             continue
         prev = d["score"].shift(1).loc[week]
         chg = d.loc[week, "score"] - prev if pd.notna(prev) else float("nan")
-        lines.append(f"| {DIM_LABELS.get(dim, dim)} | {d.loc[week, 'score']:.0f} | {d.loc[week, 'band']} | {chg:+.0f} | {dchange[dim]:+.3f} |")
+        share_txt = f"{100 * shares[dim]:.0f}%" if shares is not None and dim in shares.index else ""
+        lines.append(f"| {DIM_LABELS.get(dim, dim)} | {d.loc[week, 'score']:.0f} | {d.loc[week, 'band']} | {chg:+.0f} | {share_txt} | {dchange[dim]:+.3f} |")
     sig = out["signals"]
     sig = sig[sig["week"].isin([week, week - pd.Timedelta(days=7)])].copy()
     piv = sig.pivot_table(index="signal", columns="week", values="z")
