@@ -105,6 +105,7 @@ signals:
   - {series: gdelt_vol_political,       transform: log_att, weight: 1.5}
   - {series: gdelt_tone_political,      transform: dev12,   weight: 0.7, invert: true}
   - {series: epu_us_monthly_news,       transform: dev260,  weight: 0.5}
+  - {series: gdelt_ev_coerce_share,     transform: log_att, weight: 0.6}
   - {series: wiki_impeachment,          transform: log_att, weight: 0.4}
   - {series: wiki_government_shutdown,  transform: log_att, weight: 0.5}
   - {series: wiki_martial_law,          transform: log_att, weight: 0.4}
@@ -116,6 +117,8 @@ signals:
   # ------------------------------------------------------------ Public safety and unrest: attention
   - {series: gdelt_vol_safety_unrest,   transform: log_att, weight: 1.5}
   - {series: gdelt_tone_safety_unrest,  transform: dev12,   weight: 0.7, invert: true}
+  - {series: gdelt_ev_protest_share,    transform: log_att, weight: 1.0}
+  - {series: gdelt_ev_violence_share,   transform: log_att, weight: 1.0}
   - {series: wiki_mass_shooting,        transform: log_att, weight: 0.8}
   - {series: wiki_school_shooting,      transform: log_att, weight: 0.5}
   - {series: wiki_protest,              transform: log_att, weight: 0.5}

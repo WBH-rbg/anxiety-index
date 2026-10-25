@@ -163,3 +163,12 @@ series:
 
   # ---------------------------------------------------------------- Trade Policy Uncertainty (news-based, CC BY)
   - {id: tpu_monthly, source: tpu, code: "tpu:TPU", name: "Trade Policy Uncertainty index", dimension: cost_of_living, lens: attention, unit: "index", frequency: monthly, notes: "Tariff and trade-war uncertainty, from 1960"}
+
+  # ---------------------------------------------------------------- GDELT events (BigQuery, US-located events, from 2000): attention before 2017
+  - {id: gdelt_ev_protest_share,  source: gdelt_events, code: protest_share,  name: "Share of US event coverage: protests",            dimension: safety_unrest,  lens: attention, unit: "percent of mentions", frequency: daily}
+  - {id: gdelt_ev_violence_share, source: gdelt_events, code: violence_share, name: "Share of US event coverage: assaults, fights, mass violence", dimension: safety_unrest, lens: attention, unit: "percent of mentions", frequency: daily}
+  - {id: gdelt_ev_coerce_share,   source: gdelt_events, code: coerce_share,   name: "Share of US event coverage: threats and coercion", dimension: political_institutional, lens: attention, unit: "percent of mentions", frequency: daily}
+  - {id: gdelt_ev_conflict_share, source: gdelt_events, code: conflict_share, name: "Share of US event coverage: all conflict events",  dimension: validation,     lens: attention, unit: "percent of mentions", frequency: daily, notes: "Cross-cutting conflict share"}
+  - {id: gdelt_ev_tone,           source: gdelt_events, code: tone,           name: "Average tone of US event coverage",                dimension: validation,     lens: attention, unit: "tone", frequency: daily, notes: "Overall negativity of US news events"}
+  - {id: gdelt_ev_goldstein,      source: gdelt_events, code: goldstein,      name: "Average Goldstein scale of US events",             dimension: validation,     lens: attention, unit: "scale -10..10", frequency: daily, notes: "Conflict-cooperation balance"}
+  - {id: gdelt_ev_mentions,       source: gdelt_events, code: mentions,       name: "Total mentions of US events",                     dimension: validation,     lens: attention, unit: "mentions", frequency: daily, notes: "Normalizer; GDELT volume grows over time"}
