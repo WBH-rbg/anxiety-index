@@ -44,7 +44,8 @@ def main(argv: list[str] | None = None) -> int:
             module = importlib.import_module(f"collectors.sources.{name}")
             module.collect(col, [s for s in catalog if s["source"] == name])
             status = "partial" if col.warnings else "success"
-            if not col.observations and not col.events and col.mode == "backfill":
+            nothing = not (col.observations or col.events or col.flushed_observations or col.flushed_events)
+            if nothing and col.mode == "backfill":
                 status = "failed"
                 col.messages.append("ERROR no rows collected")
         except Exception:
