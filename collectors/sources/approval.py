@@ -26,7 +26,10 @@ import pandas as pd
 WIKI_API = "https://en.wikipedia.org/w/api.php"
 WIKI_PAGES = [
     "Opinion polling on the second Trump presidency",
-    "Opinion polling on the Joe Biden presidency",
+    "2024 opinion polling on the Biden administration",
+    "2023 opinion polling on the Biden administration",
+    "2022 opinion polling on the Biden administration",
+    "2021 opinion polling on the Biden administration",
     "Opinion polling on the first Trump presidency",
     "2020 opinion polling on the Trump administration",
     "2019 opinion polling on the Trump administration",
@@ -157,11 +160,18 @@ def collect(col, series: list[dict]) -> None:
         params = {"action": "parse", "page": page, "prop": "text", "format": "json", "formatversion": 2, "redirects": 1}
         try:
             content, uri = col.fetch(f"{WIKI_API}?{urlencode(params)}", name=page, ext="json")
-            html = json.loads(content)["parse"]["text"]
+            payload = json.loads(content)
+            if "parse" not in payload:
+                col.warn(f"{page}: not found ({str(payload.get('error', {}).get('info', ''))[:120]})")
+                continue
+            html = payload["parse"]["text"]
             polls = polls_from_wikipedia(html, page)
         except Exception as exc:
             col.warn(f"{page}: {type(exc).__name__}: {str(exc)[:200]}")
             continue
+        if not polls:
+            heads = [flatten_columns(f)[:8] for _, f in tables_with_headings(html)[:6]]
+            col.warn(f"{page}: no polls parsed; first table headers: {heads}")
         n = 0
         for p in polls:
             n += col.add_event(event_id=poll_id(p), uri=uri, event_date=p["end_date"], event_type="approval_poll",
