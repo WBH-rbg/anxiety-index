@@ -55,8 +55,8 @@ signals:
   - {series: breakeven_5y,          transform: level,     weight: 0.6}
   - {series: breakeven_5y,          transform: chg13,     weight: 0.4}
   # ------------------------------------------------------------ Cost of living: attention
-  - {series: gdelt_vol_cost_of_living,  transform: log_att, weight: 1.5}
-  - {series: gdelt_tone_cost_of_living, transform: dev12,   weight: 0.7, invert: true}
+  - {series: gkg_share_cost_of_living,  transform: log_att, weight: 1.5}
+  - {series: gkg_tone_cost_of_living, transform: dev12,   weight: 0.7, invert: true}
   - {series: wiki_inflation,            transform: log_att, weight: 0.6}
   - {series: wiki_cost_of_living,       transform: log_att, weight: 0.5}
   - {series: wiki_tariff,               transform: log_att, weight: 0.5}
@@ -87,8 +87,8 @@ signals:
   - {series: sce_unemp_higher_prob,   transform: level,     weight: 0.8}
   - {series: sce_finsit_worse,        transform: level,     weight: 0.8}
   # ------------------------------------------------------------ Jobs and financial: attention
-  - {series: gdelt_vol_jobs_financial,  transform: log_att, weight: 1.5}
-  - {series: gdelt_tone_jobs_financial, transform: dev12,   weight: 0.7, invert: true}
+  - {series: gkg_share_jobs_financial,  transform: log_att, weight: 1.5}
+  - {series: gkg_tone_jobs_financial, transform: dev12,   weight: 0.7, invert: true}
   - {series: wiki_recession,            transform: log_att, weight: 0.7}
   - {series: wiki_unemployment,         transform: log_att, weight: 0.4}
   - {series: wiki_layoff,               transform: log_att, weight: 0.5}
@@ -109,8 +109,8 @@ signals:
   - {series: approval_net,              transform: chg13,    weight: 0.5, invert: true, smooth: 1}
   - {series: disapprove_avg,            transform: dev_term, weight: 0.5, smooth: 1}
   # ------------------------------------------------------------ Political and institutional: attention
-  - {series: gdelt_vol_political,       transform: log_att, weight: 1.5}
-  - {series: gdelt_tone_political,      transform: dev12,   weight: 0.7, invert: true}
+  - {series: gkg_share_political,       transform: log_att, weight: 1.5}
+  - {series: gkg_tone_political,      transform: dev12,   weight: 0.7, invert: true}
   - {series: epu_us_monthly_news,       transform: dev260,  weight: 0.5}
   - {series: gdelt_ev_coerce_share,     transform: log_att, weight: 0.6}
   - {series: wiki_impeachment,          transform: log_att, weight: 0.4}
@@ -122,8 +122,8 @@ signals:
 
   # ------------------------------------------------------------ Public safety and unrest: conditions (event sources to come)
   # ------------------------------------------------------------ Public safety and unrest: attention
-  - {series: gdelt_vol_safety_unrest,   transform: log_att, weight: 1.5}
-  - {series: gdelt_tone_safety_unrest,  transform: dev12,   weight: 0.7, invert: true}
+  - {series: gkg_share_safety_unrest,   transform: log_att, weight: 1.5}
+  - {series: gkg_tone_safety_unrest,  transform: dev12,   weight: 0.7, invert: true}
   - {series: gdelt_ev_protest_share,    transform: log_att, weight: 1.0}
   - {series: gdelt_ev_violence_share,   transform: log_att, weight: 1.0}
   - {series: wiki_mass_shooting,        transform: log_att, weight: 0.8}
@@ -138,8 +138,8 @@ signals:
   - {series: fema_impulse,              transform: level,   weight: 1.0, smooth: 2}
   - {series: epu_health_care,           transform: dev260,  weight: 0.3}
   # ------------------------------------------------------------ Disasters, climate and health: attention
-  - {series: gdelt_vol_disasters_health,  transform: log_att, weight: 1.5}
-  - {series: gdelt_tone_disasters_health, transform: dev12,   weight: 0.7, invert: true}
+  - {series: gkg_share_disasters_health,  transform: log_att, weight: 1.5}
+  - {series: gkg_tone_disasters_health, transform: dev12,   weight: 0.7, invert: true}
   - {series: wiki_pandemic,             transform: log_att, weight: 0.6}
   - {series: wiki_hurricane,            transform: log_att, weight: 0.5}
   - {series: wiki_earthquake,           transform: log_att, weight: 0.3}
@@ -155,8 +155,8 @@ signals:
   - {series: eia_brent_daily,           transform: chg13,   weight: 0.4}
   - {series: epu_national_security,     transform: dev260,  weight: 0.4}
   # ------------------------------------------------------------ Geopolitical: attention
-  - {series: gdelt_vol_geopolitical,    transform: log_att, weight: 1.5}
-  - {series: gdelt_tone_geopolitical,   transform: dev12,   weight: 0.7, invert: true}
+  - {series: gkg_share_geopolitical,    transform: log_att, weight: 1.5}
+  - {series: gkg_tone_geopolitical,   transform: dev12,   weight: 0.7, invert: true}
   - {series: wiki_world_war_3,          transform: log_att, weight: 0.6}
   - {series: wiki_nuclear_warfare,      transform: log_att, weight: 0.5}
   - {series: wiki_us_conscription,      transform: log_att, weight: 0.4}

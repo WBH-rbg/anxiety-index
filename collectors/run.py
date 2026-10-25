@@ -17,7 +17,8 @@ import traceback
 from collectors import core
 
 SOURCES = ["bls", "eia", "usgs", "fema", "gpr", "epu", "wikipedia",
-           "gdelt", "gdelt_events", "dol", "treasury", "fedreg", "markets", "umich", "freddiemac", "nyfed", "tpu", "approval"]
+           "gdelt_gkg", "gdelt_events", "dol", "treasury", "fedreg", "markets", "umich", "freddiemac", "nyfed", "tpu", "approval"]
+RETIRED = ["gdelt"]  # DOC API collector: throttled too hard for daily use; runnable by name only
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -28,7 +29,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     selected = SOURCES if args.sources.strip() in {"", "all"} else [s.strip() for s in args.sources.split(",") if s.strip()]
-    unknown = [s for s in selected if s not in SOURCES]
+    unknown = [s for s in selected if s not in SOURCES + RETIRED]
     if unknown:
         parser.error(f"unknown sources {unknown}; choose from {SOURCES}")
 
