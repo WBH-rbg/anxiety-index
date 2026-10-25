@@ -103,7 +103,11 @@ signals:
   - {series: fedreg_executive_orders,   transform: dev260,  weight: 0.6, smooth: 13}
   - {series: fedreg_presidential_docs,  transform: dev260,  weight: 0.3, smooth: 13}
   - {series: fedreg_rules,              transform: dev260,  weight: 0.2, smooth: 13}
-  # ------------------------------------------------------------ Political and institutional: sentiment (approval average to come)
+  # ------------------------------------------------------------ Political and institutional: sentiment
+  # Approval enters as deviation from the sitting president's own baseline (nonpartisan by construction)
+  - {series: approval_net,              transform: dev_term, weight: 1.0, invert: true, smooth: 1}
+  - {series: approval_net,              transform: chg13,    weight: 0.5, invert: true, smooth: 1}
+  - {series: disapprove_avg,            transform: dev_term, weight: 0.5, smooth: 1}
   # ------------------------------------------------------------ Political and institutional: attention
   - {series: gdelt_vol_political,       transform: log_att, weight: 1.5}
   - {series: gdelt_tone_political,      transform: dev12,   weight: 0.7, invert: true}
@@ -163,6 +167,11 @@ signals:
 derived:
   - {id: breakeven_5y,   formula: "ust_5y - ust_real_5y",   frequency: daily, dimension: cost_of_living, lens: sentiment, name: "5-year breakeven inflation"}
   - {id: spread_10y_3m,  formula: "ust_10y - ust_3m",       frequency: daily, dimension: jobs_financial, lens: conditions, name: "Yield curve: 10-year minus 3-month"}
+
+# Weekly poll averages computed from individual approval polls (events of type approval_poll)
+poll_series:
+  - {id: approval_net,   dimension: political_institutional, lens: sentiment, name: "Presidential approval average: approve minus disapprove"}
+  - {id: disapprove_avg, dimension: political_institutional, lens: sentiment, name: "Presidential disapproval average"}
 
 # Event sources become weekly impulse series: severity summed per week, decaying with the half-life in weights.yaml
 events:

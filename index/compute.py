@@ -134,6 +134,43 @@ def event_impulses(events: pd.DataFrame, specs: list[dict], weeks: pd.DatetimeIn
     return pd.DataFrame(out, index=weeks)
 
 
+def approval_average(events: pd.DataFrame, weeks: pd.DatetimeIndex, window_days: int = 14) -> pd.DataFrame:
+    """Weekly presidential approval average from individual polls.
+
+    For each week, polls whose fieldwork ended within the trailing window, one per
+    pollster (the latest), averaged. Falls back to a 28-day window when fewer
+    than two polls are available. Returns columns approval_net, disapprove_avg, poll_count.
+    """
+    if "event_type" not in events.columns:
+        return pd.DataFrame(index=weeks)
+    polls = events[events["event_type"] == "approval_poll"].copy()
+    if polls.empty:
+        return pd.DataFrame(index=weeks)
+    attrs = polls["attributes"].apply(lambda a: a if isinstance(a, dict) else {})
+    polls["approve"] = attrs.apply(lambda a: a.get("approve")).astype(float)
+    polls["disapprove"] = attrs.apply(lambda a: a.get("disapprove")).astype(float)
+    polls["pollster"] = polls["title"].fillna("unknown")
+    polls = polls.dropna(subset=["approve", "disapprove", "event_date"]).sort_values("event_date")
+    net, dis, cnt = [], [], []
+    for w in weeks:
+        chosen = pd.DataFrame()
+        for days in (window_days, 28):
+            recent = polls[(polls["event_date"] > w - pd.Timedelta(days=days)) & (polls["event_date"] <= w)]
+            chosen = recent.groupby("pollster").tail(1)
+            if len(chosen) >= 2:
+                break
+        if chosen.empty:
+            net.append(np.nan); dis.append(np.nan); cnt.append(0)
+        else:
+            net.append((chosen["approve"] - chosen["disapprove"]).mean())
+            dis.append(chosen["disapprove"].mean()); cnt.append(len(chosen))
+    return pd.DataFrame({"approval_net": net, "disapprove_avg": dis, "poll_count": cnt}, index=weeks)
+
+
+# Presidential terms, for the "own baseline" transform (a new president resets the baseline)
+TERM_STARTS = [pd.Timestamp(d) for d in ("1993-01-20", "2001-01-20", "2009-01-20", "2017-01-20", "2021-01-20", "2025-01-20")]
+
+
 # ----------------------------------------------------------------------------- step 3: transforms
 DEFAULT_SMOOTH = {"daily": 4, "weekly": 1, "monthly": 1}
 
@@ -163,6 +200,11 @@ def transform(x: pd.Series, kind: str) -> pd.Series:
         base = x.rolling(52, min_periods=26).median().shift(1)
         with np.errstate(divide="ignore", invalid="ignore"):
             return np.log(x.where(x > 0) / base.where(base > 0))
+    if kind == "dev_term":
+        # deviation from the mean since the current presidential term began (at least 8 weeks in)
+        term = pd.Series(np.searchsorted(np.array(TERM_STARTS, dtype="datetime64[ns]"), x.index.values, side="right"), index=x.index)
+        base = x.groupby(term).transform(lambda g: g.expanding(min_periods=8).mean().shift(1))
+        return x - base
     raise ValueError(f"unknown transform {kind}")
 
 
@@ -218,6 +260,11 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
     for c in imp.columns:
         values[c] = imp[c]
         ages[c] = 0.0
+    appr = approval_average(events, weeks)
+    for c in ("approval_net", "disapprove_avg"):
+        if c in appr.columns:
+            values[c] = appr[c]
+            ages[c] = 0.0
 
     # --- series metadata (catalog + derived + events)
     meta = {r["series_id"]: {"dimension": r["dimension"], "lens": r["lens"], "frequency": r["frequency"], "name": r["name"]}
@@ -226,6 +273,8 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
         meta[d["id"]] = {"dimension": d["dimension"], "lens": d["lens"], "frequency": d["frequency"], "name": d["name"]}
     for e in signals_cfg.get("events", []):
         meta[e["id"]] = {"dimension": e["dimension"], "lens": e["lens"], "frequency": "weekly", "name": e["name"]}
+    for pseries in signals_cfg.get("poll_series", []):
+        meta[pseries["id"]] = {"dimension": pseries["dimension"], "lens": pseries["lens"], "frequency": "weekly", "name": pseries["name"]}
 
     # --- signals
     sig_rows = []
