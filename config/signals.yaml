@@ -84,6 +84,8 @@ signals:
   - {series: umich_sentiment,         transform: chg13,     weight: 0.5, invert: true}
   - {series: sce_job_loss_prob,       transform: level,     weight: 0.8}
   - {series: sce_find_job_prob,       transform: level,     weight: 0.5, invert: true}
+  - {series: sce_unemp_higher_prob,   transform: level,     weight: 0.8}
+  - {series: sce_finsit_worse,        transform: level,     weight: 0.8}
   # ------------------------------------------------------------ Jobs and financial: attention
   - {series: gdelt_vol_jobs_financial,  transform: log_att, weight: 1.5}
   - {series: gdelt_tone_jobs_financial, transform: dev12,   weight: 0.7, invert: true}
