@@ -35,12 +35,22 @@ def find_column(frame: pd.DataFrame, wanted: str) -> str | None:
     return matches[0] if len(matches) == 1 else None
 
 
+def _month_number(value):
+    text = str(value).strip()[:3].lower()
+    names = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+    return names.index(text) + 1 if text in names else None
+
+
 def row_dates(frame: pd.DataFrame) -> list[dt.date | None]:
     """Dates for each row: Year/Month(/Day) columns if present, otherwise a date-like column."""
     cols = {_norm(c): c for c in frame.columns}
+    if "yyyy" in cols and "year" not in cols:
+        cols["year"] = cols["yyyy"]
     if "year" in cols and "month" in cols:
         years = pd.to_numeric(frame[cols["year"]], errors="coerce")
         months = pd.to_numeric(frame[cols["month"]], errors="coerce")
+        if months.isna().all():  # month names such as "January"
+            months = pd.Series([_month_number(v) for v in frame[cols["month"]]], index=frame.index, dtype="float")
         days = pd.to_numeric(frame[cols["day"]], errors="coerce") if "day" in cols else None
         out = []
         for i in range(len(frame)):
@@ -70,6 +80,18 @@ def extract_series(frame: pd.DataFrame, wanted: dict[str, str]) -> tuple[dict[st
     return out, missing
 
 
+def describe(content: bytes, ext: str, frame: pd.DataFrame) -> str:
+    """A short description of a file's layout, for the run log."""
+    parts = []
+    if ext != "csv":
+        try:
+            parts.append(f"sheets={pd.ExcelFile(io.BytesIO(content)).sheet_names}")
+        except Exception as exc:
+            parts.append(f"sheets unreadable ({type(exc).__name__})")
+    parts.append("first rows=" + frame.head(4).to_string(max_cols=8, max_colwidth=24).replace("\n", " // ")[:600])
+    return " ".join(parts)
+
+
 def collect_files(col, series: list[dict], files: dict[str, tuple]) -> None:
     """Shared collect loop. `files` maps a file key to (url, ext, sheet) or
     (url, ext, sheet, pandas_kwargs). Catalog codes look like '<file key>:<column name>'."""
@@ -92,6 +114,8 @@ def collect_files(col, series: list[dict], files: dict[str, tuple]) -> None:
         found, missing = extract_series(frame, wanted)
         if missing:
             col.warn(f"{key}: columns not found {missing}; available: {[str(c) for c in frame.columns][:40]}")
+        if missing or any(len(rows) == 0 for rows in found.values()):
+            col.warn(f"{key}: layout: {describe(content, ext, frame)}")
         for series_id, rows in found.items():
             added = sum(col.add_obs(series_id, d, v, uri) for d, v in rows)
             latest = max((d for d, v in rows if v == v and v is not None), default=None)

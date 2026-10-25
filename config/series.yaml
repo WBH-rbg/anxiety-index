@@ -130,12 +130,12 @@ series:
   - {id: dol_continued_claims_nsa, source: dol, code: continued, name: "Continued unemployment claims (NSA, sum of states)", dimension: jobs_financial, lens: conditions, unit: "claims", frequency: weekly, sa: NSA}
 
   # ---------------------------------------------------------------- Treasury yields (daily)
-  - {id: ust_2y,       source: treasury, code: "nominal:2 Yr",  name: "Treasury 2-year yield",        dimension: jobs_financial, lens: sentiment, unit: "percent", frequency: daily, notes: "Fed-path expectations"}
-  - {id: ust_10y,      source: treasury, code: "nominal:10 Yr", name: "Treasury 10-year yield",       dimension: jobs_financial, lens: sentiment, unit: "percent", frequency: daily}
-  - {id: ust_3m,       source: treasury, code: "nominal:3 Mo",  name: "Treasury 3-month yield",       dimension: jobs_financial, lens: sentiment, unit: "percent", frequency: daily, notes: "10y minus 3m = yield-curve recession signal"}
-  - {id: ust_real_5y,  source: treasury, code: "real:5 YR",     name: "Treasury 5-year real (TIPS) yield",  dimension: cost_of_living, lens: sentiment, unit: "percent", frequency: daily, notes: "Breakeven inflation = nominal minus real"}
-  - {id: ust_real_10y, source: treasury, code: "real:10 YR",    name: "Treasury 10-year real (TIPS) yield", dimension: cost_of_living, lens: sentiment, unit: "percent", frequency: daily}
-  - {id: ust_5y,       source: treasury, code: "nominal:5 Yr",  name: "Treasury 5-year yield",        dimension: cost_of_living, lens: sentiment, unit: "percent", frequency: daily}
+  - {id: ust_2y,       source: treasury, code: "nominal:BC_2YEAR",  name: "Treasury 2-year yield",        dimension: jobs_financial, lens: sentiment, unit: "percent", frequency: daily, notes: "Fed-path expectations"}
+  - {id: ust_10y,      source: treasury, code: "nominal:BC_10YEAR", name: "Treasury 10-year yield",       dimension: jobs_financial, lens: sentiment, unit: "percent", frequency: daily}
+  - {id: ust_3m,       source: treasury, code: "nominal:BC_3MONTH",  name: "Treasury 3-month yield",       dimension: jobs_financial, lens: sentiment, unit: "percent", frequency: daily, notes: "10y minus 3m = yield-curve recession signal"}
+  - {id: ust_real_5y,  source: treasury, code: "real:TC_5YEAR",     name: "Treasury 5-year real (TIPS) yield",  dimension: cost_of_living, lens: sentiment, unit: "percent", frequency: daily, notes: "Breakeven inflation = nominal minus real"}
+  - {id: ust_real_10y, source: treasury, code: "real:TC_10YEAR",    name: "Treasury 10-year real (TIPS) yield", dimension: cost_of_living, lens: sentiment, unit: "percent", frequency: daily}
+  - {id: ust_5y,       source: treasury, code: "nominal:BC_5YEAR",  name: "Treasury 5-year yield",        dimension: cost_of_living, lens: sentiment, unit: "percent", frequency: daily}
 
   # ---------------------------------------------------------------- Federal Register: policy churn (weekly counts)
   - {id: fedreg_executive_orders, source: fedreg, code: executive_orders,       name: "Executive orders published per week",       dimension: political_institutional, lens: conditions, unit: "count", frequency: weekly}
@@ -144,7 +144,6 @@ series:
 
   # ---------------------------------------------------------------- Markets (open access; license before commercial publication)
   - {id: vix_close,  source: markets, code: "vix:CLOSE", name: "Cboe VIX close",   dimension: jobs_financial, lens: sentiment, unit: "index", frequency: daily, notes: "License required for commercial use"}
-  - {id: spx_close,  source: markets, code: "spx:Close", name: "S&P 500 close",    dimension: jobs_financial, lens: conditions, unit: "index", frequency: daily, notes: "Research source (Stooq); license an official feed before publication"}
 
   # ---------------------------------------------------------------- University of Michigan (open tables; license before commercial publication)
   - {id: umich_sentiment,        source: umich, code: "ics:ICS",   name: "Index of Consumer Sentiment",             dimension: jobs_financial, lens: sentiment, unit: "index", frequency: monthly, notes: "Survey moved from phone to web in 2024; treat as a break"}

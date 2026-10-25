@@ -1,55 +1,68 @@
 """US Treasury daily yield curves: nominal and real (TIPS). Public domain.
 
-Breakeven inflation (market-implied inflation expectations) is derived later
-as nominal minus real yield for the same maturity. Nominal from 1990, real from 2003.
+Uses Treasury's XML data feed, one request per year. Breakeven inflation
+(market-implied inflation expectations) is derived later as nominal minus
+real yield for the same maturity. Nominal from 1990, real from 2003.
 """
 from __future__ import annotations
 
 import datetime as dt
-import io
+import xml.etree.ElementTree as ET
 
-import pandas as pd
-
-from collectors.core import to_date
-
-URL = ("https://home.treasury.gov/resource-center/data-chart-center/interest-rates/"
-       "daily-treasury-rates.csv/all/{year}?type={kind}&field_tdr_date_value={year}&page&_format=csv")
+URL = ("https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml"
+       "?data={kind}&field_tdr_date_value={year}")
 KINDS = {"nominal": "daily_treasury_yield_curve", "real": "daily_treasury_real_yield_curve"}
 START_YEAR = {"nominal": 2000, "real": 2003}
+NS = {"a": "http://www.w3.org/2005/Atom", "m": "http://schemas.microsoft.com/ado/2007/08/dataservices/metadata",
+      "d": "http://schemas.microsoft.com/ado/2007/08/dataservices"}
 
 
-def parse_curve(content: bytes) -> pd.DataFrame:
-    frame = pd.read_csv(io.BytesIO(content))
-    frame.columns = [str(c).strip() for c in frame.columns]
-    frame["date"] = [to_date(v) for v in frame.iloc[:, 0]]
-    return frame[frame["date"].notna()]
+def parse_feed(content: bytes) -> list[dict]:
+    """Each entry becomes {'date': date, '<field>': value, ...} with Treasury's own field names."""
+    root = ET.fromstring(content)
+    rows = []
+    for entry in root.findall("a:entry", NS):
+        props = entry.find("a:content/m:properties", NS)
+        if props is None:
+            continue
+        row = {}
+        for child in props:
+            tag = child.tag.split("}")[-1]
+            row[tag] = child.text
+        date_text = row.get("NEW_DATE") or row.get("DATE") or ""
+        try:
+            row["date"] = dt.date.fromisoformat(date_text[:10])
+        except ValueError:
+            continue
+        rows.append(row)
+    return rows
 
 
 def collect(col, series: list[dict]) -> None:
     by_kind: dict[str, dict[str, str]] = {}
     for s in series:
-        kind, _, column = s["code"].partition(":")
-        by_kind.setdefault(kind, {})[s["id"]] = column
+        kind, _, field = s["code"].partition(":")
+        by_kind.setdefault(kind, {})[s["id"]] = field
     this_year = col.snapshot_at.year
     for kind, wanted in by_kind.items():
         if kind not in KINDS:
             col.warn(f"unknown curve kind {kind!r}")
             continue
-        years = range(START_YEAR[kind], this_year + 1) if col.mode == "backfill" else range(this_year - 1, this_year + 1)
+        years = list(range(START_YEAR[kind], this_year + 1)) if col.mode == "backfill" else [this_year - 1, this_year]
         counts = {sid: 0 for sid in wanted}
         for year in years:
             try:
-                content, uri = col.fetch(URL.format(year=year, kind=KINDS[kind]), name=f"{kind}_{year}", ext="csv")
-                frame = parse_curve(content)
+                content, uri = col.fetch(URL.format(year=year, kind=KINDS[kind]), name=f"{kind}_{year}", ext="xml")
+                rows = parse_feed(content)
             except Exception as exc:
                 col.warn(f"{kind} {year}: {type(exc).__name__}: {str(exc)[:200]}")
                 continue
-            for sid, column in wanted.items():
-                matches = [c for c in frame.columns if c.strip().lower() == column.strip().lower()]
-                if not matches:
-                    if year == years[-1]:
-                        col.warn(f"{sid}: column {column!r} not in {list(frame.columns)}")
-                    continue
-                counts[sid] += sum(col.add_obs(sid, d, v, uri) for d, v in zip(frame["date"], frame[matches[0]]))
+            if not rows:
+                col.warn(f"{kind} {year}: no entries; starts {content[:200]!r}")
+                continue
+            for sid, field in wanted.items():
+                if field not in rows[0] and year == years[-1]:
+                    col.warn(f"{sid}: field {field!r} not among {sorted(rows[0])[:30]}")
+                counts[sid] += sum(col.add_obs(sid, r["date"], r.get(field), uri) for r in rows)
         for sid, n in counts.items():
             col.info(f"{sid}: {n} days loaded")
