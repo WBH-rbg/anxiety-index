@@ -16,7 +16,8 @@ import traceback
 
 from collectors import core
 
-SOURCES = ["bls", "eia", "usgs", "fema", "gpr", "epu", "wikipedia"]
+SOURCES = ["bls", "eia", "usgs", "fema", "gpr", "epu", "wikipedia",
+           "gdelt", "dol", "treasury", "fedreg", "markets", "umich", "freddiemac", "nyfed", "tpu"]
 
 
 def main(argv: list[str] | None = None) -> int:

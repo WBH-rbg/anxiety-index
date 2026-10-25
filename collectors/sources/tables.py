@@ -12,10 +12,11 @@ from collectors.core import to_date
 DATE_COLUMNS = ("date", "month", "day", "period", "time")
 
 
-def read_table(content: bytes, ext: str, sheet=0) -> pd.DataFrame:
+def read_table(content: bytes, ext: str, sheet=0, **kwargs) -> pd.DataFrame:
+    """Read a CSV or Excel file. `kwargs` (skiprows, header, ...) go to pandas."""
     if ext == "csv":
-        return pd.read_csv(io.BytesIO(content))
-    return pd.read_excel(io.BytesIO(content), sheet_name=sheet)
+        return pd.read_csv(io.BytesIO(content), **kwargs)
+    return pd.read_excel(io.BytesIO(content), sheet_name=sheet, **kwargs)
 
 
 def _norm(name) -> str:
@@ -69,9 +70,9 @@ def extract_series(frame: pd.DataFrame, wanted: dict[str, str]) -> tuple[dict[st
     return out, missing
 
 
-def collect_files(col, series: list[dict], files: dict[str, tuple[str, str, object]]) -> None:
-    """Shared collect loop. `files` maps a file key to (url, ext, sheet).
-    Catalog codes look like '<file key>:<column name>'."""
+def collect_files(col, series: list[dict], files: dict[str, tuple]) -> None:
+    """Shared collect loop. `files` maps a file key to (url, ext, sheet) or
+    (url, ext, sheet, pandas_kwargs). Catalog codes look like '<file key>:<column name>'."""
     by_file: dict[str, dict[str, str]] = {}
     for s in series:
         key, _, column = s["code"].partition(":")
@@ -80,10 +81,11 @@ def collect_files(col, series: list[dict], files: dict[str, tuple[str, str, obje
         if key not in files:
             col.warn(f"no file configured for '{key}'")
             continue
-        url, ext, sheet = files[key]
+        url, ext, sheet, *rest = files[key]
+        kwargs = rest[0] if rest else {}
         try:
             content, uri = col.fetch(url, name=key, ext=ext)
-            frame = read_table(content, ext, sheet)
+            frame = read_table(content, ext, sheet, **kwargs)
         except Exception as exc:
             col.warn(f"{key}: {type(exc).__name__}: {str(exc)[:300]}")
             continue
