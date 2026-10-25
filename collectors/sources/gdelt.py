@@ -94,3 +94,4 @@ def collect(col, series: list[dict]) -> None:
             total += sum(col.add_obs(s["id"], d, v, uri) for d, v in rows)
             time.sleep(PAUSE_SECONDS)
         col.info(f"{s['id']}: {total} days loaded")
+        col.flush()  # save each series as it completes

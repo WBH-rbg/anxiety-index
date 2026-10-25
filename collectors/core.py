@@ -81,7 +81,10 @@ class Collection:
         self.uris: list[str] = []
         self.messages: list[str] = []
         self.warnings = 0
+        self.flushed_observations = 0
+        self.flushed_events = 0
         self._storage_bucket = None
+        self._bq_client = None
 
     # ---- time window -------------------------------------------------------
     @property
@@ -188,9 +191,22 @@ class Collection:
         return True
 
     # ---- finishing ---------------------------------------------------------
+    def flush(self) -> None:
+        """Load the rows collected so far into BigQuery, so a long run can't lose them."""
+        if self.dry_run or (not self.observations and not self.events):
+            return
+        if self._bq_client is None:
+            from google.cloud import bigquery
+            self._bq_client = bigquery.Client(project=PROJECT_ID)
+        load_rows(self._bq_client, "ai_raw.observations", self.observations)
+        load_rows(self._bq_client, "ai_raw.events", self.events)
+        self.flushed_observations += len(self.observations)
+        self.flushed_events += len(self.events)
+        self.observations, self.events = [], []
+
     def summary(self) -> str:
-        return (f"{self.source}: {len(self.observations)} observations, {len(self.events)} events, "
-                f"{len(self.uris)} files archived, {self.warnings} warnings")
+        return (f"{self.source}: {self.flushed_observations + len(self.observations)} observations, "
+                f"{self.flushed_events + len(self.events)} events, {len(self.uris)} files archived, {self.warnings} warnings")
 
     def finish(self, status: str) -> str:
         """Load rows into BigQuery and record the run. Returns the final status."""
@@ -198,11 +214,10 @@ class Collection:
             print(self.summary())
             return status
         from google.cloud import bigquery
-        client = bigquery.Client(project=PROJECT_ID)
+        client = self._bq_client or bigquery.Client(project=PROJECT_ID)
         try:
-            load_rows(client, "ai_raw.observations", self.observations)
-            load_rows(client, "ai_raw.events", self.events)
-        except Exception as exc:  # record the failure, then re-raise after logging
+            self.flush()
+        except Exception as exc:  # record the failure in the run log
             status = "failed"
             self.messages.append(f"ERROR loading to BigQuery: {type(exc).__name__}: {str(exc)[:2000]}")
         record = {
@@ -213,8 +228,8 @@ class Collection:
             "started_at": self.started_at.isoformat(),
             "finished_at": utcnow().isoformat(),
             "status": status,
-            "observation_rows": len(self.observations) if status != "failed" else 0,
-            "event_rows": len(self.events) if status != "failed" else 0,
+            "observation_rows": self.flushed_observations,
+            "event_rows": self.flushed_events,
             "snapshot_uris": self.uris[:500],
             "message": "\n".join(self.messages)[-20000:] or None,
         }
