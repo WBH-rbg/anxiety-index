@@ -1,0 +1,64 @@
+name: Collect data
+
+# Runs every day at 11:15 UTC (after most US morning data releases) and on
+# demand. Every pull is archived unchanged to Cloud Storage and loaded into
+# BigQuery. Run results are recorded in ai_raw.runs.
+
+on:
+  schedule:
+    - cron: "15 11 * * *"
+  workflow_dispatch:
+    inputs:
+      sources:
+        description: "Comma-separated collectors, or 'all'"
+        default: "all"
+      mode:
+        description: "incremental (recent window) or backfill (full history)"
+        type: choice
+        options: [incremental, backfill]
+        default: incremental
+      dry_run:
+        description: "Fetch and parse only; write nothing to the cloud"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: collect
+  cancel-in-progress: false
+
+env:
+  GCP_PROJECT_ID: anxiety-index
+  GCS_RAW_BUCKET: anxiety-index-raw-archive
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Sign in to Google Cloud (keyless)
+        if: ${{ !inputs.dry_run }}
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/328553067411/locations/global/workloadIdentityPools/github/providers/anxiety-index-repo
+          service_account: anxiety-index-pipeline@anxiety-index.iam.gserviceaccount.com
+
+      - name: Run collectors
+        run: |
+          python -m collectors.run \
+            --sources "${{ inputs.sources || 'all' }}" \
+            --mode "${{ inputs.mode || 'incremental' }}" \
+            ${{ inputs.dry_run && '--dry-run' || '' }}

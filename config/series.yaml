@@ -1,0 +1,111 @@
+# Every time series the collectors gather, tagged with its dimension and lens.
+# Rewritten into BigQuery table ai_raw.series_catalog on every run.
+#
+# dimension: cost_of_living | jobs_financial | political_institutional |
+#            safety_unrest | disasters_health | geopolitical | validation
+# lens:      conditions | sentiment | attention
+# code:      the source's own identifier (meaning varies by source; see collectors/sources/)
+#
+# Event sources (usgs earthquakes, fema declarations) are not listed here;
+# they load into ai_raw.events.
+
+series:
+  # ---------------------------------------------------------------- BLS: consumer prices
+  - {id: bls_cpi_all_sa,        source: bls, code: CUSR0000SA0,    name: "CPI-U: all items",                     dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: SA}
+  - {id: bls_cpi_all_nsa,       source: bls, code: CUUR0000SA0,    name: "CPI-U: all items",                     dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+  - {id: bls_cpi_core_nsa,      source: bls, code: CUUR0000SA0L1E, name: "CPI-U: all items less food and energy", dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+  - {id: bls_cpi_food_at_home,  source: bls, code: CUUR0000SAF11,  name: "CPI-U: food at home (groceries)",      dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+  - {id: bls_cpi_food_away,     source: bls, code: CUUR0000SEFV,   name: "CPI-U: food away from home",           dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+  - {id: bls_cpi_shelter,       source: bls, code: CUUR0000SAH1,   name: "CPI-U: shelter",                       dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+  - {id: bls_cpi_rent,          source: bls, code: CUUR0000SEHA,   name: "CPI-U: rent of primary residence",     dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+  - {id: bls_cpi_electricity,   source: bls, code: CUUR0000SEHF01, name: "CPI-U: electricity",                   dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+  - {id: bls_cpi_utility_gas,   source: bls, code: CUUR0000SEHF02, name: "CPI-U: utility (piped) gas service",   dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+  - {id: bls_cpi_gasoline,      source: bls, code: CUUR0000SETB01, name: "CPI-U: gasoline (all types)",          dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+  - {id: bls_cpi_auto_insurance, source: bls, code: CUUR0000SETE,  name: "CPI-U: motor vehicle insurance",       dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+  - {id: bls_cpi_medical,       source: bls, code: CUUR0000SAM,    name: "CPI-U: medical care",                  dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+  - {id: bls_cpi_used_cars,     source: bls, code: CUUR0000SETA02, name: "CPI-U: used cars and trucks",          dimension: cost_of_living, lens: conditions, unit: "index 1982-84=100", frequency: monthly, sa: NSA}
+
+  # ---------------------------------------------------------------- BLS: average retail prices
+  - {id: bls_price_eggs,        source: bls, code: APU0000708111, name: "Average price: eggs, grade A large",    dimension: cost_of_living, lens: conditions, unit: "USD per dozen",  frequency: monthly, sa: NSA}
+  - {id: bls_price_ground_beef, source: bls, code: APU0000703112, name: "Average price: ground beef, 100% beef", dimension: cost_of_living, lens: conditions, unit: "USD per pound",  frequency: monthly, sa: NSA}
+  - {id: bls_price_coffee,      source: bls, code: APU0000717311, name: "Average price: coffee, ground roast",   dimension: cost_of_living, lens: conditions, unit: "USD per pound",  frequency: monthly, sa: NSA}
+  - {id: bls_price_milk,        source: bls, code: APU0000709112, name: "Average price: milk, whole",            dimension: cost_of_living, lens: conditions, unit: "USD per gallon", frequency: monthly, sa: NSA}
+  - {id: bls_price_bread,       source: bls, code: APU0000702111, name: "Average price: bread, white pan",       dimension: cost_of_living, lens: conditions, unit: "USD per pound",  frequency: monthly, sa: NSA}
+  - {id: bls_price_electricity, source: bls, code: APU000072610,  name: "Average price: electricity",            dimension: cost_of_living, lens: conditions, unit: "USD per kWh",    frequency: monthly, sa: NSA}
+  - {id: bls_price_gasoline,    source: bls, code: APU000074714,  name: "Average price: gasoline, unleaded regular", dimension: cost_of_living, lens: conditions, unit: "USD per gallon", frequency: monthly, sa: NSA}
+
+  # ---------------------------------------------------------------- BLS: jobs
+  - {id: bls_unemployment_rate, source: bls, code: LNS14000000,           name: "Unemployment rate",                 dimension: jobs_financial, lens: conditions, unit: "percent",   frequency: monthly, sa: SA}
+  - {id: bls_payrolls,          source: bls, code: CES0000000001,         name: "Total nonfarm payroll employment",  dimension: jobs_financial, lens: conditions, unit: "thousands", frequency: monthly, sa: SA}
+  - {id: bls_jolts_openings,    source: bls, code: JTS000000000000000JOL, name: "JOLTS: job openings",               dimension: jobs_financial, lens: conditions, unit: "thousands", frequency: monthly, sa: SA}
+  - {id: bls_jolts_layoffs,     source: bls, code: JTS000000000000000LDL, name: "JOLTS: layoffs and discharges",     dimension: jobs_financial, lens: conditions, unit: "thousands", frequency: monthly, sa: SA}
+  - {id: bls_jolts_quits_rate,  source: bls, code: JTS000000000000000QUR, name: "JOLTS: quits rate",                 dimension: jobs_financial, lens: conditions, unit: "percent",   frequency: monthly, sa: SA}
+
+  # ---------------------------------------------------------------- EIA: energy prices
+  - {id: eia_gas_regular_weekly, source: eia, code: pet/hist_xls/EMM_EPMR_PTE_NUS_DPGw.xls, name: "US regular gasoline retail price", dimension: cost_of_living, lens: conditions, unit: "USD per gallon", frequency: weekly}
+  - {id: eia_gas_all_weekly,     source: eia, code: pet/hist_xls/EMM_EPM0_PTE_NUS_DPGw.xls, name: "US gasoline retail price, all grades", dimension: cost_of_living, lens: conditions, unit: "USD per gallon", frequency: weekly}
+  - {id: eia_diesel_weekly,      source: eia, code: pet/hist_xls/EMD_EPD2D_PTE_NUS_DPGw.xls, name: "US on-highway diesel retail price", dimension: cost_of_living, lens: conditions, unit: "USD per gallon", frequency: weekly}
+  - {id: eia_wti_daily,          source: eia, code: pet/hist_xls/RWTCd.xls,    name: "WTI crude oil spot price (Cushing)", dimension: cost_of_living, lens: conditions, unit: "USD per barrel", frequency: daily, notes: "Also a geopolitical shock signal"}
+  - {id: eia_brent_daily,        source: eia, code: pet/hist_xls/RBRTEd.xls,   name: "Brent crude oil spot price",         dimension: geopolitical,   lens: conditions, unit: "USD per barrel", frequency: daily, notes: "Global oil-shock signal"}
+  - {id: eia_henry_hub_daily,    source: eia, code: ng/hist_xls/RNGWHHDd.xls,  name: "Henry Hub natural gas spot price",   dimension: cost_of_living, lens: conditions, unit: "USD per MMBtu",  frequency: daily, notes: "Feeds home heating and electricity costs"}
+
+  # ---------------------------------------------------------------- Geopolitical Risk Index (news-based)
+  - {id: gpr_monthly,         source: gpr, code: "monthly:GPR",        name: "Geopolitical Risk Index",                dimension: geopolitical, lens: attention, unit: "index", frequency: monthly}
+  - {id: gpr_threats_monthly, source: gpr, code: "monthly:GPRT",       name: "Geopolitical Risk: threats",             dimension: geopolitical, lens: attention, unit: "index", frequency: monthly}
+  - {id: gpr_acts_monthly,    source: gpr, code: "monthly:GPRA",       name: "Geopolitical Risk: acts",                dimension: geopolitical, lens: attention, unit: "index", frequency: monthly}
+  - {id: gpr_usa_monthly,     source: gpr, code: "monthly:GPRC_USA",   name: "Geopolitical Risk: United States",       dimension: geopolitical, lens: attention, unit: "index", frequency: monthly}
+  - {id: gpr_daily,           source: gpr, code: "daily:GPRD",         name: "Geopolitical Risk Index, daily",         dimension: geopolitical, lens: attention, unit: "index", frequency: daily}
+  - {id: gpr_daily_acts,      source: gpr, code: "daily:GPRD_ACT",     name: "Geopolitical Risk: acts, daily",         dimension: geopolitical, lens: attention, unit: "index", frequency: daily}
+  - {id: gpr_daily_threats,   source: gpr, code: "daily:GPRD_THREAT",  name: "Geopolitical Risk: threats, daily",      dimension: geopolitical, lens: attention, unit: "index", frequency: daily}
+
+  # ---------------------------------------------------------------- Economic Policy Uncertainty (news-based)
+  - {id: epu_us_monthly,        source: epu, code: "monthly:Three_Component_Index",           name: "US Economic Policy Uncertainty (three-component)", dimension: political_institutional, lens: conditions, unit: "index", frequency: monthly}
+  - {id: epu_us_monthly_news,   source: epu, code: "monthly:News_Based_Policy_Uncert_Index",  name: "US Economic Policy Uncertainty (news-based)",      dimension: political_institutional, lens: attention,  unit: "index", frequency: monthly}
+  - {id: epu_us_daily,          source: epu, code: "daily:daily_policy_index",               name: "US Economic Policy Uncertainty, daily",             dimension: political_institutional, lens: attention,  unit: "index", frequency: daily}
+  - {id: epu_trade_policy,      source: epu, code: "categorical:Trade policy",               name: "Policy uncertainty: trade policy",                  dimension: cost_of_living,          lens: attention,  unit: "index", frequency: monthly, notes: "Tariff and trade-war uncertainty"}
+  - {id: epu_monetary_policy,   source: epu, code: "categorical:Monetary policy",            name: "Policy uncertainty: monetary policy",               dimension: jobs_financial,          lens: attention,  unit: "index", frequency: monthly}
+  - {id: epu_fiscal_policy,     source: epu, code: "categorical:Fiscal Policy",              name: "Policy uncertainty: fiscal policy",                 dimension: political_institutional, lens: attention,  unit: "index", frequency: monthly}
+  - {id: epu_national_security, source: epu, code: "categorical:National security",          name: "Policy uncertainty: national security",             dimension: geopolitical,            lens: attention,  unit: "index", frequency: monthly}
+  - {id: epu_health_care,       source: epu, code: "categorical:Health care",                name: "Policy uncertainty: health care",                   dimension: disasters_health,        lens: attention,  unit: "index", frequency: monthly}
+
+  # ---------------------------------------------------------------- Wikipedia attention (daily pageviews, from July 2015)
+  - {id: wiki_inflation,          source: wikipedia, code: Inflation,                     name: "Wikipedia views: Inflation",              dimension: cost_of_living,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_cost_of_living,     source: wikipedia, code: Cost_of_living,                name: "Wikipedia views: Cost of living",         dimension: cost_of_living,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_tariff,             source: wikipedia, code: Tariff,                        name: "Wikipedia views: Tariff",                 dimension: cost_of_living,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_shrinkflation,      source: wikipedia, code: Shrinkflation,                 name: "Wikipedia views: Shrinkflation",          dimension: cost_of_living,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_price_gouging,      source: wikipedia, code: Price_gouging,                 name: "Wikipedia views: Price gouging",          dimension: cost_of_living,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_stagflation,        source: wikipedia, code: Stagflation,                   name: "Wikipedia views: Stagflation",            dimension: cost_of_living,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_recession,          source: wikipedia, code: Recession,                     name: "Wikipedia views: Recession",              dimension: jobs_financial,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_unemployment,       source: wikipedia, code: Unemployment,                  name: "Wikipedia views: Unemployment",           dimension: jobs_financial,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_layoff,             source: wikipedia, code: Layoff,                        name: "Wikipedia views: Layoff",                 dimension: jobs_financial,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_stock_market_crash, source: wikipedia, code: Stock_market_crash,            name: "Wikipedia views: Stock market crash",     dimension: jobs_financial,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_federal_reserve,    source: wikipedia, code: Federal_Reserve,               name: "Wikipedia views: Federal Reserve",        dimension: jobs_financial,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_unemployment_benefits, source: wikipedia, code: Unemployment_benefits,      name: "Wikipedia views: Unemployment benefits",  dimension: jobs_financial,          lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_impeachment,        source: wikipedia, code: Impeachment,                   name: "Wikipedia views: Impeachment",            dimension: political_institutional, lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_government_shutdown, source: wikipedia, code: Government_shutdown,          name: "Wikipedia views: Government shutdown",    dimension: political_institutional, lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_martial_law,        source: wikipedia, code: Martial_law,                   name: "Wikipedia views: Martial law",            dimension: political_institutional, lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_constitutional_crisis, source: wikipedia, code: Constitutional_crisis,      name: "Wikipedia views: Constitutional crisis",  dimension: political_institutional, lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_coup,               source: wikipedia, code: "Coup_d'état",                 name: "Wikipedia views: Coup d'état",            dimension: political_institutional, lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_insurrection_act,   source: wikipedia, code: Insurrection_Act_of_1807,      name: "Wikipedia views: Insurrection Act",       dimension: political_institutional, lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_mass_shooting,      source: wikipedia, code: Mass_shooting,                 name: "Wikipedia views: Mass shooting",          dimension: safety_unrest,           lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_school_shooting,    source: wikipedia, code: School_shooting,               name: "Wikipedia views: School shooting",        dimension: safety_unrest,           lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_protest,            source: wikipedia, code: Protest,                       name: "Wikipedia views: Protest",                dimension: safety_unrest,           lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_riot,               source: wikipedia, code: Riot,                          name: "Wikipedia views: Riot",                   dimension: safety_unrest,           lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_political_violence, source: wikipedia, code: Political_violence,            name: "Wikipedia views: Political violence",     dimension: safety_unrest,           lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_domestic_terrorism, source: wikipedia, code: Domestic_terrorism,            name: "Wikipedia views: Domestic terrorism",     dimension: safety_unrest,           lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_pandemic,           source: wikipedia, code: Pandemic,                      name: "Wikipedia views: Pandemic",               dimension: disasters_health,        lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_hurricane,          source: wikipedia, code: Tropical_cyclone,              name: "Wikipedia views: Tropical cyclone (hurricane)", dimension: disasters_health,  lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_earthquake,         source: wikipedia, code: Earthquake,                    name: "Wikipedia views: Earthquake",             dimension: disasters_health,        lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_wildfire,           source: wikipedia, code: Wildfire,                      name: "Wikipedia views: Wildfire",               dimension: disasters_health,        lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_tornado,            source: wikipedia, code: Tornado,                       name: "Wikipedia views: Tornado",                dimension: disasters_health,        lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_measles,            source: wikipedia, code: Measles,                       name: "Wikipedia views: Measles",                dimension: disasters_health,        lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_world_war_3,        source: wikipedia, code: World_War_III,                 name: "Wikipedia views: World War III",          dimension: geopolitical,            lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_nuclear_warfare,    source: wikipedia, code: Nuclear_warfare,               name: "Wikipedia views: Nuclear warfare",        dimension: geopolitical,            lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_us_conscription,    source: wikipedia, code: Conscription_in_the_United_States, name: "Wikipedia views: US military draft",  dimension: geopolitical,            lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_terrorism,          source: wikipedia, code: Terrorism,                     name: "Wikipedia views: Terrorism",              dimension: geopolitical,            lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_economic_sanctions, source: wikipedia, code: Economic_sanctions,            name: "Wikipedia views: Economic sanctions",     dimension: geopolitical,            lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_anxiety,            source: wikipedia, code: Anxiety,                       name: "Wikipedia views: Anxiety",                dimension: validation,              lens: attention, unit: "views", frequency: daily, notes: "Validation: direct interest in anxiety itself"}
+  - {id: wiki_panic_attack,       source: wikipedia, code: Panic_attack,                  name: "Wikipedia views: Panic attack",           dimension: validation,              lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_gad,                source: wikipedia, code: Generalized_anxiety_disorder,  name: "Wikipedia views: Generalized anxiety disorder", dimension: validation,       lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_anxiety_disorder,   source: wikipedia, code: Anxiety_disorder,              name: "Wikipedia views: Anxiety disorder",       dimension: validation,              lens: attention, unit: "views", frequency: daily}
+  - {id: wiki_doomscrolling,      source: wikipedia, code: Doomscrolling,                 name: "Wikipedia views: Doomscrolling",          dimension: validation,              lens: attention, unit: "views", frequency: daily}
