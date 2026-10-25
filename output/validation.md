@@ -36,4 +36,37 @@ Correlation of the weekly headline with series that should track public anxiety 
 
 ## 3. Corporate backlash events (curated outcome log)
 
-No outcome log loaded yet.
+119 dated backlash episodes since 2015-03-17. The reading a planner would have seen the week before an episode averaged **61.8**, against **59.0** for all weeks in the same span.
+
+By severity (1 = brief viral moment, 5 = sustained national controversy):
+
+| Severity | Episodes | Mean reading the week before |
+|---|---|---|
+| 1 | 2 | 16.0 |
+| 2 | 39 | 57.0 |
+| 3 | 44 | 69.6 |
+| 4 | 23 | 60.9 |
+| 5 | 11 | 57.9 |
+
+Episodes in the following two weeks, per 100 weeks, by the band shown that week:
+
+| Band | Weeks | Any episode | Severity ≥3 |
+|---|---|---|---|
+| Low | 61 | 34.4 | 23.0 |
+| Moderate | 159 | 41.5 | 25.2 |
+| Elevated | 208 | 41.8 | 36.5 |
+| High | 139 | 46.0 | 33.8 |
+| Severe | 39 | 59.0 | 46.2 |
+
+Dimension readings the week before episodes vs. all weeks:
+
+| Dimension | Before episodes | All weeks | Difference |
+|---|---|---|---|
+| Political and institutional | 65.3 | 57.2 | +8.1 |
+| Jobs and financial security | 62.7 | 57.7 | +5.0 |
+| Cost of living | 62.2 | 60.0 | +2.2 |
+| Disasters, climate and health | 53.3 | 50.1 | +3.2 |
+| Geopolitical | 50.4 | 53.6 | -3.2 |
+| Public safety and unrest | 46.4 | 44.5 | +1.9 |
+
+Caveats: the log is curated and incomplete, episodes cluster in recent years when the log is richer, and the index was not tuned to this log. A clean result here is encouraging, not proof; a null result means the structure needs work.
