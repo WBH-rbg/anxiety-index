@@ -279,6 +279,22 @@ def staleness_weight(age: pd.Series, freq_class: str, rules: dict) -> pd.Series:
     return w.clip(lower=0, upper=1).fillna(0)
 
 
+def soft_max(cols: dict[str, pd.Series], weights: dict[str, float], temperature: float = 1.0):
+    """Weighted soft maximum: log(sum_d w_d exp(z_d / T)) * T, with weights renormalized over
+    available dimensions. Equal inputs give that value back; the hottest dimensions dominate.
+    Returns (combined, shares) where shares[d] = w_d exp(z_d/T) / sum, the dimension's share of
+    the week's anxiety. Anxiety is driven by the worst thing happening, not the average thing."""
+    keys = list(cols)
+    frame = pd.DataFrame({k: cols[k] for k in keys})
+    w = pd.DataFrame({k: float(weights[k]) for k in keys}, index=frame.index).where(frame.notna(), 0.0)
+    w = w.div(w.sum(axis=1).where(w.sum(axis=1) > 0), axis=0)
+    ex = np.exp(frame.fillna(0.0) / temperature) * w
+    total = ex.sum(axis=1)
+    combined = (np.log(total.where(total > 0)) * temperature).where(frame.notna().any(axis=1))
+    shares = {k: (ex[k] / total.where(total > 0)).fillna(0.0) for k in keys}
+    return combined, shares
+
+
 def weighted_mean(cols: dict[str, pd.Series], weights: dict[str, pd.Series | float]) -> pd.Series:
     """Weighted mean across columns, ignoring missing values, renormalizing weights each week."""
     num, den = None, None
@@ -362,7 +378,7 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
         keys = list(group.index)
         combined = weighted_mean({k: sig_z[k] for k in keys}, {k: sig_w[k] for k in keys})
         n_avail = sum(sig_z[k].notna().astype(int) for k in keys)
-        z = standardize(combined, min_hist_agg, cap)
+        z = standardize(combined, min_hist_agg, cap, cap_low=cap_low)
         lens_z[(dim, lens)] = z
         lens_rows.append(pd.DataFrame({"week": weeks, "dimension": dim, "lens": lens, "combined": combined.values,
                                        "z": z.values, "signals_available": n_avail.values}))
@@ -376,7 +392,7 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
         if not cols:
             continue
         combined = weighted_mean(cols, {lens: float(lw[lens]) for lens in cols})
-        z = standardize(combined, min_hist_agg, cap)
+        z = standardize(combined, min_hist_agg, cap, cap_low=cap_low)
         dim_z[dim] = z
         dim_rows.append(pd.DataFrame({"week": weeks, "dimension": dim, "combined": combined.values, "z": z.values,
                                       "lenses_available": sum(c.notna().astype(int) for c in cols.values()).values}))
@@ -384,8 +400,13 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
 
     # --- headline
     dw = weights_cfg["dimensions"]
-    combined = weighted_mean(dim_z, {d: float(dw[d]) for d in dim_z})
-    head_z = standardize(combined, min_hist_agg, cap)
+    aggregation = weights_cfg.get("headline_aggregation", "softmax")
+    if aggregation == "softmax":
+        combined, shares = soft_max(dim_z, {d: float(dw[d]) for d in dim_z}, float(weights_cfg.get("softmax_temperature", 1.0)))
+    else:
+        combined = weighted_mean(dim_z, {d: float(dw[d]) for d in dim_z})
+        shares = None
+    head_z = standardize(combined, min_hist_agg, cap, cap_low=cap_low)
 
     # --- percentiles against the reference period
     ref = weights_cfg["reference_period"]
@@ -422,10 +443,15 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
 
     # --- exact contributions to the headline's combined score (before re-standardization)
     contrib_rows = []
-    wsum = sum((pd.Series(float(dw[d]), index=weeks)).where(dim_z[d].notna(), 0.0) for d in dim_z)
-    for dim, z in dim_z.items():
-        share = (float(dw[dim]) / wsum.where(wsum > 0)).where(z.notna(), 0.0)
-        contrib_rows.append(pd.DataFrame({"week": weeks, "dimension": dim, "contribution": (z.fillna(0) * share).values}))
+    if shares is not None:
+        for dim, z in dim_z.items():
+            contrib_rows.append(pd.DataFrame({"week": weeks, "dimension": dim, "share": shares[dim].values,
+                                              "contribution": (shares[dim] * combined).values}))
+    else:
+        wsum = sum((pd.Series(float(dw[d]), index=weeks)).where(dim_z[d].notna(), 0.0) for d in dim_z)
+        for dim, z in dim_z.items():
+            share = (float(dw[dim]) / wsum.where(wsum > 0)).where(z.notna(), 0.0)
+            contrib_rows.append(pd.DataFrame({"week": weeks, "dimension": dim, "share": share.values, "contribution": (z.fillna(0) * share).values}))
     contributions = pd.concat(contrib_rows, ignore_index=True)
 
     return {"weekly_values": values, "signals": signals, "lenses": lenses, "dimensions": dimensions,

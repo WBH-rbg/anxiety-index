@@ -64,6 +64,8 @@ def series_value(row: dict, code: str):
     if kind == "share":
         base = row["base_en"] if name in GLOBAL_SETS else row["base_us"]
         return None if not base else 100.0 * float(row[f"n_{name}"] or 0) / float(base)
+    if kind == "count":
+        return row.get(f"n_{name}")
     if kind == "tone":
         return row.get(f"tone_{name}") if name != "us_all" else row.get("tone_us_all")
     if kind == "base":

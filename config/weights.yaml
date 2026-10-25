@@ -26,6 +26,11 @@ staleness:
   weekly:  {full: 2,  zero: 6}
   monthly: {full: 6,  zero: 16}
 
+# How dimensions combine into the headline: "softmax" (the hottest dimensions dominate; anxiety is
+# driven by the worst thing happening, not the average) or "mean". Temperature 1 = standard.
+headline_aggregation: softmax
+softmax_temperature: 1.0
+
 # Dimension weights into the headline (sum to 100)
 dimensions:
   cost_of_living:          25

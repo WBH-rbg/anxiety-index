@@ -60,7 +60,7 @@ signals:
   - {series: breakeven_5y,          transform: level,     weight: 0.6}
   - {series: breakeven_5y,          transform: chg13,     weight: 0.4}
   # ------------------------------------------------------------ Cost of living: attention
-  - {series: gkg_share_cost_of_living,  transform: log_att, weight: 1.5}
+  - {series: gkg_count_cost_of_living,  transform: log_att, weight: 1.5}
   - {series: gkg_tone_cost_of_living, transform: dev156,   weight: 0.7, invert: true}
   - {series: wiki_inflation,            transform: log_att, weight: 0.6}
   - {series: wiki_cost_of_living,       transform: log_att, weight: 0.5}
@@ -94,7 +94,7 @@ signals:
   - {series: sce_unemp_higher_prob,   transform: level,     weight: 0.8}
   - {series: sce_finsit_worse,        transform: level,     weight: 0.8}
   # ------------------------------------------------------------ Jobs and financial: attention
-  - {series: gkg_share_jobs_financial,  transform: log_att, weight: 1.5}
+  - {series: gkg_count_jobs_financial,  transform: log_att, weight: 1.5}
   - {series: gkg_tone_jobs_financial, transform: dev156,   weight: 0.7, invert: true}
   - {series: wiki_recession,            transform: log_att, weight: 0.7}
   - {series: wiki_unemployment,         transform: log_att, weight: 0.4}
@@ -116,7 +116,7 @@ signals:
   - {series: approval_net,              transform: chg13,    weight: 0.5, invert: true, smooth: 1}
   - {series: disapprove_avg,            transform: dev_term, weight: 0.5, smooth: 1}
   # ------------------------------------------------------------ Political and institutional: attention
-  - {series: gkg_share_political,       transform: log_att, weight: 1.5}
+  - {series: gkg_count_political,       transform: log_att, weight: 1.5}
   - {series: gkg_tone_political,      transform: dev156,   weight: 0.7, invert: true}
   - {series: epu_us_monthly_news,       transform: dev260,  weight: 0.5}
   - {series: gdelt_ev_coerce_share,     transform: log_att, weight: 0.6}
@@ -130,7 +130,7 @@ signals:
   # ------------------------------------------------------------ Public safety and unrest: conditions
   - {series: shooting_impulse,          transform: level,   weight: 1.0, smooth: 1}
   # ------------------------------------------------------------ Public safety and unrest: attention
-  - {series: gkg_share_safety_unrest,   transform: log_att, weight: 1.5}
+  - {series: gkg_count_safety_unrest,   transform: log_att, weight: 1.5}
   - {series: gkg_tone_safety_unrest,  transform: dev156,   weight: 0.7, invert: true}
   - {series: gdelt_ev_protest_share,    transform: log_att, weight: 1.0}
   - {series: gdelt_ev_violence_share,   transform: log_att, weight: 1.0}
@@ -146,7 +146,7 @@ signals:
   - {series: fema_impulse,              transform: level,   weight: 1.0, smooth: 1}
   - {series: epu_health_care,           transform: dev260,  weight: 0.3}
   # ------------------------------------------------------------ Disasters, climate and health: attention
-  - {series: gkg_share_disasters_health,  transform: log_att, weight: 1.5}
+  - {series: gkg_count_disasters_health,  transform: log_att, weight: 1.5}
   - {series: gkg_tone_disasters_health, transform: dev156,   weight: 0.7, invert: true}
   - {series: wiki_pandemic,             transform: log_att, weight: 0.6}
   - {series: wiki_hurricane,            transform: log_att, weight: 0.5}
@@ -175,6 +175,12 @@ signals:
 derived:
   - {id: breakeven_5y,   formula: "ust_5y - ust_real_5y",   frequency: daily, dimension: cost_of_living, lens: sentiment, name: "5-year breakeven inflation"}
   - {id: spread_10y_3m,  formula: "ust_10y - ust_3m",       frequency: daily, dimension: jobs_financial, lens: conditions, name: "Yield curve: 10-year minus 3-month"}
+  # News attention as article counts (share x daily total), so one giant story can't make other topics look calm
+  - {id: gkg_count_cost_of_living,   formula: "gkg_share_cost_of_living * gkg_base_us / 100",   frequency: daily, dimension: cost_of_living,          lens: attention, name: "News articles: prices, inflation, fuel, housing costs"}
+  - {id: gkg_count_jobs_financial,   formula: "gkg_share_jobs_financial * gkg_base_us / 100",   frequency: daily, dimension: jobs_financial,          lens: attention, name: "News articles: jobs, markets, rates, debt"}
+  - {id: gkg_count_political,        formula: "gkg_share_political * gkg_base_us / 100",        frequency: daily, dimension: political_institutional, lens: attention, name: "News articles: political crisis, scandal, shutdown"}
+  - {id: gkg_count_safety_unrest,    formula: "gkg_share_safety_unrest * gkg_base_us / 100",    frequency: daily, dimension: safety_unrest,           lens: attention, name: "News articles: violence, protest, extremism"}
+  - {id: gkg_count_disasters_health, formula: "gkg_share_disasters_health * gkg_base_us / 100", frequency: daily, dimension: disasters_health,        lens: attention, name: "News articles: disasters, outbreaks, emergencies"}
 
 # Weekly poll averages computed from individual approval polls (events of type approval_poll)
 poll_series:
