@@ -1,18 +1,18 @@
 # Anxiety Index: week ending 2026-10-24
 
-**59 (Elevated)**, +1.0 vs last week, +16.9 vs four weeks ago. News concentration: 7th percentile (attention is spread out).
+**58 (Elevated)**, +0.7 vs last week, +16.8 vs four weeks ago. News concentration: 7th percentile (attention is spread out).
 
-**So far this week** (ending 2026-10-31, data through 2026-10-26): **55 (Elevated)**, -4.0 vs the completed week. Hottest: geopolitical 91, cost of living 72. Moving: public safety and unrest -11; disasters, climate and health -9. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
+**So far this week** (ending 2026-10-31, data through 2026-10-26): **54 (Elevated)**, -4.1 vs the completed week. Hottest: geopolitical 91, cost of living 72. Moving: public safety and unrest -11; disasters, climate and health -9. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 
 | Dimension | Score | Band | Change (1w) | Share of this week's anxiety | Push on headline |
 |---|---|---|---|---|---|
-| Geopolitical | 92 | High | +2 | 43% | +0.009 |
-| Cost of living | 73 | Elevated | -1 | 36% | +0.007 |
-| Political and institutional | 67 | Elevated | -0 | 14% | +0.003 |
+| Geopolitical | 92 | High | +2 | 43% | +0.007 |
+| Cost of living | 73 | Elevated | -1 | 36% | +0.006 |
+| Political and institutional | 66 | Elevated | -1 | 14% | +0.002 |
 | Disasters, climate and health | 47 | Moderate | -9 | 4% | +0.001 |
-| Jobs and financial security | 35 | Moderate | +3 | 3% | +0.001 |
+| Jobs and financial security | 35 | Moderate | +3 | 3% | +0.000 |
 | Public safety and unrest | 46 | Moderate | +9 | 1% | +0.000 |
 
 ## Biggest movers among signals

@@ -1,6 +1,6 @@
 band,weeks,any_event_rate,major_event_rate
-Low,71,38.0,26.8
-Moderate,167,41.9,27.5
+Low,71,38.0,28.2
+Moderate,167,41.9,26.9
 Elevated,206,42.2,34.0
-High,125,48.8,36.0
-Severe,37,43.2,40.5
+High,125,48.0,36.0
+Severe,37,45.9,40.5
