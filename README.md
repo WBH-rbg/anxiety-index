@@ -15,11 +15,25 @@ in an anxious one.
 | `config/series.yaml` | Every collected series, tagged with its dimension and lens |
 | `config/signals.yaml` | How each series becomes an anxiety signal (transform, weight) |
 | `config/weights.yaml` | Dimension and lens weights, bands, standardization settings |
-| `index/` | The index computation (`compute.py`) and its runner (`run.py`) |
+| `index/` | The index computation (`compute.py`), its runner (`run.py`), scenarios (`scenario.py`), validation (`validate.py`), calendars and look-ahead (`calendar.py`), the statistical outlook (`forecast.py`) |
 | `docs/methodology.md` | The methodology, in plain language |
 | `docs/source_inventory.csv` | Every candidate source considered, with terms and status |
-| `output/` | Latest computed index: CSVs, charts, `latest.json` (written by the workflow) |
+| `docs/outcomes/` | Curated corporate backlash log used to test the index |
+| `docs/calendar/` | Catalyst calendar (Fed, CPI, jobs, elections, deadlines) and shared cultural events |
+| `output/` | Latest computed index, written by the workflow (see below) |
 | `scripts/setup_gcp.sh` | One-time Google Cloud setup |
+
+## What the daily run publishes to `output/`
+
+| File | What it is |
+|---|---|
+| `latest.json`, `explanation.md` | This week's reading, band, drivers and a plain-language explanation |
+| `headline_weekly.csv`, `dimension_weekly.csv`, charts | Full weekly history |
+| `scenarios.md` | What the reading would be under ten canned shocks |
+| `validation_report.md` | Face validity, outcome tests, external series |
+| `calendar_tests.md`, `lookahead.md` | Catalyst effects, cultural-window test, and the next three weeks |
+| `forecast.md`, `forecast.csv` | Statistical outlook at 1–8 weeks with its backtest track record |
+| `*.log` | Each step's log, for review without the Actions console |
 
 ## How it runs
 
@@ -38,8 +52,8 @@ describe the options.
 |---|---|
 | `ai_raw` | Source data exactly as collected (`observations`, `events`, `series_catalog`, `runs`) |
 | `ai_clean` | Latest-value views and the `observations_as_of(timestamp)` function for point-in-time queries |
-| `ai_index` | Weekly signals, lenses, dimensions, headline, contributions |
-| `ai_outcomes` | Curated outcome log (to come) |
+| `ai_index` | Weekly signals, lenses, dimensions, headline, contributions, scenarios, catalyst effects, forecasts |
+| `ai_outcomes` | Curated backlash log and the systematic company-pressure table |
 
 ## Principles
 

@@ -81,7 +81,7 @@ DIM_LABELS = {"cost_of_living": "Cost of living", "jobs_financial": "Jobs and fi
               "disasters_health": "Disasters, climate and health", "geopolitical": "Geopolitical"}
 
 
-def explanation(out: dict, catalog: pd.DataFrame, signals_cfg: dict) -> str:
+def explanation(out: dict, catalog: pd.DataFrame, signals_cfg: dict, nowcast: dict | None = None) -> str:
     """Structured explanation of the latest week: what moved and which signals drove it."""
     names = dict(zip(catalog["series_id"], catalog["name"]))
     for d in signals_cfg.get("derived", []) + signals_cfg.get("events", []) + signals_cfg.get("poll_series", []):
@@ -98,6 +98,11 @@ def explanation(out: dict, catalog: pd.DataFrame, signals_cfg: dict) -> str:
         conc_txt = f" News concentration: {conc:.0f}th percentile ({level})."
     lines = [f"# Anxiety Index: week ending {week.date()}", "",
              f"**{last['score']:.0f} ({last['band']})**, {last['change_1w']:+.1f} vs last week, {last['change_4w']:+.1f} vs four weeks ago.{conc_txt}", ""]
+    if nowcast:
+        hot = sorted(((v, k) for k, v in nowcast["dimensions"].items() if v is not None), reverse=True)[:2]
+        hot_txt = ", ".join(f"{DIM_LABELS.get(k, k).lower()} {v:.0f}" for v, k in hot)
+        lines += [f"**So far this week** (ending {nowcast['week']}, data through {nowcast['as_of']}): **{nowcast['score']:.0f} ({nowcast['band']})**, "
+                  f"{nowcast['change_vs_last_week']:+.1f} vs the completed week. Hottest: {hot_txt}. Provisional: it will move as the week's data arrive.", ""]
     dims = out["dimensions"]
     contrib = out["contributions"]
     dc = contrib.pivot(index="week", columns="dimension", values="contribution")
@@ -135,10 +140,46 @@ def explanation(out: dict, catalog: pd.DataFrame, signals_cfg: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def split_nowcast(out: dict, today: pd.Timestamp, computed_at: dt.datetime) -> dict:
+    """Pull the in-progress week out of every frame and summarize it. Mutates `out` in place."""
+    head = out["headline"]
+    prov = head["week"] > today
+    if not prov.any():
+        return {"summary": None, "rows": None}
+    week = head.loc[prov, "week"].iloc[0]
+    last_complete = head.loc[~prov].dropna(subset=["score"]).tail(1)
+    row = head.loc[prov].iloc[0]
+    dims = out["dimensions"]
+    dprov = dims["week"] == week
+    dim_scores = {r["dimension"]: (None if pd.isna(r["score"]) else float(r["score"])) for _, r in dims.loc[dprov].iterrows()}
+    contrib = out["contributions"]
+    shares = {r["dimension"]: round(float(r["share"]), 3) for _, r in contrib.loc[contrib["week"] == week].iterrows()}
+    summary = None
+    if pd.notna(row["score"]):
+        prev = float(last_complete["score"].iloc[0]) if not last_complete.empty else None
+        summary = {"week": str(week.date()), "as_of": str(today.date()), "score": float(row["score"]), "band": row["band"],
+                   "change_vs_last_week": None if prev is None else round(float(row["score"]) - prev, 1),
+                   "dimensions": dim_scores, "shares": shares, "provisional": True}
+    rows = pd.DataFrame([{"week": week, "as_of": today, "computed_at": computed_at, "level": "headline", "score": row["score"], "band": row["band"], "share": None}] +
+                        [{"week": week, "as_of": today, "computed_at": computed_at, "level": d, "score": sc,
+                          "band": dims.loc[dprov & (dims["dimension"] == d), "band"].iloc[0] if (dprov & (dims["dimension"] == d)).any() else None,
+                          "share": shares.get(d)} for d, sc in dim_scores.items()])
+    # drop the provisional week from the official frames
+    for key in ("headline", "dimensions", "lenses", "signals", "contributions", "weekly_values"):
+        f = out.get(key)
+        if isinstance(f, pd.DataFrame):
+            if "week" in f.columns:
+                out[key] = f[f["week"] <= today].reset_index(drop=True)
+            elif isinstance(f.index, pd.DatetimeIndex):
+                out[key] = f[f.index <= today]
+    return {"summary": summary, "rows": rows}
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-write", action="store_true", help="don't write BigQuery tables")
     parser.add_argument("--end", default=None, help="last week to compute (YYYY-MM-DD)")
+    parser.add_argument("--no-nowcast", action="store_true", help="don't compute the provisional reading for the week in progress")
     args = parser.parse_args(argv)
 
     from google.cloud import bigquery
@@ -148,8 +189,16 @@ def main(argv=None) -> int:
     signals = yaml.safe_load(open(ROOT / "config" / "signals.yaml"))
     print(f"inputs: {len(obs):,} observations, {len(events):,} events, {len(catalog)} catalog series")
 
-    out = compute.compute_index(obs, events, catalog, signals, weights, start="2000-01-01", end=args.end)
+    # The grid runs through the Saturday that ends the current week, so the last row is the week in
+    # progress: a provisional "so far this week" reading built from whatever has been published. It is
+    # reported separately and kept out of the official weekly tables until the week completes.
+    today = pd.Timestamp(dt.date.today())
+    end = args.end
+    if end is None and not args.no_nowcast:
+        end = (today + pd.Timedelta(days=(5 - today.weekday()) % 7)).date().isoformat()
+    out = compute.compute_index(obs, events, catalog, signals, weights, start="2000-01-01", end=end)
     computed_at = dt.datetime.now(dt.timezone.utc)
+    nowcast = split_nowcast(out, today, computed_at)
     for frame in out.values():
         if isinstance(frame, pd.DataFrame) and "week" in frame.columns:
             frame["methodology_version"] = str(weights["version"])
@@ -163,10 +212,14 @@ def main(argv=None) -> int:
         "week": str(latest["week"].date()), "score": float(latest["score"]), "band": latest["band"],
         "news_concentration": None if pd.isna(latest.get("news_concentration")) else float(latest["news_concentration"]),
         "change_1w": None if pd.isna(latest["change_1w"]) else float(latest["change_1w"]),
+        "nowcast": nowcast["summary"],
         "methodology_version": str(weights["version"]), "computed_at": computed_at.isoformat()}, indent=2))
     charts(out["headline"], out["dimensions"])
-    (OUT / "explanation.md").write_text(explanation(out, catalog, signals))
+    (OUT / "explanation.md").write_text(explanation(out, catalog, signals, nowcast["summary"]))
     print(f"latest: week {latest['week'].date()} score {latest['score']} ({latest['band']})")
+    if nowcast["summary"]:
+        n = nowcast["summary"]
+        print(f"nowcast: week ending {n['week']} through {n['as_of']}: {n['score']} ({n['band']}), {n['change_vs_last_week']:+.1f} vs last week")
 
     if not args.no_write:
         write_table(client, "headline_weekly", out["headline"])
@@ -174,6 +227,10 @@ def main(argv=None) -> int:
         write_table(client, "lens_weekly", out["lenses"])
         write_table(client, "signal_weekly", out["signals"])
         write_table(client, "contribution_weekly", out["contributions"])
+        if nowcast["rows"] is not None:
+            from google.cloud import bigquery as bq
+            client.load_table_from_dataframe(nowcast["rows"], f"{PROJECT_ID}.ai_index.nowcast",
+                                             job_config=bq.LoadJobConfig(write_disposition="WRITE_APPEND")).result()
         print("BigQuery tables written")
     return 0
 

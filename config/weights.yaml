@@ -5,6 +5,9 @@ version: "0.1"
 
 # Reference period for percentile bands (fixed until the next methodology version)
 reference_period: {start: "2005-01-01", end: "2025-12-31"}
+# First week with a published headline. Most series begin in 2000, so 2000 is a warm-up year in which a
+# handful of signals would carry the whole reading; dimension readings are still computed for it.
+publish_from: "2001-01-01"
 
 # Standardization: each series' first ten years are its base period; after that it is
 # point-in-time (compared only with its own past). A signal needs this much history

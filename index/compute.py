@@ -466,6 +466,10 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
     headline = pd.DataFrame({"week": weeks, "combined": combined.values, "z": head_z.values, "score": head_pct.round(1).values,
                              "news_concentration": concentration.round(1).values,
                              "dimensions_available": sum(c.notna().astype(int) for c in dim_z.values()).values})
+    # Before the publication start, too few signals have the history standardization needs (most series
+    # begin in 2000, so 2000 itself is a warm-up year): the headline is withheld, dimensions are kept.
+    publish_from = pd.Timestamp(weights_cfg.get("publish_from", "2001-01-01"))
+    headline.loc[headline["week"] < publish_from, ["score", "z", "combined"]] = np.nan
     headline["band"] = [band_of(p) for p in headline["score"]]
     headline["change_1w"] = headline["score"].diff().round(1)
     headline["change_4w"] = headline["score"].diff(4).round(1)
