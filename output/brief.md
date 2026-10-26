@@ -1,8 +1,8 @@
 # Anxiety Index brief: week ending 2026-10-24
 
-*Issued 2026-10-25. Data through 2026-10-26.*
+*Issued 2026-10-26. Data through 2026-10-26.*
 
-## 58 — Elevated, flat 0.5 on the week
+## 58 — Elevated, little changed on the week (+0.5)
 
 Up 16 points over four weeks. Highest reading since the week ending 2026-06-20. Attention is spread across many stories, so new ones find room.
 
@@ -12,24 +12,32 @@ Up 16 points over four weeks. Highest reading since the week ending 2026-06-20. 
 
 | Dimension | Reading | Band | Change | Share of this week's anxiety |
 |---|---|---|---|---|
-| Cost of living | 73 | Elevated | -1 |  |
-| Jobs and financial security | 35 | Moderate | +3 |  |
-| Political and institutional | 69 | Elevated | -0 |  |
-| Public safety and unrest | 46 | Moderate | +9 |  |
-| Disasters, climate and health | 47 | Moderate | -9 |  |
-| Geopolitical | 92 | High | +2 |  |
+| Geopolitical | 92 | High | +2 | 43% |
+| Cost of living | 73 | Elevated | -1 | 36% |
+| Political and institutional | 69 | Elevated | -0 | 14% |
+| Disasters, climate and health | 47 | Moderate | -9 | 4% |
+| Jobs and financial security | 35 | Moderate | +3 | 3% |
+| Public safety and unrest | 46 | Moderate | +9 | 1% |
 
 The headline follows an attention budget: the hottest dimension counts in full, the next at half, the next at a quarter. Shares are exact. `explanation.md` lists the individual signals behind each move.
 
 ## What a reading like this has meant
 
-- Since 2015, a major corporate backlash episode (national, sustained) followed within two weeks of **32 in 100** weeks that read Elevated, against 24 in 100 after Low weeks.
+- Since 2015, a major corporate backlash episode (national, sustained) followed within two weeks of **33 in 100** weeks that read Elevated, against 28 in 100 after Low weeks.
 - Tense weeks make a company story *less* likely to break through and *angrier* when it does. Low news concentration this week means the first effect is weak: stories are landing.
 - **Geopolitical at 92.** Geopolitical anxiety is in its upper range. Supply, sanctions and overseas-operations stories are being read through a conflict lens.
 
 ## What's ahead (next three weeks)
 
-No scheduled catalysts or shared cultural events in the window.
+| Date | Catalyst | What such weeks have done (headline, political/economic dimension) |
+|---|---|---|
+| 2026-10-28 | FOMC decision | headline +0.2 in the week, -1.3 the week after; jobs and financial security -0.5 (93 past cases) |
+| 2026-11-03 | General election (midterm) | headline +4.3 in the week, -3.5 the week after; political and institutional +6.1 (14 past cases) |
+| 2026-11-06 | Jobs report for October 2026 | headline +0.2 in the week, +1.2 the week after; jobs and financial security +0.7 (140 past cases) |
+| 2026-11-10 | CPI for October 2026 | headline +1.2 in the week, +0.1 the week after; cost of living +0.4 (140 past cases) |
+
+- 2026 World Series (2026-10-23 to 2026-10-31), shared-attention scale 2 of 3
+
 ## Outlook
 
 | Weeks ahead | Week ending | Expected | 80% range | Chance of High or Severe | Chance below 50 |
