@@ -58,11 +58,14 @@ lens and signal contributions.
    (monthly: 6 weeks), then fades to zero (monthly: 16 weeks). Other signals renormalize.
 6. **Lenses and dimensions.** Weighted averages, each re-standardized against its own past (at least
    half a year) so levels with many signals aren't quieter than levels with few.
-7. **Headline.** A weighted *soft maximum* of the six dimension scores (log of the weighted mean of
-   exp(z)): the hottest dimensions dominate, but every dimension still counts, and each dimension's
-   share of the week's anxiety is exact. Anxiety is driven by the worst thing happening, not the
-   average thing; a weighted mean let calm dimensions cancel out the COVID onset. The headline is
-   ranked directly against the reference period, with no further standardization.
+7. **Headline: an attention budget.** The six dimension scores are ranked each week; the hottest
+   counts in full, the next at half, the next at a quarter, and so on, each also scaled by its prior
+   weight (cost of living 25, political 20, jobs 15, safety 15, geopolitical 15, disasters 10), then
+   renormalized. Two pieces of bad news add, but the second adds less than the first: people can
+   hold only so much. Each dimension's share of the week's attention budget is exact and is what the
+   weekly explanation reports. A plain weighted mean let calm dimensions cancel out the COVID onset;
+   a soft maximum fixed that but let a second crisis add almost nothing. The headline is ranked
+   directly against the reference period, with no further standardization.
 8. **Percentiles and bands.** The headline and each dimension are ranked against the 2005–2025
    reference period.
 

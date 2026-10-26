@@ -36,11 +36,14 @@ headline_aggregation: rank_decay
 rank_decay: 0.5
 softmax_temperature: 1.0
 
-# Dimension weights into the headline (sum to 100)
+# Dimension weights into the headline (sum to 100). Political raised from 15 to 20 and jobs lowered
+# from 20 to 15 on October 25, 2026: the outcome test showed political anxiety is the strongest
+# precursor of corporate backlash (+8 points the week before episodes), and the January 6 week
+# needed the top political worry to carry full weight.
 dimensions:
   cost_of_living:          25
-  jobs_financial:          20
-  political_institutional: 15
+  jobs_financial:          15
+  political_institutional: 20
   safety_unrest:           15
   geopolitical:            15
   disasters_health:        10
