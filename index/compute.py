@@ -177,6 +177,8 @@ def approval_average(events: pd.DataFrame, weeks: pd.DatetimeIndex, window_days:
     polls["disapprove"] = attrs.apply(lambda a: a.get("disapprove")).astype(float)
     polls["pollster"] = polls["title"].fillna("unknown")
     polls = polls.dropna(subset=["approve", "disapprove", "event_date"]).sort_values("event_date")
+    # the same poll can arrive from two sources under slightly different pollster names
+    polls = polls.drop_duplicates(subset=["event_date", "approve", "disapprove"])
     net, dis, cnt = [], [], []
     for w in weeks:
         chosen = pd.DataFrame()

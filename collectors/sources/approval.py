@@ -36,12 +36,15 @@ WIKI_PAGES = [
     "2018 opinion polling on the Trump administration",
     "2017 opinion polling on the Trump administration",
 ]
-APP_PAGES = {  # American Presidency Project, Gallup-based approval by president
+APP_PAGES = {  # American Presidency Project: Gallup approval by president through January 2026
     "George W. Bush": "https://www.presidency.ucsb.edu/statistics/data/george-w-bush-public-approval",
     "Barack Obama": "https://www.presidency.ucsb.edu/statistics/data/barack-obama-public-approval",
     "Donald J. Trump": "https://www.presidency.ucsb.edu/statistics/data/donald-j-trump-public-approval",
     "Joseph R. Biden": "https://www.presidency.ucsb.edu/statistics/data/joseph-r-biden-public-approval",
 }
+# The current-term page is curated from many pollsters since Gallup ended its series (February 2026):
+# AP-NORC, CNN/SSRS, Marist, Reuters/Ipsos, Pew, YouGov and others, two or three a week. Fetched every run.
+APP_CURRENT = {"Donald J. Trump (2nd term)": "https://www.presidency.ucsb.edu/statistics/data/donald-j-trump-2nd-term-public-approval"}
 
 MONTHS = {m.lower(): i for i, m in enumerate(
     ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], 1)}
@@ -143,12 +146,18 @@ def polls_from_app(html: str) -> list[dict]:
             i_dis = next(i for i, c in enumerate(cols) if "disapprov" in c)
         except StopIteration:
             continue
+        i_src = next((i for i, c in enumerate(cols) if "source" in c), None)
         for _, row in f.iterrows():
             end = pd.to_datetime(str(row.iloc[i_end]), errors="coerce")
             app, dis = first_number(row.iloc[i_app]), first_number(row.iloc[i_dis])
-            if pd.isna(end) or app is None or dis is None:
+            if pd.isna(end) or app is None or dis is None or not (0 < app < 100 and 0 < dis < 100):
                 continue
-            polls.append({"pollster": "Gallup", "end_date": end.date(), "approve": app, "disapprove": dis,
+            pollster = "Gallup"
+            if i_src is not None:
+                raw = re.sub(r"\s+", " ", str(row.iloc[i_src])).strip()
+                if raw and raw.lower() not in {"nan", "none", ""}:
+                    pollster = raw.title() if raw.islower() else raw
+            polls.append({"pollster": pollster, "end_date": end.date(), "approve": app, "disapprove": dis,
                           "sample": None, "source_page": "American Presidency Project"})
     return polls
 
@@ -184,20 +193,23 @@ def collect(col, series: list[dict]) -> None:
                                attributes={k: (str(v) if isinstance(v, dt.date) else v) for k, v in p.items()})
         total += n
         col.info(f"{page}: {len(polls)} polls parsed, {n} in window")
+    app_pages = dict(APP_CURRENT)
     if col.mode == "backfill":
-        for president, url in APP_PAGES.items():
-            try:
-                content, uri = col.fetch(url, name=f"app_{president}", ext="html")
-                html = content.decode("utf-8", errors="replace")
-                polls = polls_from_app(html)
-                if not polls:
-                    col.warn(f"APP {president}: no polls parsed; {len(html)} bytes; starts {html[:200]!r}")
-                n = sum(col.add_event(event_id=poll_id(p), uri=uri, event_date=p["end_date"], event_type="approval_poll",
-                                      title="Gallup", magnitude=p["approve"] - p["disapprove"],
-                                      attributes={k: (str(v) if isinstance(v, dt.date) else v) for k, v in p.items()})
-                        for p in polls if p["end_date"] >= dt.date(1999, 1, 1))
-                total += n
-                col.info(f"APP {president}: {len(polls)} Gallup readings parsed, {n} loaded")
-            except Exception as exc:
-                col.warn(f"APP {president}: {type(exc).__name__}: {str(exc)[:200]}")
+        app_pages.update(APP_PAGES)
+    for president, url in app_pages.items():
+        try:
+            content, uri = col.fetch(url, name=f"app_{president}", ext="html")
+            html = content.decode("utf-8", errors="replace")
+            polls = polls_from_app(html)
+            if not polls:
+                col.warn(f"APP {president}: no polls parsed; {len(html)} bytes; starts {html[:200]!r}")
+            n = sum(col.add_event(event_id=poll_id(p), uri=uri, event_date=p["end_date"], event_type="approval_poll",
+                                  title=p["pollster"], magnitude=p["approve"] - p["disapprove"],
+                                  attributes={k: (str(v) if isinstance(v, dt.date) else v) for k, v in p.items()})
+                    for p in polls if p["end_date"] >= dt.date(1999, 1, 1))
+            total += n
+            pollsters = sorted({p["pollster"] for p in polls})
+            col.info(f"APP {president}: {len(polls)} polls parsed from {len(pollsters)} pollsters, {n} loaded")
+        except Exception as exc:
+            col.warn(f"APP {president}: {type(exc).__name__}: {str(exc)[:200]}")
     col.info(f"{total} polls loaded")
