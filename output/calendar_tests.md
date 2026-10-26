@@ -8,18 +8,18 @@ Headline and dimension figures are mean week-over-week changes in percentile poi
 
 | Catalyst | Weeks | Headline: lead-in | In the week | Other weeks | Week after | Share rose | Attention-lens change | Other weeks | Dimension | Dim: lead-in | In the week | Other weeks | Week after |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| CPI release | 140 | -0.3 | +0.5 | -0.1 | +0.7 | 50% | +0.014 | -0.003 | Cost of living | -0.1 | +0.3 | -0.0 | +0.7 |
-| Jobs report | 140 | -1.1 | +0.2 | -0.0 | +1.5 | 46% | +0.010 | -0.002 | Jobs and financial security | -1.2 | +0.9 | -0.1 | +1.0 |
-| Fed decision (scheduled) | 93 | +0.0 | -0.1 | -0.0 | -0.5 | 48% | -0.001 | -0.001 | Jobs and financial security | -0.3 | -0.7 | +0.0 | +1.1 |
-| Shutdown start/end or debt-limit resolution | 25 | +2.8 | +1.9 | -0.1 | +0.2 | 52% | -0.028 | -0.001 | Political and institutional | +3.4 | -1.2 | +0.0 | -1.2 |
-| Hurricane season start/end | 23 | +1.6 | -1.9 | +0.0 | +0.4 | 30% | -0.052 | -0.000 | Disasters, climate and health | +0.7 | -2.7 | +0.0 | -0.6 |
-| Election day | 14 | -4.4 | +2.9 | -0.0 | -6.0 | 57% | +0.078 | -0.002 | Political and institutional | -5.7 | +5.4 | -0.1 | -1.8 |
-| Debt-limit or funding deadline | 13 | -2.0 | -2.3 | +0.0 | -2.5 | 31% | -0.031 | -0.001 | Political and institutional | -2.2 | -10.7 | +0.1 | -3.0 |
-| Supreme Court term-end decisions | 12 | -1.9 | -1.9 | +0.0 | -6.8 | 42% | -0.022 | -0.001 | Political and institutional | -2.9 | +5.2 | -0.1 | -4.3 |
-| Tax day | 12 | +1.4 | +2.5 | -0.0 | -1.2 | 50% | +0.016 | -0.001 | Cost of living | +0.5 | +2.5 | -0.0 | -0.4 |
-| State of the Union | 12 | -0.4 | -2.5 | +0.0 | -0.8 | 50% | -0.002 | -0.001 | Political and institutional | -2.3 | +1.4 | -0.0 | -7.7 |
-| Major Supreme Court decision day | 10 | -1.3 | -1.7 | -0.0 | +0.4 | 40% | -0.009 | -0.001 | Political and institutional | +5.8 | -2.2 | -0.0 | +1.4 |
-| Fed emergency action | 3 | +18.8 | +2.3 | -0.0 | +9.1 | 67% | +0.046 | -0.001 | Jobs and financial security | +5.7 | +1.5 | -0.0 | +1.8 |
+| CPI release | 140 | +0.7 | +0.8 | -0.1 | -0.2 | 45% | +0.018 | -0.003 | Cost of living | +0.2 | +0.4 | -0.0 | +0.3 |
+| Jobs report | 140 | -1.4 | +0.5 | -0.1 | +1.4 | 45% | +0.017 | -0.003 | Jobs and financial security | -1.1 | +0.7 | -0.1 | +1.0 |
+| Fed decision (scheduled) | 93 | -1.0 | +0.6 | -0.1 | -0.6 | 44% | -0.002 | -0.001 | Jobs and financial security | -0.2 | -0.6 | -0.0 | +1.3 |
+| Shutdown start/end or debt-limit resolution | 25 | -0.5 | +2.7 | -0.1 | +1.3 | 44% | -0.014 | -0.001 | Political and institutional | +2.9 | -1.0 | +0.0 | -1.3 |
+| Hurricane season start/end | 23 | +0.1 | -1.8 | +0.0 | +0.5 | 39% | -0.029 | -0.001 | Disasters, climate and health | +0.9 | -1.8 | -0.0 | -0.7 |
+| Election day | 14 | -2.8 | +2.6 | -0.0 | -5.8 | 50% | +0.078 | -0.002 | Political and institutional | -6.2 | +5.8 | -0.1 | -1.8 |
+| Debt-limit or funding deadline | 13 | -2.2 | -2.6 | +0.0 | -1.0 | 15% | -0.022 | -0.001 | Political and institutional | -2.4 | -9.9 | +0.1 | -3.6 |
+| Supreme Court term-end decisions | 12 | -0.5 | -4.2 | +0.0 | -5.3 | 25% | -0.096 | -0.000 | Political and institutional | -0.0 | +2.9 | -0.0 | -6.3 |
+| Tax day | 12 | +1.4 | +2.9 | -0.0 | -1.7 | 42% | +0.013 | -0.001 | Cost of living | +0.9 | +2.0 | -0.0 | -0.2 |
+| State of the Union | 12 | -1.0 | -2.0 | +0.0 | +0.7 | 42% | -0.017 | -0.001 | Political and institutional | -2.4 | +0.5 | -0.0 | -7.4 |
+| Major Supreme Court decision day | 10 | +0.7 | -3.4 | +0.0 | -0.3 | 40% | -0.082 | -0.001 | Political and institutional | +6.3 | -0.6 | -0.0 | -1.4 |
+| Fed emergency action | 3 | +22.0 | -0.8 | -0.0 | +8.1 | 33% | -0.020 | -0.001 | Jobs and financial security | +6.4 | +0.5 | -0.0 | +2.0 |
 
 ## Cultural distraction windows (weeks overlapping a scale-3 shared event: Super Bowl, Olympics opening, July 4, Thanksgiving, Christmas, eclipses, etc.)
 
@@ -27,21 +27,21 @@ Headline and dimension figures are mean week-over-week changes in percentile poi
 
 | Measure | In windows | Other weeks |
 |---|---|---|
-| Mean headline | 50.7 | 58.5 |
-| Mean week-over-week headline change | -1.3 | +0.2 |
-| Mean attention-lens reading (z) | +0.035 | +0.103 |
-| Mean attention-lens change | -0.029 | +0.003 |
+| Mean headline | 49.3 | 58.7 |
+| Mean week-over-week headline change | -3.3 | +0.4 |
+| Mean attention-lens reading (z) | -0.005 | +0.106 |
+| Mean attention-lens change | -0.075 | +0.008 |
 | Major backlash episode in next 2 weeks (per 100 weeks) | 30.6 | 21.8 |
 
 Backlash rate within band groups (so the comparison isn't just that windows fall in calmer weeks):
 
 | Reading | In window | Weeks | Rate per 100 |
 |---|---|---|---|
-| Low/Moderate | no | 204 | 14.2 |
-| Low/Moderate | yes | 34 | 35.3 |
-| Elevated | no | 194 | 26.8 |
-| Elevated | yes | 19 | 15.8 |
-| High/Severe | no | 157 | 25.5 |
+| Low/Moderate | no | 203 | 15.3 |
+| Low/Moderate | yes | 34 | 32.4 |
+| Elevated | no | 195 | 23.1 |
+| Elevated | yes | 19 | 21.1 |
+| High/Severe | no | 157 | 28.7 |
 | High/Severe | yes | 9 | 44.4 |
 
 Major episode landing *in* the week itself (per 100 weeks):
