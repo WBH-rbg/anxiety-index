@@ -1,19 +1,19 @@
 # Anxiety Index: week ending 2026-10-24
 
-**58 (Elevated)**, +0.5 vs last week, +15.8 vs four weeks ago. News concentration: 7th percentile (attention is spread out).
+**57 (Elevated)**, -1.0 vs last week, +17.2 vs four weeks ago. News concentration: 7th percentile (attention is spread out).
 
-**So far this week** (ending 2026-10-31, data through 2026-10-26): **55 (Elevated)**, -3.7 vs the completed week. Hottest: geopolitical 91, cost of living 72. Moving: disasters, climate and health -8; public safety and unrest -7. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
+**So far this week** (ending 2026-10-31, data through 2026-10-26): **52 (Elevated)**, -5.6 vs the completed week. Hottest: geopolitical 91, cost of living 72. Moving: political and institutional -18; disasters, climate and health -8. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 
 | Dimension | Score | Band | Change (1w) | Share of this week's anxiety | Push on headline |
 |---|---|---|---|---|---|
-| Geopolitical | 92 | High | +2 | 43% | +0.009 |
-| Cost of living | 73 | Elevated | -1 | 36% | +0.007 |
-| Political and institutional | 69 | Elevated | -0 | 14% | +0.003 |
-| Disasters, climate and health | 47 | Moderate | -9 | 4% | +0.001 |
-| Jobs and financial security | 35 | Moderate | +3 | 3% | +0.001 |
-| Public safety and unrest | 46 | Moderate | +9 | 1% | +0.000 |
+| Geopolitical | 92 | High | +2 | 43% | -0.009 |
+| Cost of living | 73 | Elevated | -1 | 36% | -0.008 |
+| Political and institutional | 59 | Elevated | -11 | 14% | -0.003 |
+| Disasters, climate and health | 47 | Moderate | -9 | 4% | -0.001 |
+| Jobs and financial security | 35 | Moderate | +3 | 3% | -0.001 |
+| Public safety and unrest | 46 | Moderate | +9 | 1% | -0.000 |
 
 ## Biggest movers among signals
 
@@ -22,15 +22,15 @@
 | Wikipedia views: Riot (log_att) | Public safety and unrest | attention | +1.92 | +3.30 | 0.50 |
 | Share of US event coverage: protests (log_att) | Public safety and unrest | attention | +0.69 | +1.08 | 1.00 |
 | Geopolitical Risk: threats, daily (dev260) | Geopolitical | attention | +2.01 | +1.34 | 0.50 |
+| Presidential disapproval average (dev_term) | Political and institutional | sentiment | +0.68 | -1.19 | 0.50 |
 | Mass shooting impulse (fatality-weighted, Mother Jones database) (level) | Public safety and unrest | conditions | +1.18 | -0.59 | 1.00 |
 | News articles: political crisis, scandal, shutdown (log_att) | Political and institutional | attention | -0.50 | +0.33 | 1.50 |
 | Earthquake shock impulse (US, magnitude-weighted) (level) | Disasters, climate and health | conditions | +2.05 | +0.77 | 0.60 |
 | Disaster declaration impulse (declared counties per week) (level) | Disasters, climate and health | conditions | +0.15 | -0.46 | 1.00 |
 | Index of Consumer Sentiment (chg13) | Jobs and financial security | sentiment | +1.12 | +0.91 | 0.50 |
+| Presidential approval average: approve minus disapprove (dev_term) | Political and institutional | sentiment | +0.90 | -0.44 | 1.00 |
 | US regular gasoline retail price (chg13) | Cost of living | conditions | +0.87 | -0.66 | 0.60 |
 | Share of US event coverage: assaults, fights, mass violence (log_att) | Public safety and unrest | attention | -0.17 | -0.36 | 1.00 |
-| News tone: disaster and health coverage (dev156) | Disasters, climate and health | attention | +0.98 | -0.49 | 0.70 |
-| Wikipedia views: Stock market crash (log_att) | Jobs and financial security | attention | -0.67 | +0.60 | 0.50 |
 
 ## Most elevated signals right now
 

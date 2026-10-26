@@ -1,13 +1,13 @@
 period,expected,mean_score,max_score,weeks_high_or_severe,weeks,verdict
-9/11 and aftermath,tense,87.2,100.0,8,11,pass
-Iraq invasion,tense,87.5,94.2,5,7,pass
-Mid-2000s calm,calm,22.2,69.5,0,131,pass
-Financial crisis,tense,86.8,100.0,20,29,pass
-Debt-ceiling summer,tense,70.6,84.1,1,7,pass
-2013-2015 calm,calm,20.5,75.6,0,156,pass
-COVID onset,tense,80.9,88.3,6,8,pass
+9/11 and aftermath,tense,87.3,100.0,8,11,pass
+Iraq invasion,tense,87.5,94.3,5,7,pass
+Mid-2000s calm,calm,22.3,70.1,0,131,pass
+Financial crisis,tense,86.7,100.0,20,29,pass
+Debt-ceiling summer,tense,70.8,84.2,1,7,pass
+2013-2015 calm,calm,20.6,75.6,0,156,pass
+COVID onset,tense,81.0,88.3,6,8,pass
 Summer 2020,tense,96.3,99.5,7,7,pass
-Jan 6 week,tense,79.4,84.5,2,3,pass
-Ukraine invasion,tense,98.5,99.1,5,5,pass
+Jan 6 week,tense,79.6,84.6,2,3,pass
+Ukraine invasion,tense,98.4,99.1,5,5,pass
 Inflation peak,tense,96.4,99.3,6,6,pass
-Spring 2025 tariffs,tense,93.7,95.3,4,4,pass
+Spring 2025 tariffs,tense,96.4,97.9,4,4,pass
