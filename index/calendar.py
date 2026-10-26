@@ -171,10 +171,12 @@ def tests_report(effects: pd.DataFrame, cult_out: dict) -> str:
     L = ["# Calendar tests", "", f"Generated {dt.date.today()}.", "", "## Catalyst effects (weeks containing the catalyst vs. all other weeks, 2015 onward where data allow)", "",
          "| Catalyst | Weeks | Headline change | Other weeks | Share rose | Attention-lens change | Other weeks | Dimension | Dim change | Other weeks |",
          "|---|---|---|---|---|---|---|---|---|---|"]
-    for _, r in effects.sort_values("weeks", ascending=False).iterrows():
+    for _, r in (effects.sort_values("weeks", ascending=False) if not effects.empty else effects).iterrows():
         L.append(f"| {r['label']} | {r['weeks']} | {r['headline_change_mean']:+.1f} | {r['headline_change_other_weeks']:+.1f} | {r['share_headline_rose']:.0f}% | "
                  f"{r['attention_change_mean']:+.3f} | {r['attention_change_other_weeks']:+.3f} | {DIM_LABELS.get(r['dimension'], r['dimension'])} | "
                  f"{r['dimension_change_mean']:+.1f} | {r['dimension_change_other_weeks']:+.1f} |")
+    if effects.empty:
+        L.append("| no catalyst calendar loaded | | | | | | | | | |")
     L += ["", "## Cultural distraction windows (weeks overlapping a scale-3 shared event: Super Bowl, Olympics opening, July 4, Thanksgiving, Christmas, eclipses, etc.)", ""]
     if not cult_out:
         L.append("No cultural calendar loaded.")
