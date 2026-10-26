@@ -97,13 +97,20 @@ def catalyst_effects(head: pd.DataFrame, dims: pd.DataFrame, lenses: pd.DataFram
             continue
         others = h.index.difference(weeks)
         dim = CATEGORY_DIMENSION.get(cat)
+        wk = pd.DatetimeIndex(weeks)
+        before = [w - pd.Timedelta(days=7) for w in wk] + [w - pd.Timedelta(days=14) for w in wk]   # the two weeks leading in
+        after = [w + pd.Timedelta(days=7) for w in wk]
         row = {"category": cat, "label": CATEGORY_LABELS.get(cat, cat), "weeks": len(weeks),
                "headline_change_mean": round(dh.reindex(weeks).mean(), 1), "headline_change_other_weeks": round(dh.reindex(others).mean(), 1),
+               "headline_change_lead_in": round(2 * dh.reindex(before).mean(), 1),       # total move over the two weeks before
+               "headline_change_week_after": round(dh.reindex(after).mean(), 1),
                "share_headline_rose": round(100 * (dh.reindex(weeks) > 0).mean(), 0),
                "attention_change_mean": round(datt.reindex(weeks).mean(), 3), "attention_change_other_weeks": round(datt.reindex(others).mean(), 3),
                "dimension": dim,
                "dimension_change_mean": round(dd[dim].reindex(weeks).mean(), 1) if dim in dd.columns else np.nan,
-               "dimension_change_other_weeks": round(dd[dim].reindex(others).mean(), 1) if dim in dd.columns else np.nan}
+               "dimension_change_other_weeks": round(dd[dim].reindex(others).mean(), 1) if dim in dd.columns else np.nan,
+               "dimension_change_lead_in": round(2 * dd[dim].reindex(before).mean(), 1) if dim in dd.columns else np.nan,
+               "dimension_change_week_after": round(dd[dim].reindex(after).mean(), 1) if dim in dd.columns else np.nan}
         rows.append(row)
     return pd.DataFrame(rows)
 
@@ -163,16 +170,17 @@ def lookahead(head: pd.DataFrame, cats: pd.DataFrame, cult: pd.DataFrame, effect
     eff = effects.set_index("category") if not effects.empty else pd.DataFrame()
     L = [f"# Look-ahead from the week ending {last.date()}", "",
          f"Scheduled catalysts and shared cultural events in the next {LOOKAHEAD_DAYS} days, with what weeks like them have done to the index historically.", "",
-         "## Catalysts", "", "| Date | Catalyst | Historical headline change in such weeks | Weeks rose | Typical dimension moved |", "|---|---|---|---|---|"]
+         "## Catalysts", "", "| Date | Catalyst | Past cases | Headline: two weeks before | In the week | Week after | Dimension usually moved (in the week) |", "|---|---|---|---|---|---|---|"]
     upcoming = cats[(cats["date"] > last) & (cats["date"] <= horizon)].sort_values("date") if not cats.empty else pd.DataFrame()
     if upcoming.empty:
         L.append("| | none in window | | | |")
     for _, r in upcoming.iterrows():
         e = eff.loc[r["category"]] if r["category"] in eff.index else None
-        chg = f"{e['headline_change_mean']:+.1f} (others {e['headline_change_other_weeks']:+.1f})" if e is not None else "n/a"
-        rose = f"{e['share_headline_rose']:.0f}%" if e is not None else ""
-        dimtxt = f"{DIM_LABELS.get(e['dimension'], e['dimension'])} {e['dimension_change_mean']:+.1f}" if e is not None and pd.notna(e.get("dimension_change_mean")) else ""
-        L.append(f"| {r['date'].date()} | {r['label']} | {chg} | {rose} | {dimtxt} |")
+        if e is None:
+            L.append(f"| {r['date'].date()} | {r['label']} | no history | | | | |")
+            continue
+        dimtxt = f"{DIM_LABELS.get(e['dimension'], e['dimension'])} {e['dimension_change_mean']:+.1f} (lead-in {e['dimension_change_lead_in']:+.1f}, after {e['dimension_change_week_after']:+.1f})" if pd.notna(e.get("dimension_change_mean")) else ""
+        L.append(f"| {r['date'].date()} | {r['label']} | {int(e['weeks'])} | {e['headline_change_lead_in']:+.1f} | {e['headline_change_mean']:+.1f} (other weeks {e['headline_change_other_weeks']:+.1f}) | {e['headline_change_week_after']:+.1f} | {dimtxt} |")
     L += ["", "## Shared cultural events (possible distraction windows)", "", "| Dates | Event | Scale |", "|---|---|---|"]
     upc = cult[(cult["end_date"] >= last) & (cult["start_date"] <= horizon)].sort_values("start_date") if not cult.empty else pd.DataFrame()
     if upc.empty:
@@ -188,14 +196,15 @@ def lookahead(head: pd.DataFrame, cats: pd.DataFrame, cult: pd.DataFrame, effect
 
 def tests_report(effects: pd.DataFrame, cult_out: dict) -> str:
     L = ["# Calendar tests", "", f"Generated {dt.date.today()}.", "", "## Catalyst effects (weeks containing the catalyst vs. all other weeks, 2015 onward where data allow)", "",
-         "| Catalyst | Weeks | Headline change | Other weeks | Share rose | Attention-lens change | Other weeks | Dimension | Dim change | Other weeks |",
-         "|---|---|---|---|---|---|---|---|---|---|"]
+         "Headline and dimension figures are mean week-over-week changes in percentile points. \"Lead-in\" is the total move over the two weeks before the catalyst week; \"after\" is the move in the week following it. Categories with fewer than about 20 cases are indicative only.", "",
+         "| Catalyst | Weeks | Headline: lead-in | In the week | Other weeks | Week after | Share rose | Attention-lens change | Other weeks | Dimension | Dim: lead-in | In the week | Other weeks | Week after |",
+         "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for _, r in (effects.sort_values("weeks", ascending=False) if not effects.empty else effects).iterrows():
-        L.append(f"| {r['label']} | {r['weeks']} | {r['headline_change_mean']:+.1f} | {r['headline_change_other_weeks']:+.1f} | {r['share_headline_rose']:.0f}% | "
+        L.append(f"| {r['label']} | {r['weeks']} | {r['headline_change_lead_in']:+.1f} | {r['headline_change_mean']:+.1f} | {r['headline_change_other_weeks']:+.1f} | {r['headline_change_week_after']:+.1f} | {r['share_headline_rose']:.0f}% | "
                  f"{r['attention_change_mean']:+.3f} | {r['attention_change_other_weeks']:+.3f} | {DIM_LABELS.get(r['dimension'], r['dimension'])} | "
-                 f"{r['dimension_change_mean']:+.1f} | {r['dimension_change_other_weeks']:+.1f} |")
+                 f"{r['dimension_change_lead_in']:+.1f} | {r['dimension_change_mean']:+.1f} | {r['dimension_change_other_weeks']:+.1f} | {r['dimension_change_week_after']:+.1f} |")
     if effects.empty:
-        L.append("| no catalyst calendar loaded | | | | | | | | | |")
+        L.append("| no catalyst calendar loaded | | | | | | | | | | | | | |")
     L += ["", "## Cultural distraction windows (weeks overlapping a scale-3 shared event: Super Bowl, Olympics opening, July 4, Thanksgiving, Christmas, eclipses, etc.)", ""]
     if not cult_out:
         L.append("No cultural calendar loaded.")

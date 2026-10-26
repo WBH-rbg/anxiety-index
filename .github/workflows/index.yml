@@ -62,6 +62,11 @@ jobs:
           set -o pipefail
           python -m index.calendar 2>&1 | tee output/calendar.log
 
+      - name: Outlook (statistical forecast and track record)
+        run: |
+          set -o pipefail
+          python -m index.forecast 2>&1 | tee output/forecast.log
+
       - name: Commit outputs
         if: always()
         run: |
