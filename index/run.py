@@ -170,6 +170,26 @@ def split_nowcast(out: dict, today: pd.Timestamp, computed_at: dt.datetime) -> d
                         [{"week": week, "as_of": today, "computed_at": computed_at, "level": d, "score": sc,
                           "band": dims.loc[dprov & (dims["dimension"] == d), "band"].iloc[0] if (dprov & (dims["dimension"] == d)).any() else None,
                           "share": shares.get(d)} for d, sc in dim_scores.items()])
+    # a diagnostic file: every signal and lens in the provisional week against the completed week
+    try:
+        last_week = last_complete["week"].iloc[0] if not last_complete.empty else None
+        if last_week is not None:
+            sig = out["signals"]
+            a = sig[sig["week"] == last_week].set_index("signal")[["dimension", "lens", "raw", "z", "weight"]]
+            b = sig[sig["week"] == week].set_index("signal")[["raw", "z", "weight"]]
+            diag = a.join(b, rsuffix="_now", how="outer")
+            diag["z_change"] = (diag["z_now"] - diag["z"]).round(3)
+            diag["weight_change"] = (diag["weight_now"] - diag["weight"]).round(3)
+            ln = out["lenses"]
+            la = ln[ln["week"] == last_week].set_index(["dimension", "lens"])["z"]
+            lb = ln[ln["week"] == week].set_index(["dimension", "lens"])["z"]
+            lens_diag = pd.DataFrame({"z_completed": la, "z_now": lb})
+            lens_diag["change"] = (lens_diag["z_now"] - lens_diag["z_completed"]).round(3)
+            OUT.mkdir(exist_ok=True)
+            diag.sort_values("z_change", key=lambda c: c.abs(), ascending=False).to_csv(OUT / "nowcast_signals.csv")
+            lens_diag.to_csv(OUT / "nowcast_lenses.csv")
+    except Exception as exc:  # diagnostics must never break the run
+        print(f"nowcast diagnostics skipped: {exc}")
     # drop the provisional week from the official frames
     for key in ("headline", "dimensions", "lenses", "signals", "contributions", "weekly_values"):
         f = out.get(key)
