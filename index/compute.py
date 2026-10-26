@@ -24,7 +24,7 @@ WEEK_ANCHOR = "W-SAT"  # weeks end on Saturday
 # where exact release times weren't captured). Monthly periods end at month end.
 RELEASE_LAG_DAYS = {
     "bls": 14, "bls_jolts": 35, "eia": 2, "dol": 5, "umich": 0, "nyfed": 10, "gpr": 2,
-    "epu": 1, "fedreg": 0, "wikipedia": 1, "gdelt": 1, "treasury": 0, "markets": 0,
+    "epu": 1, "fedreg": 0, "wikipedia": 1, "gdelt": 1, "gdelt_gkg": 1, "gdelt_events": 1, "treasury": 0, "markets": 0,
     "freddiemac": 0, "tpu": 10, "derived": 0, "events": 0,
 }
 FREQ_CLASS = {"daily": "daily", "weekly": "weekly", "monthly": "monthly"}
@@ -53,15 +53,19 @@ def available_date(obs_date: pd.Series, frequency: str, lag_days: int) -> pd.Ser
 
 
 # ----------------------------------------------------------------------------- step 1: weekly point-in-time series
-def weekly_series(obs: pd.DataFrame, catalog: pd.DataFrame, weeks: pd.DatetimeIndex) -> tuple[pd.DataFrame, pd.DataFrame]:
+def weekly_series(obs: pd.DataFrame, catalog: pd.DataFrame, weeks: pd.DatetimeIndex,
+                  today: pd.Timestamp | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Return (values, age_weeks): DataFrames indexed by week, one column per series.
 
     values[w, s] is the latest value of series s that was public by the end of week w.
     age_weeks[w, s] is how many weeks ago that value became public.
-    Daily series are averaged within the week they refer to.
+    Daily series are averaged within the week they refer to. If the last week in the grid is still
+    in progress (its Saturday is after `today`), daily series take the trailing seven days of data
+    instead of the partial week, so a Monday nowcast isn't built from Sunday's news alone.
     """
     values, ages = {}, {}
     meta = catalog.set_index("series_id")
+    in_progress = today is not None and len(weeks) > 0 and weeks[-1] > today
     for sid, g in obs.groupby("series_id"):
         if sid not in meta.index:
             continue
@@ -74,6 +78,10 @@ def weekly_series(obs: pd.DataFrame, catalog: pd.DataFrame, weeks: pd.DatetimeIn
             lag = release_lag(sid, source)
             if lag <= 2:  # published within a couple of days: the week's average is known by week end
                 s = pd.Series(per_week.values, index=per_week.index)
+                if in_progress:
+                    recent = g[(g["obs_date"] > today - pd.Timedelta(days=7)) & (g["obs_date"] <= today)]["value"]
+                    if len(recent):
+                        s[weeks[-1]] = recent.mean()
             else:
                 avail_week = week_end(pd.Series(per_week.index + pd.to_timedelta(lag, unit="D")))
                 s = pd.Series(per_week.values, index=avail_week.values)
@@ -339,7 +347,7 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
     cap_low = float(weights_cfg.get("z_cap_relief", cap))
 
     # --- weekly point-in-time values
-    values, ages = weekly_series(obs, catalog, weeks)
+    values, ages = weekly_series(obs, catalog, weeks, today=pd.Timestamp(dt.date.today()))
     add_derived(values, ages, signals_cfg.get("derived", []))
     imp = event_impulses(events, signals_cfg.get("events", []), weeks, float(weights_cfg["event_half_life_weeks"]))
     for c in imp.columns:

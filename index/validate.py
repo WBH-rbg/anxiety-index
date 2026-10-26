@@ -106,6 +106,14 @@ def external_correlations(head: pd.DataFrame, ext: pd.DataFrame) -> pd.DataFrame
     return pd.DataFrame(rows)
 
 
+# Which dimension's anxiety each kind of corporate episode should feed on
+TRIGGER_DIMENSION = {
+    "political_stance": "political_institutional", "executive_statement": "political_institutional",
+    "pricing": "cost_of_living", "labor_layoffs": "jobs_financial", "product_safety": "disasters_health",
+    "service_incident": "disasters_health", "data_privacy": "political_institutional", "marketing_misstep": "safety_unrest",
+}
+
+
 def load_outcomes() -> pd.DataFrame:
     if not OUTCOMES_CSV.exists():
         return pd.DataFrame()
@@ -150,8 +158,27 @@ def outcome_tests(head: pd.DataFrame, dims: pd.DataFrame, ev: pd.DataFrame) -> d
     dim_all = d.loc[d.index >= ev["event_date"].min()].mean().round(1)
     dim_table = pd.DataFrame({"before_events": dim_before, "all_weeks": dim_all.reindex(dim_before.index)})
     dim_table["difference"] = (dim_table["before_events"] - dim_table["all_weeks"]).round(1)
+    # does the type of episode follow the dimension that was hot? Each trigger type is mapped to the dimension
+    # whose anxiety it should feed on; the test compares that dimension's reading the week before episodes of
+    # that type with (a) its reading before all other episodes and (b) all weeks.
+    type_table = pd.DataFrame()
+    if "trigger_type" in ev.columns:
+        rows = []
+        before_df = pd.DataFrame([b for b in before if b is not None], index=[i for i, b in zip(ev.index, before) if b is not None])
+        for ttype, dim in TRIGGER_DIMENSION.items():
+            idx = ev.index[ev["trigger_type"] == ttype].intersection(before_df.index)
+            if len(idx) < 5 or dim not in before_df.columns:
+                continue
+            others = before_df.index.difference(idx)
+            rows.append({"trigger_type": ttype, "dimension": dim, "episodes": len(idx),
+                         "dim_before_this_type": round(before_df.loc[idx, dim].mean(), 1),
+                         "dim_before_other_types": round(before_df.loc[others, dim].mean(), 1),
+                         "dim_all_weeks": round(float(dim_all.get(dim, np.nan)), 1),
+                         "share_dim_hottest": round(100 * (before_df.loc[idx].idxmax(axis=1) == dim).mean(), 0),
+                         "share_dim_hottest_other_types": round(100 * (before_df.loc[others].idxmax(axis=1) == dim).mean(), 0)})
+        type_table = pd.DataFrame(rows)
     return {"events": ev, "base_mean": round(base_mean, 1), "by_severity": by_sev, "by_band": by_band, "by_era": by_era, "dim_table": dim_table,
-            "mean_before": round(ev["score_before"].mean(), 1), "n": int(ev["score_before"].notna().sum())}
+            "type_table": type_table, "mean_before": round(ev["score_before"].mean(), 1), "n": int(ev["score_before"].notna().sum())}
 
 
 def report(face: pd.DataFrame, corr: pd.DataFrame, oc: dict) -> str:
@@ -183,6 +210,11 @@ def report(face: pd.DataFrame, corr: pd.DataFrame, oc: dict) -> str:
         L += ["", "Dimension readings the week before episodes vs. all weeks:", "", "| Dimension | Before episodes | All weeks | Difference |", "|---|---|---|---|"]
         for dim, r in oc["dim_table"].iterrows():
             L.append(f"| {DIM_LABELS.get(dim, dim)} | {r['before_events']} | {r['all_weeks']} | {r['difference']:+.1f} |")
+        if isinstance(oc.get("type_table"), pd.DataFrame) and not oc["type_table"].empty:
+            L += ["", "Does the hot dimension predict the *kind* of episode? Each trigger type is paired with the dimension it should feed on; the table compares that dimension's reading the week before episodes of that type with its reading before other types and in all weeks, and how often it was the hottest dimension.", "",
+                  "| Trigger type | Dimension | Episodes | Dim. before this type | Before other types | All weeks | Hottest dim. before this type | Before other types |", "|---|---|---|---|---|---|---|---|"]
+            for _, r in oc["type_table"].iterrows():
+                L.append(f"| {r['trigger_type']} | {DIM_LABELS.get(r['dimension'], r['dimension'])} | {r['episodes']} | {r['dim_before_this_type']} | {r['dim_before_other_types']} | {r['dim_all_weeks']} | {r['share_dim_hottest']:.0f}% | {r['share_dim_hottest_other_types']:.0f}% |")
         L += ["", "Caveats: the log is curated and incomplete, episodes cluster in recent years when the log is richer, and the index was not tuned to this log. "
               "A clean result here is encouraging, not proof; a null result means the structure needs work."]
     return "\n".join(L) + "\n"

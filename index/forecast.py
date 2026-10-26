@@ -218,6 +218,45 @@ def report(fc: pd.DataFrame, contribs: dict[int, pd.Series], metrics: pd.DataFra
     return "\n".join(L) + "\n"
 
 
+def scored_forecasts(client, s: pd.Series) -> pd.DataFrame:
+    """Forecasts issued earlier whose target week has now been scored, one row per (origin, horizon)."""
+    try:
+        past = client.query(f"""
+            SELECT origin_week, horizon_weeks, target_week, central, lo80, hi80, computed_at
+            FROM `{PROJECT_ID}.ai_index.forecasts`
+            QUALIFY ROW_NUMBER() OVER (PARTITION BY origin_week, horizon_weeks ORDER BY computed_at) = 1""").to_dataframe()
+    except Exception as exc:  # table not there yet on the first run
+        print(f"no stored forecasts yet ({type(exc).__name__})")
+        return pd.DataFrame()
+    if past.empty:
+        return past
+    past["origin_week"] = naive(past["origin_week"])
+    past["target_week"] = naive(past["target_week"])
+    past["actual"] = past["target_week"].map(s)
+    past["current"] = past["origin_week"].map(s)
+    past = past.dropna(subset=["actual"])
+    past["error"] = (past["central"] - past["actual"]).round(1)
+    past["persistence_error"] = (past["current"] - past["actual"]).round(1)
+    past["inside_80"] = (past["actual"] >= past["lo80"]) & (past["actual"] <= past["hi80"])
+    return past.sort_values(["origin_week", "horizon_weeks"])
+
+
+def scorecard(past: pd.DataFrame) -> str:
+    L = ["", "## Forecasts issued so far, scored", ""]
+    if past.empty:
+        L.append("The first forecasts were issued on October 26, 2026; the first can be scored a week later. This section fills in as weeks arrive.")
+        return "\n".join(L) + "\n"
+    g = past.groupby("horizon_weeks").agg(n=("error", "size"), mae_model=("error", lambda e: e.abs().mean()),
+                                          mae_persistence=("persistence_error", lambda e: e.abs().mean()), inside_80=("inside_80", "mean"))
+    L += ["| Weeks ahead | Forecasts scored | Model error | Persistence error | Inside 80% range |", "|---|---|---|---|---|"]
+    for h, r in g.iterrows():
+        L.append(f"| {h} | {int(r['n'])} | {r['mae_model']:.1f} | {r['mae_persistence']:.1f} | {100*r['inside_80']:.0f}% |")
+    L += ["", "Most recent scored forecasts:", "", "| Issued for week | Weeks ahead | Target week | Forecast | Actual | Error |", "|---|---|---|---|---|---|"]
+    for _, r in past.tail(12).iterrows():
+        L.append(f"| {r['origin_week'].date()} | {r['horizon_weeks']} | {r['target_week'].date()} | {r['central']:.0f} | {r['actual']:.0f} | {r['error']:+.1f} |")
+    return "\n".join(L) + "\n"
+
+
 def main() -> int:
     from google.cloud import bigquery
     client = bigquery.Client(project=PROJECT_ID)
@@ -231,8 +270,11 @@ def run(frame: pd.DataFrame, client=None) -> int:
     metrics, resid = backtest(X, s)
     fh = from_here(s)
     fc, contribs = outlook(X, s, resid)
+    past = scored_forecasts(client, s) if client is not None else pd.DataFrame()
     OUT.mkdir(exist_ok=True)
-    (OUT / "forecast.md").write_text(report(fc, contribs, metrics, fh))
+    (OUT / "forecast.md").write_text(report(fc, contribs, metrics, fh) + scorecard(past))
+    if not past.empty:
+        past.to_csv(OUT / "forecast_scorecard.csv", index=False)
     fc.to_csv(OUT / "forecast.csv", index=False)
     metrics.to_csv(OUT / "forecast_backtest.csv", index=False)
     fh.to_csv(OUT / "forecast_from_here.csv", index=False)
