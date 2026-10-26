@@ -57,6 +57,11 @@ jobs:
           set -o pipefail
           python -m index.validate 2>&1 | tee output/validation.log
 
+      - name: Calendar and look-ahead
+        run: |
+          set -o pipefail
+          python -m index.calendar 2>&1 | tee output/calendar.log
+
       - name: Commit outputs
         if: always()
         run: |
