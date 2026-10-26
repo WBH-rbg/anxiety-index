@@ -235,6 +235,10 @@ def main() -> int:
     (OUT / "validation.md").write_text(report(face, corr, oc))
     face.to_csv(OUT / "validation_face.csv", index=False)
     corr.to_csv(OUT / "validation_external.csv", index=False)
+    if oc:
+        oc["by_band"].to_csv(OUT / "validation_by_band.csv")
+        if isinstance(oc.get("type_table"), pd.DataFrame) and not oc["type_table"].empty:
+            oc["type_table"].to_csv(OUT / "validation_by_trigger.csv", index=False)
     print(report(face, corr, oc)[:3000])
     return 0
 

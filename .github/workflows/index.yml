@@ -67,6 +67,11 @@ jobs:
           set -o pipefail
           python -m index.forecast 2>&1 | tee output/forecast.log
 
+      - name: Weekly brief
+        run: |
+          set -o pipefail
+          python -m index.brief 2>&1 | tee output/brief.log
+
       - name: Commit outputs
         if: always()
         run: |

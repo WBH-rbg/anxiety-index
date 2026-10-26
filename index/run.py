@@ -233,6 +233,7 @@ def main(argv=None) -> int:
     OUT.mkdir(exist_ok=True)
     out["headline"].to_csv(OUT / "headline_weekly.csv", index=False)
     out["dimensions"].to_csv(OUT / "dimension_weekly.csv", index=False)
+    out["contributions"][out["contributions"]["week"] >= out["contributions"]["week"].max() - pd.Timedelta(weeks=8)].to_csv(OUT / "contribution_recent.csv", index=False)
     latest = out["headline"].dropna(subset=["score"]).tail(1).iloc[0]
     (OUT / "latest.json").write_text(json.dumps({
         "week": str(latest["week"].date()), "score": float(latest["score"]), "band": latest["band"],

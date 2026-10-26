@@ -241,6 +241,15 @@ def main() -> int:
     cult_out = cultural_test(head, lenses, cult, outcomes) if not cult.empty else {}
     OUT.mkdir(exist_ok=True)
     (OUT / "lookahead.md").write_text(lookahead(head, cats, cult, effects))
+    last = head["week"].max()
+    horizon = last + pd.Timedelta(days=LOOKAHEAD_DAYS)
+    if not cats.empty:
+        up = cats[(cats["date"] > last) & (cats["date"] <= horizon)].sort_values("date")
+        if not effects.empty:
+            up = up.merge(effects, on="category", how="left", suffixes=("", "_effect"))
+        up.to_csv(OUT / "lookahead.csv", index=False)
+    if not cult.empty:
+        cult[(cult["end_date"] >= last) & (cult["start_date"] <= horizon)].sort_values("start_date").to_csv(OUT / "lookahead_culture.csv", index=False)
     (OUT / "calendar_tests.md").write_text(tests_report(effects, cult_out))
     if not effects.empty:
         client.load_table_from_dataframe(effects.assign(computed_at=dt.datetime.now(dt.timezone.utc)), "anxiety-index.ai_index.catalyst_effects",
