@@ -2,11 +2,11 @@
 
 *Issued 2026-10-26. Data through 2026-10-26.*
 
-## 59 — Elevated, up 0.6 on the week
+## 59 — Elevated, up 1.0 on the week
 
 Up 17 points over four weeks. Highest reading since the week ending 2026-06-20. Attention is spread across many stories, so new ones find room.
 
-**So far this week:** 55 (Elevated), -4.1 against the completed week. Provisional; it will move as the week's data arrive.
+**So far this week:** 55 (Elevated), -4.0 against the completed week. Provisional; it will move as the week's data arrive.
 
 ## What is driving it
 
@@ -14,7 +14,7 @@ Up 17 points over four weeks. Highest reading since the week ending 2026-06-20. 
 |---|---|---|---|---|
 | Geopolitical | 92 | High | +2 | 43% |
 | Cost of living | 73 | Elevated | -1 | 36% |
-| Political and institutional | 68 | Elevated | -1 | 14% |
+| Political and institutional | 67 | Elevated | -0 | 14% |
 | Disasters, climate and health | 47 | Moderate | -9 | 4% |
 | Jobs and financial security | 35 | Moderate | +3 | 3% |
 | Public safety and unrest | 46 | Moderate | +9 | 1% |
@@ -23,7 +23,7 @@ The headline follows an attention budget: the hottest dimension counts in full, 
 
 ## What a reading like this has meant
 
-- Since 2015, a major corporate backlash episode (national, sustained) followed within two weeks of **35 in 100** weeks that read Elevated, against 28 in 100 after Low weeks.
+- Since 2015, a major corporate backlash episode (national, sustained) followed within two weeks of **34 in 100** weeks that read Elevated, against 27 in 100 after Low weeks.
 - Tense weeks make a company story *less* likely to break through and *angrier* when it does. Low news concentration this week means the first effect is weak: stories are landing.
 - **Geopolitical at 92.** Geopolitical anxiety is in its upper range. Supply, sanctions and overseas-operations stories are being read through a conflict lens.
 
@@ -31,10 +31,10 @@ The headline follows an attention budget: the hottest dimension counts in full, 
 
 | Date | Catalyst | What such weeks have done (headline, political/economic dimension) |
 |---|---|---|
-| 2026-10-28 | FOMC decision | headline +0.0 in the week, -1.7 the week after; jobs and financial security -0.5 (93 past cases) |
-| 2026-11-03 | General election (midterm) | headline +3.0 in the week, -3.6 the week after; political and institutional +5.1 (14 past cases) |
-| 2026-11-06 | Jobs report for October 2026 | headline +0.1 in the week, +1.4 the week after; jobs and financial security +0.7 (140 past cases) |
-| 2026-11-10 | CPI for October 2026 | headline +1.4 in the week, -0.2 the week after; cost of living +0.4 (140 past cases) |
+| 2026-10-28 | FOMC decision | headline +0.1 in the week, -1.7 the week after; jobs and financial security -0.5 (93 past cases) |
+| 2026-11-03 | General election (midterm) | headline +3.0 in the week, -3.6 the week after; political and institutional +5.3 (14 past cases) |
+| 2026-11-06 | Jobs report for October 2026 | headline +0.2 in the week, +1.4 the week after; jobs and financial security +0.7 (140 past cases) |
+| 2026-11-10 | CPI for October 2026 | headline +1.5 in the week, -0.2 the week after; cost of living +0.4 (140 past cases) |
 
 - 2026 World Series (2026-10-23 to 2026-10-31), shared-attention scale 2 of 3
 

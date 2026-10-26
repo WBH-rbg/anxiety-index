@@ -7,7 +7,7 @@ Current reading: **59 (Elevated)**. The table shows where a small statistical mo
 | 1 | 2026-10-31 | 59 (Elevated) | 54–62 | 49–69 | 18% | 24% | 3% | 12% |
 | 2 | 2026-11-07 | 58 (Elevated) | 51–64 | 44–74 | 27% | 33% | 6% | 22% |
 | 4 | 2026-11-21 | 58 (Elevated) | 47–68 | 38–80 | 33% | 40% | 10% | 31% |
-| 8 | 2026-12-19 | 56 (Elevated) | 41–72 | 27–84 | 40% | 43% | 15% | 36% |
+| 8 | 2026-12-19 | 56 (Elevated) | 42–72 | 27–84 | 40% | 43% | 15% | 36% |
 
 ## Why (four-week horizon)
 
@@ -17,7 +17,7 @@ Expected change in points, by what is driving it:
 - How much of it is shock-driven (safety, geopolitics, disasters), which fades faster: **-0.4**
 - How much of it is background pressure (cost of living, jobs, politics), which persists: **+1.7**
 
-Largest single factors: the quarter's move (-2.2); distance from the 13-week average (+1.4); geopolitical reading (-0.9); the headline level (-0.7).
+Largest single factors: the quarter's move (-2.2); distance from the 13-week average (+1.4); geopolitical reading (-0.9); political and institutional reading (+0.7).
 
 ## What has usually happened from here
 
@@ -25,21 +25,21 @@ Weeks since 2010 that showed the same band, and where the headline was afterward
 
 | Band now | Weeks ahead | Weeks | Average then | Average later | Higher by 5+ | Lower by 5+ | High or Severe later | Below 50 later |
 |---|---|---|---|---|---|---|---|---|
-| Low | 2 | 155 | 10.3 | 18.2 | 37% | 10% | 1% | 92% |
-| Moderate | 2 | 250 | 35.7 | 36.3 | 39% | 41% | 1% | 80% |
-| **Elevated** | 2 | 288 | 64.7 | 61.0 | 21% | 43% | 9% | 22% |
-| High | 2 | 146 | 87.4 | 85.8 | 13% | 27% | 80% | 0% |
-| Severe | 2 | 37 | 97.6 | 95.4 | 0% | 16% | 100% | 0% |
-| Low | 4 | 155 | 10.3 | 22.9 | 52% | 12% | 0% | 86% |
-| Moderate | 4 | 250 | 35.7 | 37.6 | 42% | 44% | 3% | 73% |
-| **Elevated** | 4 | 286 | 64.7 | 59.1 | 27% | 47% | 16% | 30% |
-| High | 4 | 146 | 87.4 | 83.0 | 14% | 47% | 65% | 1% |
-| Severe | 4 | 37 | 97.6 | 92.9 | 0% | 41% | 95% | 0% |
-| Low | 8 | 154 | 10.3 | 32.9 | 71% | 8% | 0% | 74% |
-| Moderate | 8 | 247 | 35.8 | 39.0 | 48% | 41% | 7% | 64% |
-| **Elevated** | 8 | 286 | 64.7 | 56.5 | 35% | 49% | 21% | 41% |
-| High | 8 | 146 | 87.4 | 75.0 | 20% | 64% | 49% | 10% |
-| Severe | 8 | 37 | 97.6 | 90.2 | 0% | 54% | 92% | 0% |
+| Low | 2 | 155 | 10.4 | 18.2 | 37% | 10% | 1% | 92% |
+| Moderate | 2 | 252 | 35.8 | 36.4 | 39% | 41% | 1% | 79% |
+| **Elevated** | 2 | 286 | 64.8 | 61.1 | 21% | 43% | 10% | 22% |
+| High | 2 | 146 | 87.4 | 85.6 | 12% | 28% | 79% | 0% |
+| Severe | 2 | 37 | 97.6 | 95.3 | 0% | 16% | 100% | 0% |
+| Low | 4 | 155 | 10.4 | 23.0 | 52% | 12% | 0% | 86% |
+| Moderate | 4 | 252 | 35.8 | 37.7 | 42% | 43% | 4% | 74% |
+| **Elevated** | 4 | 284 | 64.8 | 59.3 | 27% | 46% | 16% | 30% |
+| High | 4 | 146 | 87.4 | 82.7 | 14% | 47% | 64% | 1% |
+| Severe | 4 | 37 | 97.6 | 92.8 | 0% | 41% | 95% | 0% |
+| Low | 8 | 154 | 10.3 | 33.0 | 71% | 8% | 0% | 74% |
+| Moderate | 8 | 249 | 35.9 | 39.2 | 48% | 41% | 7% | 65% |
+| **Elevated** | 8 | 284 | 64.8 | 56.5 | 35% | 49% | 21% | 41% |
+| High | 8 | 146 | 87.4 | 74.8 | 19% | 64% | 49% | 10% |
+| Severe | 8 | 37 | 97.6 | 90.0 | 0% | 57% | 92% | 0% |
 
 ## Track record (yearly-refit backtest, no look-ahead)
 
@@ -47,10 +47,10 @@ Mean absolute error in percentile points, 2010 onward. "Persistence" is the fore
 
 | Weeks ahead | Weeks tested | Persistence error | Model error | Improvement | Direction right | Direction right when confident | Weeks that rose 5+ | Weeks that fell 5+ |
 |---|---|---|---|---|---|---|---|---|
-| 1.0 | 877.0 | 6.34 | 6.27 | +1% | 58% | 63% | 18% | 24% |
-| 2.0 | 876.0 | 9.72 | 9.51 | +2% | 58% | 66% | 27% | 33% |
-| 4.0 | 874.0 | 13.92 | 13.32 | +4% | 63% | 74% | 33% | 40% |
-| 8.0 | 870.0 | 20.17 | 18.33 | +9% | 67% | 78% | 41% | 42% |
+| 1.0 | 877.0 | 6.33 | 6.25 | +1% | 59% | 64% | 19% | 24% |
+| 2.0 | 876.0 | 9.71 | 9.5 | +2% | 58% | 65% | 27% | 33% |
+| 4.0 | 874.0 | 13.92 | 13.3 | +4% | 63% | 74% | 33% | 39% |
+| 8.0 | 870.0 | 20.14 | 18.3 | +9% | 67% | 78% | 41% | 43% |
 
 How to read this: the index is persistent, so the best one- or two-week forecast is close to the current reading. The model's edge grows with the horizon because it knows two things persistence doesn't: readings far above normal ease back, and anxiety driven by shocks fades faster than anxiety driven by background pressure. "Confident" means the quarter of weeks where the model expected the largest moves.
 

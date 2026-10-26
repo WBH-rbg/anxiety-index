@@ -1,9 +1,9 @@
 trigger_type,dimension,episodes,dim_before_this_type,dim_before_other_types,dim_all_weeks,share_dim_hottest,share_dim_hottest_other_types
-political_stance,political_institutional,35,68.0,61.5,56.5,29.0,19.0
-executive_statement,political_institutional,11,63.9,63.3,56.5,27.0,21.0
+political_stance,political_institutional,35,68.4,61.7,56.5,29.0,23.0
+executive_statement,political_institutional,11,64.8,63.6,56.5,27.0,24.0
 pricing,cost_of_living,9,61.6,62.2,60.0,22.0,21.0
 labor_layoffs,jobs_financial,9,57.2,62.8,57.8,33.0,22.0
-product_safety,disasters_health,13,55.5,52.8,49.9,15.0,9.0
-service_incident,disasters_health,8,40.0,54.0,49.9,0.0,11.0
-data_privacy,political_institutional,6,59.7,63.6,56.5,33.0,21.0
+product_safety,disasters_health,13,55.5,52.8,49.9,8.0,8.0
+service_incident,disasters_health,8,40.0,54.0,49.9,0.0,8.0
+data_privacy,political_institutional,6,60.3,63.9,56.5,33.0,24.0
 marketing_misstep,safety_unrest,16,33.2,48.4,44.7,6.0,9.0
