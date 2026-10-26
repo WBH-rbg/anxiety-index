@@ -15,6 +15,7 @@ import json
 import os
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import yaml
 
@@ -101,8 +102,13 @@ def explanation(out: dict, catalog: pd.DataFrame, signals_cfg: dict, nowcast: di
     if nowcast:
         hot = sorted(((v, k) for k, v in nowcast["dimensions"].items() if v is not None), reverse=True)[:2]
         hot_txt = ", ".join(f"{DIM_LABELS.get(k, k).lower()} {v:.0f}" for v, k in hot)
+        dims_last = out["dimensions"][out["dimensions"]["week"] == week].set_index("dimension")["score"]
+        moves = sorted(((v - dims_last.get(k, np.nan), k) for k, v in nowcast["dimensions"].items() if v is not None and pd.notna(dims_last.get(k, np.nan))),
+                       key=lambda t: -abs(t[0]))[:2]
+        move_txt = "; ".join(f"{DIM_LABELS.get(k, k).lower()} {d:+.0f}" for d, k in moves if abs(d) >= 3)
         lines += [f"**So far this week** (ending {nowcast['week']}, data through {nowcast['as_of']}): **{nowcast['score']:.0f} ({nowcast['band']})**, "
-                  f"{nowcast['change_vs_last_week']:+.1f} vs the completed week. Hottest: {hot_txt}. Provisional: it will move as the week's data arrive.", ""]
+                  f"{nowcast['change_vs_last_week']:+.1f} vs the completed week. Hottest: {hot_txt}." + (f" Moving: {move_txt}." if move_txt else "") +
+                  " Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.", ""]
     dims = out["dimensions"]
     contrib = out["contributions"]
     dc = contrib.pivot(index="week", columns="dimension", values="contribution")
