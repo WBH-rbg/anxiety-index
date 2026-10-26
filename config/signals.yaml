@@ -113,8 +113,9 @@ signals:
   # ------------------------------------------------------------ Political and institutional: sentiment
   # Approval enters as deviation from the sitting president's own baseline (nonpartisan by construction)
   - {series: approval_net,              transform: dev_term, weight: 1.0, invert: true, smooth: 1}
-  # The 13-week change was dropped on 2026-10-26: public poll tables are sparse since mid-2025 (Gallup
-  # ended its approval series in February 2026), and a change measure on a sparse series is noise.
+  # 13-week change: a fast slide in approval is institutional confidence draining. Needs the dense poll
+  # feeds added 2026-10-26 (the sparse Wikipedia-only series made this noise) and the three-poll minimum.
+  - {series: approval_net,              transform: chg13,    weight: 0.5, invert: true, smooth: 1}
   - {series: disapprove_avg,            transform: dev_term, weight: 0.5, smooth: 1}
   # ------------------------------------------------------------ Political and institutional: attention
   - {series: gkg_count_political,       transform: log_att, weight: 1.5}
