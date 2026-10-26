@@ -8,24 +8,24 @@
   warnings.warn(
 # Outlook from the week ending 2026-10-24
 
-Current reading: **57 (Elevated)**. The table shows where a small statistical model expects the headline to be, with ranges taken from the model's own historical errors. Treat it as tendency, not prediction: at these horizons the model beats "no change" only modestly (see the track record below), and scheduled catalysts in `lookahead.md` can override any of it.
+Current reading: **59 (Elevated)**. The table shows where a small statistical model expects the headline to be, with ranges taken from the model's own historical errors. Treat it as tendency, not prediction: at these horizons the model beats "no change" only modestly (see the track record below), and scheduled catalysts in `lookahead.md` can override any of it.
 
 | Weeks ahead | Week ending | Expected | 50% range | 80% range | Chance up 5+ | Chance down 5+ | Chance High or Severe | Chance below 50 |
 |---|---|---|---|---|---|---|---|---|
-| 1 | 2026-10-31 | 57 (Elevated) | 53–60 | 48–68 | 19% | 24% | 3% | 16% |
-| 2 | 2026-11-07 | 57 (Elevated) | 50–63 | 42–73 | 27% | 33% | 5% | 26% |
-| 4 | 2026-11-21 | 56 (Elevated) | 46–66 | 36–79 | 33% | 40% | 9% | 34% |
-| 8 | 2026-12-19 | 54 (Elevated) | 40–71 | 25–84 | 40% | 44% | 14% | 40% |
+| 1 | 2026-10-31 | 59 (Elevated) | 54–62 | 49–69 | 18% | 24% | 3% | 12% |
+| 2 | 2026-11-07 | 58 (Elevated) | 51–64 | 44–74 | 27% | 33% | 6% | 22% |
+| 4 | 2026-11-21 | 58 (Elevated) | 47–68 | 38–80 | 33% | 40% | 10% | 31% |
+| 8 | 2026-12-19 | 56 (Elevated) | 41–72 | 27–84 | 40% | 43% | 15% | 36% |
 
 ## Why (four-week horizon)
 
 Expected change in points, by what is driving it:
 
-- Where the reading sits relative to normal, and its recent momentum: **-1.9**
-- How much of it is shock-driven (safety, geopolitics, disasters), which fades faster: **-0.3**
-- How much of it is background pressure (cost of living, jobs, politics), which persists: **+1.3**
+- Where the reading sits relative to normal, and its recent momentum: **-2.2**
+- How much of it is shock-driven (safety, geopolitics, disasters), which fades faster: **-0.4**
+- How much of it is background pressure (cost of living, jobs, politics), which persists: **+1.7**
 
-Largest single factors: the quarter's move (-2.1); distance from the 13-week average (+1.4); geopolitical reading (-0.9); the hottest dimension (-0.6).
+Largest single factors: the quarter's move (-2.2); distance from the 13-week average (+1.4); geopolitical reading (-0.9); the headline level (-0.7).
 
 ## What has usually happened from here
 
@@ -33,17 +33,17 @@ Weeks since 2010 that showed the same band, and where the headline was afterward
 
 | Band now | Weeks ahead | Weeks | Average then | Average later | Higher by 5+ | Lower by 5+ | High or Severe later | Below 50 later |
 |---|---|---|---|---|---|---|---|---|
-| Low | 2 | 154 | 10.3 | 18.4 | 36% | 10% | 0% | 91% |
-| Moderate | 2 | 253 | 35.7 | 36.0 | 39% | 41% | 1% | 80% |
-| **Elevated** | 2 | 287 | 64.9 | 61.4 | 22% | 44% | 10% | 22% |
-| High | 2 | 142 | 87.3 | 85.5 | 11% | 25% | 79% | 0% |
-| Severe | 2 | 40 | 97.5 | 95.1 | 0% | 20% | 100% | 0% |
-| Low | 4 | 154 | 10.3 | 23.2 | 53% | 12% | 0% | 86% |
-| Moderate | 4 | 253 | 35.7 | 37.3 | 42% | 43% | 3% | 74% |
-| **Elevated** | 4 | 285 | 64.9 | 59.5 | 26% | 47% | 17% | 31% |
-| High | 4 | 142 | 87.3 | 82.8 | 12% | 44% | 63% | 0% |
-| Severe | 4 | 40 | 97.5 | 92.5 | 0% | 42% | 95% | 0% |
-| Low | 8 | 153 | 10.3 | 33.0 | 71% | 8% | 1% | 74% |
-| Moderate | 8 | 250 | 35.8 | 39.2 | 49% | 42% | 6% | 64% |
-| **Elevated** | 8 | 285 | 64.9 | 56.4 | 34% | 51% | 22% | 41% |
-| High | 8 | 142 | 87.3 | 74.9 | 18% | 63% | 47% 
+| Low | 2 | 155 | 10.3 | 18.2 | 37% | 10% | 1% | 92% |
+| Moderate | 2 | 250 | 35.7 | 36.3 | 39% | 41% | 1% | 80% |
+| **Elevated** | 2 | 288 | 64.7 | 61.0 | 21% | 43% | 9% | 22% |
+| High | 2 | 146 | 87.4 | 85.8 | 13% | 27% | 80% | 0% |
+| Severe | 2 | 37 | 97.6 | 95.4 | 0% | 16% | 100% | 0% |
+| Low | 4 | 155 | 10.3 | 22.9 | 52% | 12% | 0% | 86% |
+| Moderate | 4 | 250 | 35.7 | 37.6 | 42% | 44% | 3% | 73% |
+| **Elevated** | 4 | 286 | 64.7 | 59.1 | 27% | 47% | 16% | 30% |
+| High | 4 | 146 | 87.4 | 83.0 | 14% | 47% | 65% | 1% |
+| Severe | 4 | 37 | 97.6 | 92.9 | 0% | 41% | 95% | 0% |
+| Low | 8 | 154 | 10.3 | 32.9 | 71% | 8% | 0% | 74% |
+| Moderate | 8 | 247 | 35.8 | 39.0 | 48% | 41% | 7% | 64% |
+| **Elevated** | 8 | 286 | 64.7 | 56.5 | 35% | 49% | 21% | 41% |
+| High | 8 | 146 | 87.4 | 75.0 | 20% | 64% | 49% | 1
