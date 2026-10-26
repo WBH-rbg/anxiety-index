@@ -2,7 +2,7 @@
 
 **58 (Elevated)**, -1.7 vs last week, +14.2 vs four weeks ago. News concentration: 7th percentile (attention is spread out).
 
-**So far this week** (ending 2026-10-31, data through 2026-10-26): **49 (Moderate)**, -8.2 vs the completed week. Hottest: geopolitical 91, cost of living 72. Provisional: it will move as the week's data arrive.
+**So far this week** (ending 2026-10-31, data through 2026-10-26): **49 (Moderate)**, -8.2 vs the completed week. Hottest: geopolitical 91, cost of living 72. Moving: disasters, climate and health -19; political and institutional -18. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 

@@ -4,6 +4,8 @@
   warnings.warn(
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2122: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
   warnings.warn(
+/home/runner/work/anxiety-index/anxiety-index/index/run.py:180: Pandas4Warning: The 'lsuffix' and 'rsuffix' keywords in DataFrame.join are deprecated and will be removed in a future version. Use the 'suffixes' keyword instead.
+  diag = a.join(b, rsuffix="_now", how="outer")
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/_pandas_helpers.py:486: FutureWarning: Loading pandas DataFrame into BigQuery will require pandas-gbq package version 0.26.1 or greater in the future. Tried to import pandas-gbq and got: No module named 'pandas_gbq'
   warnings.warn(
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/_pandas_helpers.py:486: FutureWarning: Loading pandas DataFrame into BigQuery will require pandas-gbq package version 0.26.1 or greater in the future. Tried to import pandas-gbq and got: No module named 'pandas_gbq'
