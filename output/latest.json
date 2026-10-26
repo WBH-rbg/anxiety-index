@@ -1,6 +1,6 @@
 {
   "week": "2026-10-24",
-  "score": 57.8,
+  "score": 58.3,
   "band": "Elevated",
   "news_concentration": 6.9,
   "change_1w": 0.5,
@@ -9,10 +9,10 @@
     "as_of": "2026-10-26",
     "score": 54.6,
     "band": "Elevated",
-    "change_vs_last_week": -3.2,
+    "change_vs_last_week": -3.7,
     "dimensions": {
-      "cost_of_living": 71.8,
-      "jobs_financial": 34.8,
+      "cost_of_living": 71.9,
+      "jobs_financial": 35.2,
       "political_institutional": 67.2,
       "safety_unrest": 39.4,
       "disasters_health": 39.1,
@@ -29,5 +29,5 @@
     "provisional": true
   },
   "methodology_version": "0.1",
-  "computed_at": "2026-10-26T02:01:49.008978+00:00"
+  "computed_at": "2026-10-26T02:06:27.475376+00:00"
 }
