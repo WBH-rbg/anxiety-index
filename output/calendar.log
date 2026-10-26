@@ -1,0 +1,26 @@
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2122: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2122: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2122: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+  warnings.warn(
+/home/runner/work/anxiety-index/anxiety-index/index/calendar.py:47: Pandas4Warning: Series.dt.weekday is deprecated and will be removed in a future version. Use Series.dt.day_of_week instead.
+  return d + pd.to_timedelta((5 - d.dt.weekday) % 7, unit="D")
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/runner/work/anxiety-index/anxiety-index/index/calendar.py", line 218, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/runner/work/anxiety-index/anxiety-index/index/calendar.py", line 209, in main
+    (OUT / "calendar_tests.md").write_text(tests_report(effects, cult_out))
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/anxiety-index/anxiety-index/index/calendar.py", line 174, in tests_report
+    for _, r in effects.sort_values("weeks", ascending=False).iterrows():
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/frame.py", line 9330, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/generic.py", line 1708, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'weeks'

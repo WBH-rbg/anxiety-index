@@ -33,6 +33,8 @@ Correlation of the weekly headline with series that should track public anxiety 
 | News share: boycotts | 608 | -0.106 | -0.002 | -0.011 | -0.008 | -0.016 | -0.019 | -0.032 | -0.033 |
 | Average tone of all US news (sign flipped) | 608 | -0.127 | 0.114 | 0.125 | 0.174 | 0.18 | 0.06 | 0.034 | -0.027 |
 | Share of US event coverage: conflict | 1400 | -0.069 | 0.079 | 0.039 | 0.085 | 0.109 | 0.061 | 0.056 | 0.039 |
+| Hostile acts toward businesses, share of US event coverage | 1400 | 0.048 | -0.032 | -0.053 | -0.044 | -0.035 | -0.022 | -0.023 | -0.022 |
+| Hostile share of business-related coverage | 1400 | -0.081 | 0.001 | -0.02 | -0.003 | 0.009 | 0.0 | 0.005 | 0.012 |
 
 ## 3. Corporate backlash events (curated outcome log)
 

@@ -1,6 +1,6 @@
 # Anxiety Index: week ending 2026-10-24
 
-**59 (Elevated)**, +0.2 vs last week, +17.1 vs four weeks ago.
+**59 (Elevated)**, +0.2 vs last week, +17.1 vs four weeks ago. News concentration: 5th percentile (attention is spread out).
 
 ## Dimensions
 
