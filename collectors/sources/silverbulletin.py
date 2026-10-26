@@ -18,6 +18,11 @@ URL = ("https://docs.google.com/spreadsheets/d/e/2PACX-1vS-FKWVTTFtJT6u56e0bqdfo
        "/pub?output=csv")
 
 
+# The sheet carries partisan subgroups (approval among Democrats, Republicans, independents) alongside
+# the full-sample rows. Only full-sample rows are polls of the public.
+ALL_SUBGROUPS = {"all polls", "all", "all adults", "adults", "voters", "all voters", "registered voters", "likely voters", "total", ""}
+
+
 def _find(cols: list[str], *needles: str, exclude: tuple = ()) -> str | None:
     for c in cols:
         lc = c.lower()
@@ -41,8 +46,16 @@ def parse(content: bytes) -> tuple[list[dict], str]:
     c_n = _find(cols, "sample", "samplesize", " n")
     c_pop = _find(cols, "population", "pop")
     c_spon = _find(cols, "sponsor")
+    c_sub = _find(cols, "subgroup")
     if not (c_poll and c_end and c_app and c_dis):
         raise ValueError(f"could not identify columns; {layout}")
+    if c_sub:
+        counts = frame[c_sub].fillna("").str.strip().value_counts().to_dict()
+        layout += f"; subgroups: {counts}"
+        keep = frame[c_sub].fillna("").str.strip().str.lower().isin(ALL_SUBGROUPS)
+        if keep.sum() == 0:
+            raise ValueError(f"no rows in an all-respondents subgroup; {layout}")
+        frame = frame[keep]
     polls = []
     for _, r in frame.iterrows():
         end = pd.to_datetime(str(r[c_end]).strip(), errors="coerce")
@@ -59,6 +72,7 @@ def parse(content: bytes) -> tuple[list[dict], str]:
                       "approve": float(app), "disapprove": float(dis),
                       "sample": None if sample is None or pd.isna(sample) else float(sample),
                       "population": str(r[c_pop]).strip() if c_pop else None,
+                      "subgroup": str(r[c_sub]).strip() if c_sub else None,
                       "sponsor": str(r[c_spon]).strip() if c_spon and str(r[c_spon]) != "nan" else None,
                       "source_page": "Silver Bulletin"})
     return polls, layout
