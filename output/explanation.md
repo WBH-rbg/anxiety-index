@@ -1,16 +1,16 @@
 # Anxiety Index: week ending 2026-10-24
 
-**60 (Elevated)**, +0.8 vs last week, +18.5 vs four weeks ago.
+**59 (Elevated)**, +0.2 vs last week, +17.1 vs four weeks ago.
 
 ## Dimensions
 
 | Dimension | Score | Band | Change (1w) | Share of this week's anxiety | Push on headline |
 |---|---|---|---|---|---|
-| Geopolitical | 93 | High | +1 | 44% | +0.010 |
-| Cost of living | 73 | Elevated | +2 | 37% | +0.009 |
-| Political and institutional | 66 | Elevated | -11 | 11% | +0.003 |
-| Disasters, climate and health | 54 | Elevated | -6 | 4% | +0.001 |
-| Jobs and financial security | 33 | Moderate | +2 | 4% | +0.001 |
+| Geopolitical | 93 | High | +1 | 43% | +0.003 |
+| Cost of living | 73 | Elevated | +2 | 36% | +0.002 |
+| Political and institutional | 66 | Elevated | -11 | 14% | +0.001 |
+| Disasters, climate and health | 54 | Elevated | -6 | 4% | +0.000 |
+| Jobs and financial security | 33 | Moderate | +2 | 3% | +0.000 |
 | Public safety and unrest | 42 | Moderate | +12 | 1% | +0.000 |
 
 ## Biggest movers among signals
