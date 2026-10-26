@@ -135,15 +135,24 @@ def event_severity(events: pd.DataFrame, source: str) -> pd.Series:
     return e.groupby("week").size().astype(float)
 
 
-def event_impulses(events: pd.DataFrame, specs: list[dict], weeks: pd.DatetimeIndex, half_life: float) -> pd.DataFrame:
+def event_impulses(events: pd.DataFrame, specs: list[dict], weeks: pd.DatetimeIndex, half_life: float,
+                   today: pd.Timestamp | None = None) -> pd.DataFrame:
+    """Weekly event severity with exponential decay. If the last week is still in progress, its decay
+    step covers only the days elapsed so far, so a Monday nowcast doesn't fade last week's events by a
+    full week before the new week's events have had time to happen."""
     decay = 0.5 ** (1.0 / half_life)
+    last_decay = decay
+    if today is not None and len(weeks) and weeks[-1] > today:
+        elapsed_days = max(0.0, 7.0 - (weeks[-1] - today).days)
+        last_decay = 0.5 ** ((elapsed_days / 7.0) / half_life)
     out = {}
     for spec in specs:
         sev = event_severity(events, spec["source"]).reindex(weeks).fillna(0.0)
         imp = np.zeros(len(weeks))
         acc = 0.0
+        n = len(sev)
         for i, v in enumerate(sev.values):
-            acc = acc * decay + v
+            acc = acc * (last_decay if i == n - 1 else decay) + v
             imp[i] = acc
         out[spec["id"]] = imp
     return pd.DataFrame(out, index=weeks)
@@ -153,8 +162,10 @@ def approval_average(events: pd.DataFrame, weeks: pd.DatetimeIndex, window_days:
     """Weekly presidential approval average from individual polls.
 
     For each week, polls whose fieldwork ended within the trailing window, one per
-    pollster (the latest), averaged. Falls back to a 28-day window when fewer
-    than two polls are available. Returns columns approval_net, disapprove_avg, poll_count.
+    pollster (the latest), averaged. Falls back to 28- and then 42-day windows when fewer
+    than three polls are available; with fewer than three even then, the week is left
+    empty and the staleness rule carries the last good average. Returns columns
+    approval_net, disapprove_avg, poll_count.
     """
     if "event_type" not in events.columns:
         return pd.DataFrame(index=weeks)
@@ -169,12 +180,12 @@ def approval_average(events: pd.DataFrame, weeks: pd.DatetimeIndex, window_days:
     net, dis, cnt = [], [], []
     for w in weeks:
         chosen = pd.DataFrame()
-        for days in (window_days, 28):
+        for days in (window_days, 28, 42):
             recent = polls[(polls["event_date"] > w - pd.Timedelta(days=days)) & (polls["event_date"] <= w)]
             chosen = recent.groupby("pollster").tail(1)
-            if len(chosen) >= 2:
+            if len(chosen) >= 3:
                 break
-        if chosen.empty:
+        if len(chosen) < 3:
             net.append(np.nan); dis.append(np.nan); cnt.append(0)
         else:
             net.append((chosen["approve"] - chosen["disapprove"]).mean())
@@ -349,7 +360,8 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
     # --- weekly point-in-time values
     values, ages = weekly_series(obs, catalog, weeks, today=pd.Timestamp(dt.date.today()))
     add_derived(values, ages, signals_cfg.get("derived", []))
-    imp = event_impulses(events, signals_cfg.get("events", []), weeks, float(weights_cfg["event_half_life_weeks"]))
+    imp = event_impulses(events, signals_cfg.get("events", []), weeks, float(weights_cfg["event_half_life_weeks"]),
+                         today=pd.Timestamp(dt.date.today()))
     for c in imp.columns:
         values[c] = imp[c]
         ages[c] = 0.0
