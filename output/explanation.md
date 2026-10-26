@@ -2,6 +2,8 @@
 
 **59 (Elevated)**, +0.2 vs last week, +17.1 vs four weeks ago. News concentration: 5th percentile (attention is spread out).
 
+**So far this week** (ending 2026-10-31, data through 2026-10-26): **52 (Elevated)**, -7.0 vs the completed week. Hottest: geopolitical 92, cost of living 72. Provisional: it will move as the week's data arrive.
+
 ## Dimensions
 
 | Dimension | Score | Band | Change (1w) | Share of this week's anxiety | Push on headline |
