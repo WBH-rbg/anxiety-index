@@ -42,6 +42,8 @@ EXTERNAL = {
     "gkg_share_boycott": "News share: boycotts",
     "gkg_tone_us_all": "Average tone of all US news (sign flipped)",
     "gdelt_ev_conflict_share": "Share of US event coverage: conflict",
+    "gdelt_corp_pressure_share": "Hostile acts toward businesses, share of US event coverage",
+    "gdelt_corp_hostile_ratio": "Hostile share of business-related coverage",
 }
 
 

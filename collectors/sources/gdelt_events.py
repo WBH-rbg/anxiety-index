@@ -26,7 +26,9 @@ SELECT SQLDATE AS day,
        SUM(IF(EventRootCode IN ('13', '17'), NumMentions, 0)) AS coerce,
        SUM(IF(EventRootCode IN ('14', '15', '16', '17', '18', '19', '20'), NumMentions, 0)) AS conflict,
        SAFE_DIVIDE(SUM(AvgTone * NumMentions), SUM(NumMentions)) AS tone,
-       SAFE_DIVIDE(SUM(GoldsteinScale * NumMentions), SUM(NumMentions)) AS goldstein
+       SAFE_DIVIDE(SUM(GoldsteinScale * NumMentions), SUM(NumMentions)) AS goldstein,
+       SUM(IF(Actor2Type1Code IN ('BUS', 'MNC') AND EventRootCode IN ('10', '11', '12', '13', '14', '17'), NumMentions, 0)) AS hostile_vs_business,
+       SUM(IF(Actor2Type1Code IN ('BUS', 'MNC'), NumMentions, 0)) AS all_vs_business
 FROM `gdelt-bq.full.events`
 WHERE ActionGeo_CountryCode = 'US' AND SQLDATE >= @start AND SQLDATE <= @end
 GROUP BY day ORDER BY day
@@ -40,7 +42,23 @@ SERIES = {
     "tone": lambda r: r["tone"],
     "goldstein": lambda r: r["goldstein"],
     "mentions": lambda r: r["mentions"],
+    "corp_pressure_share": lambda r: _share(r["hostile_vs_business"], r["mentions"]),
+    "corp_hostile_ratio": lambda r: _share(r["hostile_vs_business"], r["all_vs_business"]),
 }
+
+# Weekly list of businesses on the receiving end of hostile events: the seed for the outcome log.
+TARGETS_QUERY = """
+CREATE OR REPLACE TABLE `anxiety-index.ai_outcomes.company_pressure_weekly`
+OPTIONS(description='Businesses targeted by demands, disapproval, threats, protests or coercion in US-located GDELT events, by week. Systematic seed for the outcome log; not curated.')
+AS
+SELECT DATE_ADD(PARSE_DATE('%Y%m%d', CAST(SQLDATE AS STRING)), INTERVAL MOD(7 - EXTRACT(DAYOFWEEK FROM PARSE_DATE('%Y%m%d', CAST(SQLDATE AS STRING))), 7) DAY) AS week,
+       Actor2Name AS target, COUNT(*) AS events, SUM(NumMentions) AS mentions,
+       SAFE_DIVIDE(SUM(AvgTone * NumMentions), SUM(NumMentions)) AS tone, CURRENT_TIMESTAMP() AS loaded_at
+FROM `gdelt-bq.full.events`
+WHERE ActionGeo_CountryCode = 'US' AND SQLDATE >= 20150101 AND Actor2Type1Code IN ('BUS', 'MNC')
+  AND EventRootCode IN ('10', '11', '12', '13', '14', '17') AND Actor2Name IS NOT NULL
+GROUP BY 1, 2 HAVING mentions >= 100
+"""
 
 
 def _share(part, total):
@@ -49,6 +67,9 @@ def _share(part, total):
 
 def collect(col, series: list[dict]) -> None:
     from google.cloud import bigquery
+    if col.mode == "incremental" and col.snapshot_at.weekday() != 0:
+        col.info("skipped: the events table isn't partitioned (every query scans ~30 GB), so this runs weekly on Mondays")
+        return
     start = dt.date(2000, 1, 1) if col.mode == "backfill" else col.window_start
     end = col.snapshot_at.date()
     client = bigquery.Client(project=PROJECT_ID)
@@ -69,3 +90,7 @@ def collect(col, series: list[dict]) -> None:
             d = dt.datetime.strptime(str(r["day"]), "%Y%m%d").date()
             added += col.add_obs(s["id"], d, fn(r), uri)
         col.info(f"{s['id']}: {added} days loaded")
+    col.flush()
+    targets = client.query(TARGETS_QUERY)
+    targets.result()
+    col.info(f"company_pressure_weekly rebuilt ({(targets.total_bytes_processed or 0) / 1e9:.1f} GB scanned)")
