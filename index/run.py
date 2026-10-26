@@ -91,8 +91,13 @@ def explanation(out: dict, catalog: pd.DataFrame, signals_cfg: dict) -> str:
         return "No scored weeks yet."
     last = h.iloc[-1]
     week = last["week"]
+    conc = last.get("news_concentration")
+    conc_txt = ""
+    if conc is not None and pd.notna(conc):
+        level = "one story dominates" if conc >= 80 else ("attention is spread out" if conc <= 20 else "attention is moderately concentrated")
+        conc_txt = f" News concentration: {conc:.0f}th percentile ({level})."
     lines = [f"# Anxiety Index: week ending {week.date()}", "",
-             f"**{last['score']:.0f} ({last['band']})**, {last['change_1w']:+.1f} vs last week, {last['change_4w']:+.1f} vs four weeks ago.", ""]
+             f"**{last['score']:.0f} ({last['band']})**, {last['change_1w']:+.1f} vs last week, {last['change_4w']:+.1f} vs four weeks ago.{conc_txt}", ""]
     dims = out["dimensions"]
     contrib = out["contributions"]
     dc = contrib.pivot(index="week", columns="dimension", values="contribution")
@@ -156,6 +161,7 @@ def main(argv=None) -> int:
     latest = out["headline"].dropna(subset=["score"]).tail(1).iloc[0]
     (OUT / "latest.json").write_text(json.dumps({
         "week": str(latest["week"].date()), "score": float(latest["score"]), "band": latest["band"],
+        "news_concentration": None if pd.isna(latest.get("news_concentration")) else float(latest["news_concentration"]),
         "change_1w": None if pd.isna(latest["change_1w"]) else float(latest["change_1w"]),
         "methodology_version": str(weights["version"]), "computed_at": computed_at.isoformat()}, indent=2))
     charts(out["headline"], out["dimensions"])

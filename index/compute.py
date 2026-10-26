@@ -451,7 +451,20 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
         return bands[-1]["name"]
 
     head_pct = to_percentile(head_z)
+    # News concentration: how much one story dominates coverage across the dimensions this week
+    # (Herfindahl index of the six dimension article counts, smoothed over the week's data as collected).
+    count_cols = [c for c in values.columns if c.startswith("gkg_count_") or c == "gkg_share_geopolitical"]
+    if count_cols:
+        cnt = values[count_cols].copy()
+        if "gkg_share_geopolitical" in cnt.columns and "gkg_base_us" in values.columns:
+            cnt["gkg_share_geopolitical"] = values["gkg_share_geopolitical"] * values["gkg_base_us"] / 100
+        shares_c = cnt.div(cnt.sum(axis=1).where(cnt.sum(axis=1) > 0), axis=0)
+        hhi = (shares_c ** 2).sum(axis=1).where(cnt.notna().all(axis=1))
+        concentration = to_percentile(hhi)
+    else:
+        concentration = pd.Series(np.nan, index=weeks)
     headline = pd.DataFrame({"week": weeks, "combined": combined.values, "z": head_z.values, "score": head_pct.round(1).values,
+                             "news_concentration": concentration.round(1).values,
                              "dimensions_available": sum(c.notna().astype(int) for c in dim_z.values()).values})
     headline["band"] = [band_of(p) for p in headline["score"]]
     headline["change_1w"] = headline["score"].diff().round(1)
