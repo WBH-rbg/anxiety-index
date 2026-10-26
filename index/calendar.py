@@ -32,11 +32,16 @@ CATEGORY_DIMENSION = {
     "election": "political_institutional", "state_of_union": "political_institutional",
     "scotus_term_end": "political_institutional", "debt_ceiling": "political_institutional",
     "tax_day": "cost_of_living", "hurricane_season": "disasters_health",
+    # unscheduled versions: emergency Fed actions, shutdown starts and ends, debt-limit resolutions
+    "fomc_decision_unscheduled": "jobs_financial", "debt_ceiling_unscheduled": "political_institutional",
+    "election_unscheduled": "political_institutional", "scotus_term_end_unscheduled": "political_institutional",
 }
 CATEGORY_LABELS = {
-    "fomc_decision": "Fed decision", "cpi_release": "CPI release", "jobs_report": "Jobs report", "election": "Election",
-    "state_of_union": "State of the Union", "scotus_term_end": "Supreme Court decisions", "debt_ceiling": "Debt limit / shutdown",
-    "tax_day": "Tax day", "hurricane_season": "Hurricane season",
+    "fomc_decision": "Fed decision (scheduled)", "cpi_release": "CPI release", "jobs_report": "Jobs report", "election": "Election day",
+    "state_of_union": "State of the Union", "scotus_term_end": "Supreme Court term-end decisions", "debt_ceiling": "Debt-limit or funding deadline",
+    "tax_day": "Tax day", "hurricane_season": "Hurricane season start/end",
+    "fomc_decision_unscheduled": "Fed emergency action", "debt_ceiling_unscheduled": "Shutdown start/end or debt-limit resolution",
+    "election_unscheduled": "Election (unscheduled)", "scotus_term_end_unscheduled": "Major Supreme Court decision day",
 }
 
 
@@ -62,6 +67,11 @@ def load_calendars():
     if not cats.empty:
         cats["date"] = pd.to_datetime(cats["date"], errors="coerce")
         cats = cats.dropna(subset=["date"])
+        # releases that were cancelled (the fall-2025 shutdown) are kept in the file for the record but are not catalysts
+        cats = cats[~cats["label"].fillna("").str.contains("CANCELLED", case=False)].copy()
+        sched = cats["scheduled"].astype(str).str.strip().str.lower().isin(["true", "1", "yes"])
+        cats["scheduled"] = sched
+        cats["category"] = cats["category"].where(sched, cats["category"] + "_unscheduled")
         cats["week"] = week_end(cats["date"])
     cult = pd.read_csv(CULTURE_CSV) if CULTURE_CSV.exists() else pd.DataFrame()
     if not cult.empty:
@@ -136,6 +146,13 @@ def cultural_test(head: pd.DataFrame, lenses: pd.DataFrame, cult: pd.DataFrame, 
         out["backlash_by_group"] = table
         out["backlash_in"] = round(100 * nxt[flags].mean(), 1)
         out["backlash_out"] = round(100 * nxt[~flags].mean(), 1)
+        # the "held announcement" effect: a major episode *in* the first week after a window closes
+        this_week = pd.Series([w in ev_weeks for w in h.index], index=h.index)
+        post = (~flags) & flags.shift(1, fill_value=False)
+        out["episode_this_week_post_window"] = round(100 * this_week[post].mean(), 1)
+        out["episode_this_week_in_window"] = round(100 * this_week[flags].mean(), 1)
+        out["episode_this_week_other"] = round(100 * this_week[~flags & ~post].mean(), 1)
+        out["post_window_weeks"] = int(post.sum())
     return out
 
 
@@ -163,6 +180,8 @@ def lookahead(head: pd.DataFrame, cats: pd.DataFrame, cult: pd.DataFrame, effect
     for _, r in upc.iterrows():
         span = f"{r['start_date'].date()}" + (f" to {r['end_date'].date()}" if r["end_date"] != r["start_date"] else "")
         L.append(f"| {span} | {r['event']} | {int(r['scale'])} |")
+    if not upc.empty and (upc["scale"] >= 3).any():
+        L += ["", "Weeks inside a scale-3 shared event have run quieter than average (lower headline, falling attention), but the first week after one closes has carried a higher-than-usual rate of major corporate episodes: announcements held through the event tend to land as soon as it ends. Plan releases for the window itself or well after it, not the week it closes."]
     L += ["", "Historical changes are averages of week-over-week moves in the headline (percentile points) during weeks containing that kind of catalyst, 2015 onward, against all other weeks. They describe tendency, not prediction."]
     return "\n".join(L) + "\n"
 
@@ -194,7 +213,12 @@ def tests_report(effects: pd.DataFrame, cult_out: dict) -> str:
                   "| Reading | In window | Weeks | Rate per 100 |", "|---|---|---|---|"]
             for (grp, inw), r in c["backlash_by_group"].iterrows():
                 L.append(f"| {grp} | {'yes' if inw else 'no'} | {int(r['size'])} | {r['mean']} |")
-        L += ["", "Reading: if windows show lower attention readings and lower backlash rates within the same band, shared cultural events act as a damper worth modeling. If not, they are calendar noise."]
+            L += ["", "Major episode landing *in* the week itself (per 100 weeks):", "",
+                  "| Week type | Weeks | Rate per 100 |", "|---|---|---|",
+                  f"| Inside a window | {c['weeks_in_windows']} | {c['episode_this_week_in_window']} |",
+                  f"| First week after a window closes | {c['post_window_weeks']} | {c['episode_this_week_post_window']} |",
+                  f"| All other weeks | {c['weeks_total'] - c['weeks_in_windows'] - c['post_window_weeks']} | {c['episode_this_week_other']} |"]
+        L += ["", "Reading: windows are quieter (lower headline, falling attention) but are not safe harbors. Episodes cluster in the weeks right after a window closes, consistent with companies holding announcements through a holiday or big event and releasing them, into an audience that is paying attention again, as soon as it ends."]
     return "\n".join(L) + "\n"
 
 
