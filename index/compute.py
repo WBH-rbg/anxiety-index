@@ -295,6 +295,23 @@ def soft_max(cols: dict[str, pd.Series], weights: dict[str, float], temperature:
     return combined, shares
 
 
+def rank_decay(cols: dict[str, pd.Series], weights: dict[str, float], decay: float = 0.5):
+    """Attention-budget aggregation: the hottest dimension counts in full, the next at `decay`,
+    the next at decay^2, and so on, each also scaled by its prior weight; weights are renormalized
+    each week. Two pieces of bad news add, but the second adds less than the first.
+    Returns (combined, shares) where shares[d] is the dimension's share of the week's attention budget."""
+    keys = list(cols)
+    frame = pd.DataFrame({k: cols[k] for k in keys})
+    ranks = frame.rank(axis=1, ascending=False, method="first")  # 1 = hottest
+    eff = pd.DataFrame({k: float(weights[k]) for k in keys}, index=frame.index) * (decay ** (ranks - 1))
+    eff = eff.where(frame.notna(), 0.0)
+    total = eff.sum(axis=1)
+    norm = eff.div(total.where(total > 0), axis=0)
+    combined = (frame.fillna(0.0) * norm).sum(axis=1).where(frame.notna().any(axis=1))
+    shares = {k: norm[k].fillna(0.0) for k in keys}
+    return combined, shares
+
+
 def weighted_mean(cols: dict[str, pd.Series], weights: dict[str, pd.Series | float]) -> pd.Series:
     """Weighted mean across columns, ignoring missing values, renormalizing weights each week."""
     num, den = None, None
@@ -400,8 +417,10 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
 
     # --- headline
     dw = weights_cfg["dimensions"]
-    aggregation = weights_cfg.get("headline_aggregation", "softmax")
-    if aggregation == "softmax":
+    aggregation = weights_cfg.get("headline_aggregation", "rank_decay")
+    if aggregation == "rank_decay":
+        combined, shares = rank_decay(dim_z, {d: float(dw[d]) for d in dim_z}, float(weights_cfg.get("rank_decay", 0.5)))
+    elif aggregation == "softmax":
         combined, shares = soft_max(dim_z, {d: float(dw[d]) for d in dim_z}, float(weights_cfg.get("softmax_temperature", 1.0)))
     else:
         combined = weighted_mean(dim_z, {d: float(dw[d]) for d in dim_z})

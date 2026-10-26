@@ -26,9 +26,14 @@ staleness:
   weekly:  {full: 2,  zero: 6}
   monthly: {full: 6,  zero: 16}
 
-# How dimensions combine into the headline: "softmax" (the hottest dimensions dominate; anxiety is
-# driven by the worst thing happening, not the average) or "mean". Temperature 1 = standard.
-headline_aggregation: softmax
+# How dimensions combine into the headline.
+#   rank_decay: an attention budget. The hottest dimension counts in full, the next at `rank_decay`,
+#               the next at rank_decay^2, ... each also scaled by its prior weight below. Two pieces
+#               of bad news add, but the second adds less than the first.
+#   softmax:    log of the weighted mean of exp(z); the hottest dimensions dominate smoothly.
+#   mean:       plain weighted mean (calm dimensions cancel out crises; failed COVID onset).
+headline_aggregation: rank_decay
+rank_decay: 0.5
 softmax_temperature: 1.0
 
 # Dimension weights into the headline (sum to 100)
