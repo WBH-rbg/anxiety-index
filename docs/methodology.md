@@ -83,9 +83,12 @@ rule in section 7, whose shares are also exact.
 
 ## 4. Nonpartisanship
 
-Presidential approval enters as deviation from the sitting president's own term average and as its
-13-week change, never as a level, so a popular and an unpopular president contribute the same
-nothing at their own baselines. Political signals measure uncertainty, policy churn, coverage volume
+Presidential approval enters as deviation from the sitting president's own term average, never as a
+level, so a popular and an unpopular president contribute the same nothing at their own baselines.
+The average is computed in-house from individual public polls (one per pollster, 14-day window,
+widened to 42 days when fewer than three polls are available). Public poll tables have been sparse
+since mid-2025 and Gallup ended its series in February 2026, so a replacement open source is being
+evaluated; until then the staleness rule carries the last good average. Political signals measure uncertainty, policy churn, coverage volume
 and tone, all symmetric across administrations.
 
 ## 5. Calendars and the look-ahead
