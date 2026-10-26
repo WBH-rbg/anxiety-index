@@ -6,7 +6,10 @@ Scheduled catalysts and shared cultural events in the next 21 days, with what we
 
 | Date | Catalyst | Historical headline change in such weeks | Weeks rose | Typical dimension moved |
 |---|---|---|---|---|
-| | none in window | | | |
+| 2026-10-28 | FOMC decision | -0.1 (others -0.0) | 48% | Jobs and financial security -0.7 |
+| 2026-11-03 | General election (midterm) | +2.9 (others -0.1) | 57% | Political and institutional +5.4 |
+| 2026-11-06 | Jobs report for October 2026 | +0.2 (others -0.1) | 46% | Jobs and financial security +0.9 |
+| 2026-11-10 | CPI for October 2026 | +0.5 (others -0.1) | 50% | Cost of living +0.3 |
 
 ## Shared cultural events (possible distraction windows)
 

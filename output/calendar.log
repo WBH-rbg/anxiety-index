@@ -4,8 +4,12 @@
   warnings.warn(
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2122: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
   warnings.warn(
-/home/runner/work/anxiety-index/anxiety-index/index/calendar.py:47: Pandas4Warning: Series.dt.weekday is deprecated and will be removed in a future version. Use Series.dt.day_of_week instead.
+/home/runner/work/anxiety-index/anxiety-index/index/calendar.py:52: Pandas4Warning: Series.dt.weekday is deprecated and will be removed in a future version. Use Series.dt.day_of_week instead.
   return d + pd.to_timedelta((5 - d.dt.weekday) % 7, unit="D")
+/home/runner/work/anxiety-index/anxiety-index/index/calendar.py:52: Pandas4Warning: Series.dt.weekday is deprecated and will be removed in a future version. Use Series.dt.day_of_week instead.
+  return d + pd.to_timedelta((5 - d.dt.weekday) % 7, unit="D")
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/_pandas_helpers.py:486: FutureWarning: Loading pandas DataFrame into BigQuery will require pandas-gbq package version 0.26.1 or greater in the future. Tried to import pandas-gbq and got: No module named 'pandas_gbq'
+  warnings.warn(
 # Look-ahead from the week ending 2026-10-24
 
 Scheduled catalysts and shared cultural events in the next 21 days, with what weeks like them have done to the index historically.
@@ -14,7 +18,10 @@ Scheduled catalysts and shared cultural events in the next 21 days, with what we
 
 | Date | Catalyst | Historical headline change in such weeks | Weeks rose | Typical dimension moved |
 |---|---|---|---|---|
-| | none in window | | | |
+| 2026-10-28 | FOMC decision | -0.1 (others -0.0) | 48% | Jobs and financial security -0.7 |
+| 2026-11-03 | General election (midterm) | +2.9 (others -0.1) | 57% | Political and institutional +5.4 |
+| 2026-11-06 | Jobs report for October 2026 | +0.2 (others -0.1) | 46% | Jobs and financial security +0.9 |
+| 2026-11-10 | CPI for October 2026 | +0.5 (others -0.1) | 50% | Cost of living +0.3 |
 
 ## Shared cultural events (possible distraction windows)
 
