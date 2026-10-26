@@ -23,7 +23,7 @@ WEEK_ANCHOR = "W-SAT"  # weeks end on Saturday
 # Days after the period ends before a value is public (used for backfilled history,
 # where exact release times weren't captured). Monthly periods end at month end.
 RELEASE_LAG_DAYS = {
-    "bls": 14, "bls_jolts": 35, "eia": 2, "dol": 5, "umich": 0, "nyfed": 10, "gpr": 2,
+    "bls": 14, "bls_jolts": 35, "eia": 2, "dol": 5, "umich": -7, "nyfed": 10, "gpr": 2,   # Michigan's final reading is out before month end
     "epu": 1, "fedreg": 0, "wikipedia": 1, "gdelt": 1, "gdelt_gkg": 1, "gdelt_events": 1, "treasury": 0, "markets": 0,
     "freddiemac": 0, "tpu": 10, "derived": 0, "events": 0,
 }
