@@ -1,17 +1,17 @@
 # Anxiety Index: week ending 2026-10-24
 
-**60 (Elevated)**, +3.0 vs last week, +22.0 vs four weeks ago. News concentration: 7th percentile (attention is spread out).
+**61 (Elevated)**, +2.8 vs last week, +23.8 vs four weeks ago. News concentration: 7th percentile (attention is spread out).
 
-**So far this week** (ending 2026-10-31, data through 2026-10-28): **54 (Elevated)**, -6.5 vs the completed week. Hottest: geopolitical 91, cost of living 72. Moving: public safety and unrest -16; disasters, climate and health -8. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
+**So far this week** (ending 2026-10-31, data through 2026-10-29): **54 (Elevated)**, -6.8 vs the completed week. Hottest: geopolitical 90, cost of living 72. Moving: public safety and unrest -17; disasters, climate and health -9. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 
 | Dimension | Score | Band | Change (1w) | Share of this week's anxiety | Push on headline |
 |---|---|---|---|---|---|
-| Geopolitical | 93 | High | +2 | 43% | +0.024 |
-| Cost of living | 73 | Elevated | -1 | 36% | +0.020 |
-| Political and institutional | 68 | Elevated | -1 | 14% | +0.008 |
-| Disasters, climate and health | 47 | Moderate | -9 | 4% | +0.002 |
+| Geopolitical | 93 | High | +2 | 43% | +0.026 |
+| Cost of living | 73 | Elevated | -1 | 36% | +0.022 |
+| Political and institutional | 73 | Elevated | +0 | 14% | +0.009 |
+| Disasters, climate and health | 46 | Moderate | -9 | 4% | +0.002 |
 | Jobs and financial security | 35 | Moderate | +3 | 3% | +0.002 |
 | Public safety and unrest | 46 | Moderate | +9 | 1% | +0.001 |
 
@@ -27,7 +27,7 @@
 | News articles: political crisis, scandal, shutdown (log_att) | Political and institutional | attention | -0.50 | +0.33 | 1.50 |
 | Disaster declaration impulse (declared counties per week) (level) | Disasters, climate and health | conditions | +0.16 | -0.46 | 1.00 |
 | Index of Consumer Sentiment (chg13) | Jobs and financial security | sentiment | +1.12 | +0.91 | 0.50 |
-| Earthquake shock impulse (US, magnitude-weighted) (level) | Disasters, climate and health | conditions | +1.97 | +0.72 | 0.60 |
+| Earthquake shock impulse (US, magnitude-weighted) (level) | Disasters, climate and health | conditions | +1.93 | +0.74 | 0.60 |
 | US regular gasoline retail price (chg13) | Cost of living | conditions | +0.87 | -0.66 | 0.60 |
 | Share of US event coverage: assaults, fights, mass violence (log_att) | Public safety and unrest | attention | -0.17 | -0.37 | 1.00 |
 | News tone: disaster and health coverage (dev156) | Disasters, climate and health | attention | +0.98 | -0.49 | 0.70 |
@@ -39,12 +39,12 @@
 | Expected inflation, next 12 months (median) (level) | Cost of living | sentiment | +3.00 |
 | Trade Policy Uncertainty index (dev260) | Cost of living | attention | +3.00 |
 | Policy uncertainty: trade policy (dev260) | Cost of living | attention | +3.00 |
-| Brent crude oil spot price (chg13) | Geopolitical | conditions | +3.00 |
+| US Economic Policy Uncertainty, daily (dev260) | Political and institutional | attention | +3.00 |
 | Policy uncertainty: national security (dev260) | Geopolitical | attention | +3.00 |
+| Brent crude oil spot price (chg13) | Geopolitical | conditions | +3.00 |
 | Expected inflation, next 5 years (median) (level) | Cost of living | sentiment | +2.70 |
 | US on-highway diesel retail price (dev12_pct) | Cost of living | conditions | +2.62 |
 | SCE: perceived chance US unemployment will be higher in a year (level) | Jobs and financial security | sentiment | +2.38 |
 | Global Supply Chain Pressure Index (level) | Cost of living | conditions | +2.36 |
 | 30-year fixed mortgage rate (chg13) | Cost of living | conditions | +2.28 |
 | Index of Consumer Sentiment (level) | Jobs and financial security | sentiment | +2.09 |
-| SCE: expected inflation, 1 year (median) (level) | Cost of living | sentiment | +2.01 |
