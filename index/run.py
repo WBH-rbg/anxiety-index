@@ -48,7 +48,7 @@ def write_table(client, name: str, frame: pd.DataFrame) -> None:
     job.result()
 
 
-def charts(headline: pd.DataFrame, dimensions: pd.DataFrame) -> None:
+def charts(headline: pd.DataFrame, dimensions: pd.DataFrame, version: str = "") -> None:
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -63,7 +63,7 @@ def charts(headline: pd.DataFrame, dimensions: pd.DataFrame) -> None:
         ax.axvline(pd.Timestamp(when), color="#888", lw=0.6, ls="--")
         ax.text(pd.Timestamp(when), 101, label, rotation=90, va="bottom", ha="center", fontsize=7, color="#555")
     ax.set_ylim(0, 100); ax.set_ylabel("Anxiety Index (percentile, 2005–2025)")
-    ax.set_title("Anxiety Index, weekly, methodology v0.1 prototype", loc="left")
+    ax.set_title(f"Anxiety Index, weekly, methodology v{version} (prototype)" if version else "Anxiety Index, weekly", loc="left")
     fig.tight_layout(); fig.savefig(OUT / "headline.png", dpi=130); plt.close(fig)
 
     dims = dimensions.dropna(subset=["score"])
@@ -286,7 +286,7 @@ def main(argv=None) -> int:
         "change_1w": None if pd.isna(latest["change_1w"]) else float(latest["change_1w"]),
         "nowcast": nowcast["summary"],
         "methodology_version": str(weights["version"]), "computed_at": computed_at.isoformat()}, indent=2))
-    charts(out["headline"], out["dimensions"])
+    charts(out["headline"], out["dimensions"], str(weights["version"]))
     (OUT / "explanation.md").write_text(explanation(out, catalog, signals, nowcast["summary"]))
     print(f"latest: week {latest['week'].date()} score {latest['score']} ({latest['band']})")
     if nowcast["summary"]:

@@ -7,7 +7,7 @@ name: Compute index
 on:
   workflow_dispatch:
   schedule:
-    - cron: "45 12 * * *"
+    - cron: "0 12 * * *"    # 8:00 ET nominal, so the brief is ready before 9 ET even when the scheduler is late
 
 permissions:
   contents: write
