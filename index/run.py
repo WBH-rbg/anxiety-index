@@ -82,6 +82,33 @@ DIM_LABELS = {"cost_of_living": "Cost of living", "jobs_financial": "Jobs and fi
               "disasters_health": "Disasters, climate and health", "geopolitical": "Geopolitical"}
 
 
+TRANSFORM_LABELS = {
+    "log_att": "attention vs. 3-year norm", "dev260": "vs. 5-year average", "dev156": "vs. 3-year average", "dev12": "vs. 12-month average",
+    "dev12_pct": "% vs. 12-month average", "chg13": "13-week change", "yoy": "12-month change", "q_ann": "3-month annualized",
+    "cum3y": "3-year cumulative change", "dev_term": "vs. president's own average", "level": "level",
+}
+LENS_LABELS = {"conditions": "Conditions", "sentiment": "Sentiment", "attention": "Attention"}
+
+
+def measure_name(series_name: str, transform: str) -> str:
+    return f"{series_name}, {TRANSFORM_LABELS.get(transform, transform)}"
+
+
+def z_words(z: float) -> str:
+    """Plain words for a standardized reading."""
+    if z >= 2.5:
+        return "extreme"
+    if z >= 1.5:
+        return "very high"
+    if z >= 0.75:
+        return "high"
+    if z > -0.75:
+        return "normal"
+    if z > -1.25:
+        return "low"
+    return "very low"
+
+
 def explanation(out: dict, catalog: pd.DataFrame, signals_cfg: dict, nowcast: dict | None = None) -> str:
     """Structured explanation of the latest week: what moved and which signals drove it."""
     names = dict(zip(catalog["series_id"], catalog["name"]))
@@ -116,16 +143,32 @@ def explanation(out: dict, catalog: pd.DataFrame, signals_cfg: dict, nowcast: di
     shares = contrib.pivot(index="week", columns="dimension", values="share").loc[week] if "share" in contrib.columns else None
     lines.append("## Dimensions")
     lines.append("")
-    lines.append("| Dimension | Score | Band | Change (1w) | Share of this week's anxiety | Push on headline |")
-    lines.append("|---|---|---|---|---|---|")
-    for dim in dchange.index:
+    lines.append("| Dimension | Reading | Band | Change on the week | Share of this week's anxiety |")
+    lines.append("|---|---|---|---|---|")
+    order = shares.sort_values(ascending=False).index if shares is not None else dchange.index
+    dim_changes = {}
+    for dim in order:
         d = dims[(dims["dimension"] == dim)].set_index("week")
         if week not in d.index or pd.isna(d.loc[week, "score"]):
             continue
         prev = d["score"].shift(1).loc[week]
         chg = d.loc[week, "score"] - prev if pd.notna(prev) else float("nan")
+        dim_changes[dim] = chg
         share_txt = f"{100 * shares[dim]:.0f}%" if shares is not None and dim in shares.index else ""
-        lines.append(f"| {DIM_LABELS.get(dim, dim)} | {d.loc[week, 'score']:.0f} | {d.loc[week, 'band']} | {chg:+.0f} | {share_txt} | {dchange[dim]:+.3f} |")
+        lines.append(f"| {DIM_LABELS.get(dim, dim)} | {d.loc[week, 'score']:.0f} | {d.loc[week, 'band']} | {chg:+.0f} | {share_txt} |")
+    # one sentence on what moved the headline
+    movers = sorted(((v, k) for k, v in dim_changes.items() if pd.notna(v) and abs(v) >= 3), key=lambda t: -abs(t[0]))
+    if movers:
+        up = [f"{DIM_LABELS.get(k, k).lower()} (+{v:.0f})" for v, k in movers if v > 0]
+        down = [f"{DIM_LABELS.get(k, k).lower()} ({v:.0f})" for v, k in movers if v < 0]
+        parts = []
+        if up:
+            parts.append("up on " + ", ".join(up))
+        if down:
+            parts.append("down on " + ", ".join(down))
+        lines += ["", f"On the week, dimensions moved {'; '.join(parts)}. The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table."]
+    else:
+        lines += ["", "No dimension moved more than a few points on the week."]
     sig = out["signals"]
     sig = sig[sig["week"].isin([week, week - pd.Timedelta(days=7)])].copy()
     piv = sig.pivot_table(index="signal", columns="week", values="z")
@@ -134,15 +177,17 @@ def explanation(out: dict, catalog: pd.DataFrame, signals_cfg: dict, nowcast: di
         wts = sig[sig["week"] == week].set_index("signal")["weight"]
         meta = sig[sig["week"] == week].set_index("signal")[["series", "transform", "dimension", "lens", "z"]]
         impact = (dz * wts).dropna().sort_values(key=abs, ascending=False)
-        lines += ["", "## Biggest movers among signals", "",
-                  "| Signal | Dimension | Lens | Now (z) | Change | Weight |", "|---|---|---|---|---|---|"]
+        lines += ["", "## What changed since last week", "",
+                  "The signals whose moves, times their weights, did most to change the reading. Readings are in standard units against each signal's own history; words translate them.", "",
+                  "| Measure | Dimension | Lens | Now | Change | Weight |", "|---|---|---|---|---|---|"]
         for key in impact.index[:12]:
             m = meta.loc[key]
-            lines.append(f"| {names.get(m['series'], m['series'])} ({m['transform']}) | {DIM_LABELS.get(m['dimension'], m['dimension'])} | {m['lens']} | {m['z']:+.2f} | {dz[key]:+.2f} | {wts[key]:.2f} |")
-        lines += ["", "## Most elevated signals right now", "", "| Signal | Dimension | Lens | z |", "|---|---|---|---|"]
+            lines.append(f"| {measure_name(names.get(m['series'], m['series']), m['transform'])} | {DIM_LABELS.get(m['dimension'], m['dimension'])} | {LENS_LABELS.get(m['lens'], m['lens'])} | "
+                         f"{z_words(m['z'])} ({m['z']:+.1f}) | {dz[key]:+.1f} | {wts[key]:.1f} |")
+        lines += ["", "## Most elevated right now", "", "| Measure | Dimension | Lens | Reading |", "|---|---|---|---|"]
         top = meta[meta["z"].notna()].sort_values("z", ascending=False).head(12)
         for key, m in top.iterrows():
-            lines.append(f"| {names.get(m['series'], m['series'])} ({m['transform']}) | {DIM_LABELS.get(m['dimension'], m['dimension'])} | {m['lens']} | {m['z']:+.2f} |")
+            lines.append(f"| {measure_name(names.get(m['series'], m['series']), m['transform'])} | {DIM_LABELS.get(m['dimension'], m['dimension'])} | {LENS_LABELS.get(m['lens'], m['lens'])} | {z_words(m['z'])} ({m['z']:+.1f}) |")
     return "\n".join(lines) + "\n"
 
 

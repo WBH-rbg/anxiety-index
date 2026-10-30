@@ -134,13 +134,17 @@ def main() -> int:
     if look.empty and culture.empty:
         L.append("No scheduled catalysts or shared cultural events in the window.")
     if not look.empty:
-        L += ["| Date | Catalyst | What such weeks have done (headline, political/economic dimension) |", "|---|---|---|"]
+        L += ["| Date | Catalyst | Typical effect in past cases |", "|---|---|---|"]
         for _, r in look.iterrows():
             eff = ""
             if "headline_change_mean" in r and pd.notna(r.get("headline_change_mean")):
-                eff = f"headline {r['headline_change_mean']:+.1f} in the week, {r['headline_change_week_after']:+.1f} the week after"
-                if pd.notna(r.get("dimension_change_mean")):
-                    eff += f"; {DIM_LABELS.get(r['dimension'], r['dimension']).lower()} {r['dimension_change_mean']:+.1f} ({int(r['weeks'])} past cases)"
+                if abs(r["headline_change_mean"]) < 1 and (pd.isna(r.get("dimension_change_mean")) or abs(r["dimension_change_mean"]) < 1):
+                    eff = f"none to speak of ({int(r['weeks'])} past cases)"
+                else:
+                    eff = f"headline {r['headline_change_mean']:+.0f} in the week, {r['headline_change_week_after']:+.0f} the week after"
+                    if pd.notna(r.get("dimension_change_mean")) and abs(r["dimension_change_mean"]) >= 1:
+                        eff += f"; {DIM_LABELS.get(r['dimension'], r['dimension']).lower()} {r['dimension_change_mean']:+.0f}"
+                    eff += f" ({int(r['weeks'])} past cases)"
             L.append(f"| {r['date'].date()} | {r['label']} | {eff or 'no history'} |")
         L.append("")
     if not culture.empty:
