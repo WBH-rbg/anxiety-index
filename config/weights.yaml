@@ -1,7 +1,7 @@
 # Anxiety Index weights, methodology v0.1 (October 2026).
 # Everything here is a published prior. Changes are versioned.
 
-version: "0.1"
+version: "0.3"
 
 # Reference period for percentile bands (fixed until the next methodology version)
 reference_period: {start: "2005-01-01", end: "2025-12-31"}
