@@ -68,6 +68,7 @@ series:
   - {id: epu_health_care,       source: epu, code: "categorical:Health care",                name: "Policy uncertainty: health care",                   dimension: disasters_health,        lens: attention,  unit: "index", frequency: monthly}
 
   # ---------------------------------------------------------------- Wikipedia attention (daily pageviews, from July 2015)
+  - {id: wiki_total_views,        source: wikipedia, code: __aggregate__,                name: "Wikipedia views: all English articles (human)", dimension: validation,   lens: attention, unit: "views", frequency: daily, notes: "Normalizer: platform-wide traffic, which fell in 2025-26 as AI search answers replaced visits"}
   - {id: wiki_inflation,          source: wikipedia, code: Inflation,                     name: "Wikipedia views: Inflation",              dimension: cost_of_living,          lens: attention, unit: "views", frequency: daily}
   - {id: wiki_cost_of_living,     source: wikipedia, code: Cost_of_living,                name: "Wikipedia views: Cost of living",         dimension: cost_of_living,          lens: attention, unit: "views", frequency: daily}
   - {id: wiki_tariff,             source: wikipedia, code: Tariff,                        name: "Wikipedia views: Tariff",                 dimension: cost_of_living,          lens: attention, unit: "views", frequency: daily}

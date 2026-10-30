@@ -425,7 +425,15 @@ def compute_index(obs: pd.DataFrame, events: pd.DataFrame, catalog: pd.DataFrame
             continue
         fclass = FREQ_CLASS.get(meta[sid]["frequency"], "monthly")
         sm = float(spec.get("smooth", DEFAULT_SMOOTH[fclass]))
-        raw = transform(values[sid].astype(float), spec["transform"])
+        base_series = values[sid].astype(float)
+        norm = spec.get("normalize_by")
+        if norm:
+            if norm not in values.columns:
+                print(f"signal skipped, normalizer missing: {sid} / {norm}")
+                continue
+            # e.g. an article's share of all Wikipedia traffic, so platform-wide trends don't read as calm or alarm
+            base_series = base_series / values[norm].astype(float).where(values[norm] > 0) * 1e6
+        raw = transform(base_series, spec["transform"])
         if spec.get("invert"):
             raw = -raw
         raw = smooth(raw, sm)  # after orientation, so "up" always means more anxiety

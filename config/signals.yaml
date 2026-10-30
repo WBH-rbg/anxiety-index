@@ -60,14 +60,14 @@ signals:
   - {series: breakeven_5y,          transform: level,     weight: 0.6}
   - {series: breakeven_5y,          transform: chg13,     weight: 0.4}
   # ------------------------------------------------------------ Cost of living: attention
-  - {series: gkg_count_cost_of_living,  transform: log_att, weight: 1.5}
+  - {series: gkg_share_cost_of_living,  transform: log_att, weight: 1.5}
   - {series: gkg_tone_cost_of_living, transform: dev156,   weight: 0.7, invert: true}
-  - {series: wiki_inflation,            transform: log_att, weight: 0.6}
-  - {series: wiki_cost_of_living,       transform: log_att, weight: 0.5}
-  - {series: wiki_tariff,               transform: log_att, weight: 0.5}
-  - {series: wiki_shrinkflation,        transform: log_att, weight: 0.2}
-  - {series: wiki_price_gouging,        transform: log_att, weight: 0.2}
-  - {series: wiki_stagflation,          transform: log_att, weight: 0.3}
+  - {series: wiki_inflation,            transform: log_att, normalize_by: wiki_total_views, weight: 0.6}
+  - {series: wiki_cost_of_living,       transform: log_att, normalize_by: wiki_total_views, weight: 0.5}
+  - {series: wiki_tariff,               transform: log_att, normalize_by: wiki_total_views, weight: 0.5}
+  - {series: wiki_shrinkflation,        transform: log_att, normalize_by: wiki_total_views, weight: 0.2}
+  - {series: wiki_price_gouging,        transform: log_att, normalize_by: wiki_total_views, weight: 0.2}
+  - {series: wiki_stagflation,          transform: log_att, normalize_by: wiki_total_views, weight: 0.3}
   - {series: tpu_monthly,               transform: dev260,  weight: 0.6}
   - {series: epu_trade_policy,          transform: dev260,  weight: 0.5}
 
@@ -94,14 +94,14 @@ signals:
   - {series: sce_unemp_higher_prob,   transform: level,     weight: 0.8}
   - {series: sce_finsit_worse,        transform: level,     weight: 0.8}
   # ------------------------------------------------------------ Jobs and financial: attention
-  - {series: gkg_count_jobs_financial,  transform: log_att, weight: 1.5}
+  - {series: gkg_share_jobs_financial,  transform: log_att, weight: 1.5}
   - {series: gkg_tone_jobs_financial, transform: dev156,   weight: 0.7, invert: true}
-  - {series: wiki_recession,            transform: log_att, weight: 0.7}
-  - {series: wiki_unemployment,         transform: log_att, weight: 0.4}
-  - {series: wiki_layoff,               transform: log_att, weight: 0.5}
-  - {series: wiki_stock_market_crash,   transform: log_att, weight: 0.5}
-  - {series: wiki_federal_reserve,      transform: log_att, weight: 0.3}
-  - {series: wiki_unemployment_benefits, transform: log_att, weight: 0.3}
+  - {series: wiki_recession,            transform: log_att, normalize_by: wiki_total_views, weight: 0.7}
+  - {series: wiki_unemployment,         transform: log_att, normalize_by: wiki_total_views, weight: 0.4}
+  - {series: wiki_layoff,               transform: log_att, normalize_by: wiki_total_views, weight: 0.5}
+  - {series: wiki_stock_market_crash,   transform: log_att, normalize_by: wiki_total_views, weight: 0.5}
+  - {series: wiki_federal_reserve,      transform: log_att, normalize_by: wiki_total_views, weight: 0.3}
+  - {series: wiki_unemployment_benefits, transform: log_att, normalize_by: wiki_total_views, weight: 0.3}
   - {series: epu_monetary_policy,       transform: dev260,  weight: 0.4}
 
   # ------------------------------------------------------------ Political and institutional: conditions
@@ -118,44 +118,44 @@ signals:
   - {series: approval_net,              transform: chg13,    weight: 0.5, invert: true, smooth: 1}
   - {series: disapprove_avg,            transform: dev_term, weight: 0.5, smooth: 1}
   # ------------------------------------------------------------ Political and institutional: attention
-  - {series: gkg_count_political,       transform: log_att, weight: 1.5}
+  - {series: gkg_share_political,       transform: log_att, weight: 1.5}
   - {series: gkg_tone_political,      transform: dev156,   weight: 0.7, invert: true}
   - {series: epu_us_monthly_news,       transform: dev260,  weight: 0.5}
   - {series: gdelt_ev_coerce_share,     transform: log_att, weight: 0.6}
-  - {series: wiki_impeachment,          transform: log_att, weight: 0.4}
-  - {series: wiki_government_shutdown,  transform: log_att, weight: 0.5}
-  - {series: wiki_martial_law,          transform: log_att, weight: 0.4}
-  - {series: wiki_constitutional_crisis, transform: log_att, weight: 0.4}
-  - {series: wiki_coup,                 transform: log_att, weight: 0.3}
-  - {series: wiki_insurrection_act,     transform: log_att, weight: 0.3}
+  - {series: wiki_impeachment,          transform: log_att, normalize_by: wiki_total_views, weight: 0.4}
+  - {series: wiki_government_shutdown,  transform: log_att, normalize_by: wiki_total_views, weight: 0.5}
+  - {series: wiki_martial_law,          transform: log_att, normalize_by: wiki_total_views, weight: 0.4}
+  - {series: wiki_constitutional_crisis, transform: log_att, normalize_by: wiki_total_views, weight: 0.4}
+  - {series: wiki_coup,                 transform: log_att, normalize_by: wiki_total_views, weight: 0.3}
+  - {series: wiki_insurrection_act,     transform: log_att, normalize_by: wiki_total_views, weight: 0.3}
 
   # ------------------------------------------------------------ Public safety and unrest: conditions
   - {series: shooting_impulse,          transform: level,   weight: 1.0, smooth: 1}
   # ------------------------------------------------------------ Public safety and unrest: attention
-  - {series: gkg_count_safety_unrest,   transform: log_att, weight: 1.5}
+  - {series: gkg_share_safety_unrest,   transform: log_att, weight: 1.5}
   - {series: gkg_tone_safety_unrest,  transform: dev156,   weight: 0.7, invert: true}
   - {series: gdelt_ev_protest_share,    transform: log_att, weight: 1.0}
   - {series: gdelt_ev_violence_share,   transform: log_att, weight: 1.0}
-  - {series: wiki_mass_shooting,        transform: log_att, weight: 0.8}
-  - {series: wiki_school_shooting,      transform: log_att, weight: 0.5}
-  - {series: wiki_protest,              transform: log_att, weight: 0.5}
-  - {series: wiki_riot,                 transform: log_att, weight: 0.5}
-  - {series: wiki_political_violence,   transform: log_att, weight: 0.5}
-  - {series: wiki_domestic_terrorism,   transform: log_att, weight: 0.4}
+  - {series: wiki_mass_shooting,        transform: log_att, normalize_by: wiki_total_views, weight: 0.8}
+  - {series: wiki_school_shooting,      transform: log_att, normalize_by: wiki_total_views, weight: 0.5}
+  - {series: wiki_protest,              transform: log_att, normalize_by: wiki_total_views, weight: 0.5}
+  - {series: wiki_riot,                 transform: log_att, normalize_by: wiki_total_views, weight: 0.5}
+  - {series: wiki_political_violence,   transform: log_att, normalize_by: wiki_total_views, weight: 0.5}
+  - {series: wiki_domestic_terrorism,   transform: log_att, normalize_by: wiki_total_views, weight: 0.4}
 
   # ------------------------------------------------------------ Disasters, climate and health: conditions
   - {series: usgs_impulse,              transform: level,   weight: 0.6, smooth: 1}
   - {series: fema_impulse,              transform: level,   weight: 1.0, smooth: 1}
   - {series: epu_health_care,           transform: dev260,  weight: 0.3}
   # ------------------------------------------------------------ Disasters, climate and health: attention
-  - {series: gkg_count_disasters_health,  transform: log_att, weight: 1.5}
+  - {series: gkg_share_disasters_health,  transform: log_att, weight: 1.5}
   - {series: gkg_tone_disasters_health, transform: dev156,   weight: 0.7, invert: true}
-  - {series: wiki_pandemic,             transform: log_att, weight: 0.6}
-  - {series: wiki_hurricane,            transform: log_att, weight: 0.5}
-  - {series: wiki_earthquake,           transform: log_att, weight: 0.3}
-  - {series: wiki_wildfire,             transform: log_att, weight: 0.4}
-  - {series: wiki_tornado,              transform: log_att, weight: 0.3}
-  - {series: wiki_measles,              transform: log_att, weight: 0.3}
+  - {series: wiki_pandemic,             transform: log_att, normalize_by: wiki_total_views, weight: 0.6}
+  - {series: wiki_hurricane,            transform: log_att, normalize_by: wiki_total_views, weight: 0.5}
+  - {series: wiki_earthquake,           transform: log_att, normalize_by: wiki_total_views, weight: 0.3}
+  - {series: wiki_wildfire,             transform: log_att, normalize_by: wiki_total_views, weight: 0.4}
+  - {series: wiki_tornado,              transform: log_att, normalize_by: wiki_total_views, weight: 0.3}
+  - {series: wiki_measles,              transform: log_att, normalize_by: wiki_total_views, weight: 0.3}
 
   # ------------------------------------------------------------ Geopolitical: conditions
   - {series: gpr_daily,                 transform: dev260,  weight: 1.0}
@@ -167,17 +167,19 @@ signals:
   # ------------------------------------------------------------ Geopolitical: attention
   - {series: gkg_share_geopolitical,    transform: log_att, weight: 1.5}
   - {series: gkg_tone_geopolitical,   transform: dev156,   weight: 0.7, invert: true}
-  - {series: wiki_world_war_3,          transform: log_att, weight: 0.6}
-  - {series: wiki_nuclear_warfare,      transform: log_att, weight: 0.5}
-  - {series: wiki_us_conscription,      transform: log_att, weight: 0.4}
-  - {series: wiki_terrorism,            transform: log_att, weight: 0.4}
-  - {series: wiki_economic_sanctions,   transform: log_att, weight: 0.3}
+  - {series: wiki_world_war_3,          transform: log_att, normalize_by: wiki_total_views, weight: 0.6}
+  - {series: wiki_nuclear_warfare,      transform: log_att, normalize_by: wiki_total_views, weight: 0.5}
+  - {series: wiki_us_conscription,      transform: log_att, normalize_by: wiki_total_views, weight: 0.4}
+  - {series: wiki_terrorism,            transform: log_att, normalize_by: wiki_total_views, weight: 0.4}
+  - {series: wiki_economic_sanctions,   transform: log_att, normalize_by: wiki_total_views, weight: 0.3}
 
 # Series built from others before signals are computed
 derived:
   - {id: breakeven_5y,   formula: "ust_5y - ust_real_5y",   frequency: daily, dimension: cost_of_living, lens: sentiment, name: "5-year breakeven inflation"}
   - {id: spread_10y_3m,  formula: "ust_10y - ust_3m",       frequency: daily, dimension: jobs_financial, lens: conditions, name: "Yield curve: 10-year minus 3-month"}
-  # News attention as article counts (share x daily total), so one giant story can't make other topics look calm
+  # Article counts (share x daily total) feed the news-concentration reading. They are no longer signals:
+  # GDELT's ingested volume drifts (US articles/day fell from ~55k in 2024 to ~40k in 2026), which made
+  # every count read "calm". Shares are used instead (2026-10-30).
   - {id: gkg_count_cost_of_living,   formula: "gkg_share_cost_of_living * gkg_base_us / 100",   frequency: daily, dimension: cost_of_living,          lens: attention, name: "News articles: prices, inflation, fuel, housing costs"}
   - {id: gkg_count_jobs_financial,   formula: "gkg_share_jobs_financial * gkg_base_us / 100",   frequency: daily, dimension: jobs_financial,          lens: attention, name: "News articles: jobs, markets, rates, debt"}
   - {id: gkg_count_political,        formula: "gkg_share_political * gkg_base_us / 100",        frequency: daily, dimension: political_institutional, lens: attention, name: "News articles: political crisis, scandal, shutdown"}

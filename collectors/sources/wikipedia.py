@@ -10,6 +10,7 @@ import json
 from urllib.parse import quote
 
 API = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/{title}/daily/{start}/{end}"
+AGGREGATE = "https://wikimedia.org/api/rest_v1/metrics/pageviews/aggregate/en.wikipedia/all-access/user/daily/{start}/{end}"
 DATA_START = dt.date(2015, 7, 1)
 
 
@@ -30,7 +31,10 @@ def collect(col, series: list[dict]) -> None:
     end = col.snapshot_at.date() - dt.timedelta(days=1)
     for s in series:
         title = s["code"].replace(" ", "_")
-        url = API.format(title=quote(title, safe=""), start=f"{start:%Y%m%d}00", end=f"{end:%Y%m%d}00")
+        if s["code"] == "__aggregate__":
+            url = AGGREGATE.format(start=f"{start:%Y%m%d}00", end=f"{end:%Y%m%d}00")
+        else:
+            url = API.format(title=quote(title, safe=""), start=f"{start:%Y%m%d}00", end=f"{end:%Y%m%d}00")
         try:
             content, uri = col.fetch(url, name=s["id"], ext="json", retries=3)
         except Exception as exc:
