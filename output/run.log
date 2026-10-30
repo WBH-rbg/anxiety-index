@@ -1,8 +1,8 @@
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2122: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
   warnings.warn(
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2122: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
   warnings.warn(
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2122: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
   warnings.warn(
 /home/runner/work/anxiety-index/anxiety-index/index/run.py:180: Pandas4Warning: The 'lsuffix' and 'rsuffix' keywords in DataFrame.join are deprecated and will be removed in a future version. Use the 'suffixes' keyword instead.
   diag = a.join(b, rsuffix="_now", how="outer")
@@ -18,7 +18,7 @@
   warnings.warn(
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/_pandas_helpers.py:486: FutureWarning: Loading pandas DataFrame into BigQuery will require pandas-gbq package version 0.26.1 or greater in the future. Tried to import pandas-gbq and got: No module named 'pandas_gbq'
   warnings.warn(
-inputs: 486,462 observations, 68,867 events, 134 catalog series
-latest: week 2026-10-24 score 61.2 (Elevated)
-nowcast: week ending 2026-10-31 through 2026-10-29: 54.4 (Elevated), -6.8 vs last week
+inputs: 486,535 observations, 68,889 events, 134 catalog series
+latest: week 2026-10-24 score 59.8 (Elevated)
+nowcast: week ending 2026-10-31 through 2026-10-30: 51.4 (Elevated), -8.4 vs last week
 BigQuery tables written
