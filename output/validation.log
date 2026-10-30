@@ -24,18 +24,18 @@ Does the index read tense when everyone remembers tension, and calm when they re
 
 | Period | Expected | Mean | Max | Weeks ≥80 | Weeks | Verdict |
 |---|---|---|---|---|---|---|
-| 9/11 and aftermath | tense | 87.3 | 100.0 | 8 | 11 | pass |
-| Iraq invasion | tense | 87.9 | 94.7 | 6 | 7 | pass |
-| Mid-2000s calm | calm | 22.3 | 70.2 | 0 | 131 | pass |
-| Financial crisis | tense | 86.9 | 100.0 | 20 | 29 | pass |
-| Debt-ceiling summer | tense | 70.9 | 83.4 | 1 | 7 | pass |
-| 2013-2015 calm | calm | 20.6 | 75.9 | 0 | 156 | pass |
-| COVID onset | tense | 81.4 | 89.2 | 6 | 8 | pass |
-| Summer 2020 | tense | 96.8 | 99.5 | 7 | 7 | pass |
-| Jan 6 week | tense | 80.4 | 86.0 | 2 | 3 | pass |
-| Ukraine invasion | tense | 99.0 | 99.4 | 5 | 5 | pass |
-| Inflation peak | tense | 96.6 | 99.2 | 6 | 6 | pass |
-| Spring 2025 tariffs | tense | 93.4 | 97.9 | 4 | 4 | pass |
+| 9/11 and aftermath | tense | 86.8 | 99.9 | 8 | 11 | pass |
+| Iraq invasion | tense | 87.4 | 94.0 | 6 | 7 | pass |
+| Mid-2000s calm | calm | 21.7 | 69.1 | 0 | 131 | pass |
+| Financial crisis | tense | 86.4 | 99.8 | 20 | 29 | pass |
+| Debt-ceiling summer | tense | 70.1 | 83.1 | 1 | 7 | pass |
+| 2013-2015 calm | calm | 19.9 | 76.7 | 0 | 156 | pass |
+| COVID onset | tense | 81.9 | 88.0 | 6 | 8 | pass |
+| Summer 2020 | tense | 98.1 | 100.0 | 7 | 7 | pass |
+| Jan 6 week | tense | 86.0 | 90.5 | 2 | 3 | pass |
+| Ukraine invasion | tense | 98.3 | 99.1 | 5 | 5 | pass |
+| Inflation peak | tense | 97.1 | 99.4 | 6 | 6 | pass |
+| Spring 2025 tariffs | tense | 95.5 | 98.5 | 4 | 4 | pass |
 
 ## 2. External series
 
@@ -43,34 +43,34 @@ Correlation of the weekly headline with series that should track public anxiety 
 
 | Series | Weeks | Level | Detrended | lead−4 | lead−2 | lead−1 | lead+1 | lead+2 | lead+4 |
 |---|---|---|---|---|---|---|---|---|---|
-| Wikipedia views: Anxiety | 591 | -0.292 | -0.254 | -0.255 | -0.258 | -0.253 | -0.266 | -0.267 | -0.259 |
-| Wikipedia views: Anxiety disorder | 591 | -0.387 | -0.151 | -0.129 | -0.148 | -0.145 | -0.156 | -0.156 | -0.137 |
-| Wikipedia views: Panic attack | 591 | -0.313 | -0.12 | -0.108 | -0.116 | -0.113 | -0.135 | -0.147 | -0.15 |
-| News share: boycotts | 608 | -0.166 | -0.055 | -0.05 | -0.043 | -0.05 | -0.048 | -0.063 | -0.042 |
-| Average tone of all US news (sign flipped) | 608 | -0.068 | 0.135 | 0.077 | 0.114 | 0.138 | 0.032 | -0.01 | -0.065 |
-| Share of US event coverage: conflict | 1347 | -0.021 | 0.138 | 0.044 | 0.087 | 0.116 | 0.096 | 0.076 | 0.054 |
-| Hostile acts toward businesses, share of US event coverage | 1347 | 0.051 | -0.05 | -0.045 | -0.048 | -0.046 | -0.039 | -0.034 | -0.04 |
-| Hostile share of business-related coverage | 1347 | -0.073 | 0.02 | 0.01 | 0.02 | 0.024 | 0.008 | 0.018 | 0.014 |
+| Wikipedia views: Anxiety | 591 | -0.25 | -0.302 | -0.297 | -0.3 | -0.3 | -0.311 | -0.312 | -0.304 |
+| Wikipedia views: Anxiety disorder | 591 | -0.366 | -0.272 | -0.238 | -0.262 | -0.266 | -0.272 | -0.267 | -0.241 |
+| Wikipedia views: Panic attack | 591 | -0.286 | -0.162 | -0.14 | -0.155 | -0.155 | -0.175 | -0.184 | -0.187 |
+| News share: boycotts | 608 | -0.137 | -0.077 | -0.056 | -0.056 | -0.067 | -0.072 | -0.092 | -0.074 |
+| Average tone of all US news (sign flipped) | 608 | 0.03 | 0.144 | 0.08 | 0.115 | 0.144 | 0.042 | -0.003 | -0.06 |
+| Share of US event coverage: conflict | 1347 | -0.015 | 0.135 | 0.04 | 0.083 | 0.115 | 0.092 | 0.071 | 0.05 |
+| Hostile acts toward businesses, share of US event coverage | 1347 | 0.039 | -0.05 | -0.044 | -0.045 | -0.044 | -0.041 | -0.034 | -0.04 |
+| Hostile share of business-related coverage | 1347 | -0.081 | 0.014 | 0.009 | 0.019 | 0.022 | 0.002 | 0.011 | 0.007 |
 
 ## 3. Corporate backlash events (curated outcome log)
 
-119 dated backlash episodes since 2015-03-17. The reading a planner would have seen the week before an episode averaged **58.1**, against **57.3** for all weeks in the same span.
+119 dated backlash episodes since 2015-03-17. The reading a planner would have seen the week before an episode averaged **58.9**, against **58.4** for all weeks in the same span.
 
 By severity (1 = brief viral moment, 5 = sustained national controversy):
 
 | Severity | Episodes | Mean reading the week before |
 |---|---|---|
-| 1 | 2 | 17.7 |
-| 2 | 39 | 52.3 |
-| 3 | 44 | 65.3 |
-| 4 | 23 | 58.5 |
-| 5 | 11 | 56.9 |
+| 1 | 2 | 21.4 |
+| 2 | 39 | 53.6 |
+| 3 | 44 | 66.2 |
+| 4 | 23 | 58.7 |
+| 5 | 11 | 56.0 |
 
 Episodes in the following two weeks, per 100 weeks, by the band shown that week:
 
 | Band | Weeks | Any episode | Severity ≥3 |
 |---|---|---|---|
-| Low | 69 | 39.1 | 27.5 |
-| Moderate | 168 | 41.1 | 26.8 |
-| Elevated | 207 | 42.5 | 34.3 |
-| High | 125 | 48.8 
+| Low | 59 | 30.5 | 23.7 |
+| Moderate | 168 | 42.9 | 26.2 |
+| Elevated | 216 | 42.6 | 35.2 |
+| High | 125 | 50.4 | 38.
