@@ -1,4 +1,4 @@
-# Look-ahead from the week ending 2026-10-24
+# Look-ahead from the week ending 2026-10-31
 
 Scheduled catalysts and shared cultural events in the next 21 days, with what weeks like them have done to the index historically.
 
@@ -6,10 +6,9 @@ Scheduled catalysts and shared cultural events in the next 21 days, with what we
 
 | Date | Catalyst | Past cases | Headline: two weeks before | In the week | Week after | Dimension usually moved (in the week) |
 |---|---|---|---|---|---|---|
-| 2026-10-28 | FOMC decision | 93 | -0.3 | -0.1 (other weeks +0.0) | -1.0 | Jobs and financial security -0.6 (lead-in +0.3, after +1.9) |
-| 2026-11-03 | General election (midterm) | 14 | -3.9 | +3.7 (other weeks -0.0) | -3.2 | Political and institutional +5.3 (lead-in -2.3, after -1.9) |
-| 2026-11-06 | Jobs report for October 2026 | 140 | -1.0 | +0.4 (other weeks -0.0) | +1.0 | Jobs and financial security +0.8 (lead-in -0.9, after +0.8) |
-| 2026-11-10 | CPI for October 2026 | 140 | +0.1 | +1.1 (other weeks -0.1) | +0.1 | Cost of living +0.1 (lead-in +0.4, after +0.4) |
+| 2026-11-03 | General election (midterm) | 14 | -3.9 | +3.6 (other weeks -0.0) | -3.2 | Political and institutional +5.0 (lead-in -2.2, after -1.9) |
+| 2026-11-06 | Jobs report for October 2026 | 140 | -1.0 | +0.4 (other weeks -0.1) | +1.0 | Jobs and financial security +0.8 (lead-in -0.9, after +0.8) |
+| 2026-11-10 | CPI for October 2026 | 140 | +0.2 | +1.0 (other weeks -0.1) | +0.1 | Cost of living +0.1 (lead-in +0.4, after +0.4) |
 
 ## Shared cultural events (possible distraction windows)
 

@@ -1,39 +1,35 @@
-# Anxiety Index brief: week ending 2026-10-24
+# Anxiety Index brief: week ending 2026-10-31
 
-*Issued 2026-10-30. Data through 2026-10-30.*
+*Issued 2026-10-31. Data through 2026-10-31.*
 
-## 65 — Elevated, up 1.7 on the week
+## 60 — Elevated, down 4.7 on the week
 
-Up 22 points over four weeks. Highest reading since the week ending 2026-06-13. Attention is spread across many stories, so new ones find room.
-
-**So far this week:** 60 (Elevated), -4.7 against the completed week. Provisional; it will move as the week's data arrive.
+Attention is spread across many stories, so new ones find room.
 
 ## What is driving it
 
 | Dimension | Reading | Band | Change | Share of this week's anxiety |
 |---|---|---|---|---|
-| Geopolitical | 93 | High | +2 | 43% |
-| Cost of living | 77 | Elevated | -0 | 36% |
-| Political and institutional | 71 | Elevated | +1 | 14% |
-| Disasters, climate and health | 65 | Elevated | -6 | 4% |
-| Jobs and financial security | 48 | Moderate | +5 | 3% |
-| Public safety and unrest | 63 | Elevated | +7 | 1% |
+| Geopolitical | 91 | High | -2 | 43% |
+| Cost of living | 75 | Elevated | -2 | 36% |
+| Political and institutional | 69 | Elevated | -2 | 14% |
+| Disasters, climate and health | 56 | Elevated | -9 | 4% |
+| Jobs and financial security | 46 | Moderate | -2 | 3% |
+| Public safety and unrest | 52 | Elevated | -11 | 1% |
 
 The headline follows an attention budget: the hottest dimension counts in full, the next at half, the next at a quarter. Shares are exact. `explanation.md` lists the individual signals behind each move.
 
 ## What a reading like this has meant
 
-- Since 2015, a major corporate backlash episode (national, sustained) followed within two weeks of **35 in 100** weeks that read Elevated, against 24 in 100 after Low weeks.
+- Since 2015, a major corporate backlash episode (national, sustained) followed within two weeks of **35 in 100** weeks that read Elevated, against 23 in 100 after Low weeks.
 - Tense weeks make a company story *less* likely to break through and *angrier* when it does. Low news concentration this week means the first effect is weak: stories are landing.
-- **Political and institutional at 71.** Political-stance backlash episodes have followed weeks when this reading averaged about 71. Stance-related announcements, political giving and executive commentary carry elevated risk this week.
-- **Cost of living at 77.** Cost-of-living anxiety is in its upper range. Price increases, fees and shrinkflation stories will be read against household budgets; lead with value.
-- **Geopolitical at 93.** Geopolitical anxiety is in its upper range. Supply, sanctions and overseas-operations stories are being read through a conflict lens.
+- **Cost of living at 75.** Cost-of-living anxiety is in its upper range. Price increases, fees and shrinkflation stories will be read against household budgets; lead with value.
+- **Geopolitical at 91.** Geopolitical anxiety is in its upper range. Supply, sanctions and overseas-operations stories are being read through a conflict lens.
 
 ## What's ahead (next three weeks)
 
 | Date | Catalyst | Typical effect in past cases |
 |---|---|---|
-| 2026-10-28 | FOMC decision | none to speak of (93 past cases) |
 | 2026-11-03 | General election (midterm) | headline +4 in the week, -3 the week after; political and institutional +5 (14 past cases) |
 | 2026-11-06 | Jobs report for October 2026 | none to speak of (140 past cases) |
 | 2026-11-10 | CPI for October 2026 | headline +1 in the week, +0 the week after (140 past cases) |
@@ -44,18 +40,18 @@ The headline follows an attention budget: the hottest dimension counts in full, 
 
 | Weeks ahead | Week ending | Expected | 80% range | Chance of High or Severe | Chance below 50 |
 |---|---|---|---|---|---|
-| 1 | 2026-10-31 | 65 (Elevated) | 55–75 | 6% | 3% |
-| 2 | 2026-11-07 | 64 (Elevated) | 50–80 | 9% | 10% |
-| 4 | 2026-11-21 | 63 (Elevated) | 43–86 | 15% | 18% |
-| 8 | 2026-12-19 | 62 (Elevated) | 32–90 | 22% | 28% |
+| 1 | 2026-11-07 | 60 (Elevated) | 51–70 | 4% | 9% |
+| 2 | 2026-11-14 | 60 (Elevated) | 46–75 | 6% | 17% |
+| 4 | 2026-11-28 | 59 (Elevated) | 39–82 | 12% | 26% |
+| 8 | 2026-12-26 | 58 (Elevated) | 28–87 | 17% | 34% |
 
 A small statistical model with a published track record (`forecast.md`); it beats "no change" only modestly at short horizons. Readings far above normal tend to ease; shock-driven anxiety fades faster than cost-of-living and political pressure.
 
 ## If something breaks
 
-- Geopolitical flare-up: conflict coverage doubles, GPR threats +50%, Brent +15%: 65 → 82
-- Mass shooting dominates the week: violence coverage +80%, shooting pageviews x10: 65 → 77
-- Major hurricane landfall: 60 counties declared, disaster coverage triples: 65 → 73
+- Mass shooting dominates the week: violence coverage +80%, shooting pageviews x10: 60 → 76
+- Geopolitical flare-up: conflict coverage doubles, GPR threats +50%, Brent +15%: 60 → 76
+- Major hurricane landfall: 60 counties declared, disaster coverage triples: 60 → 69
 
 ---
 
