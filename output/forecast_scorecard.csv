@@ -1,2 +1,2 @@
 origin_week,horizon_weeks,target_week,central,lo80,hi80,computed_at,actual,current,error,persistence_error,inside_80
-2026-10-24,1,2026-10-31,58.3,48.4,69.2,2026-10-26 00:57:31.787426+00:00,60.5,65.2,-2.2,4.7,True
+2026-10-24,1,2026-10-31,58.3,48.4,69.2,2026-10-26 00:57:31.787426+00:00,60.6,64.8,-2.3,4.2,True

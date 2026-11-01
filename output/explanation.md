@@ -1,19 +1,21 @@
 # Anxiety Index: week ending 2026-10-31
 
-**60 (Elevated)**, -4.7 vs last week, +3.3 vs four weeks ago. News concentration: 0th percentile (attention is spread out).
+**61 (Elevated)**, -4.2 vs last week, +3.1 vs four weeks ago. News concentration: 2th percentile (attention is spread out).
+
+**So far this week** (ending 2026-11-07, data through 2026-11-01): **56 (Elevated)**, -5.0 vs the completed week. Hottest: geopolitical 90, cost of living 75. Moving: public safety and unrest -11; disasters, climate and health -5. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 
 | Dimension | Reading | Band | Change on the week | Share of this week's anxiety |
 |---|---|---|---|---|
-| Geopolitical | 91 | High | -2 | 43% |
+| Geopolitical | 92 | High | -2 | 43% |
 | Cost of living | 75 | Elevated | -2 | 36% |
-| Political and institutional | 69 | Elevated | -2 | 14% |
-| Disasters, climate and health | 56 | Elevated | -9 | 4% |
-| Jobs and financial security | 46 | Moderate | -2 | 3% |
-| Public safety and unrest | 52 | Elevated | -11 | 1% |
+| Political and institutional | 68 | Elevated | -0 | 14% |
+| Disasters, climate and health | 56 | Elevated | -10 | 4% |
+| Jobs and financial security | 45 | Moderate | -2 | 3% |
+| Public safety and unrest | 52 | Elevated | -10 | 1% |
 
-On the week, dimensions moved down on public safety and unrest (-11), disasters, climate and health (-9). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
+On the week, dimensions moved down on public safety and unrest (-10), disasters, climate and health (-10). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
 
 ## What changed since last week
 
@@ -22,17 +24,17 @@ The signals whose moves, times their weights, did most to change the reading. Re
 | Measure | Dimension | Lens | Now | Change | Weight |
 |---|---|---|---|---|---|
 | Share of US event coverage: protests, attention vs. 3-year norm | Public safety and unrest | Attention | very high (+1.5) | +0.9 | 1.0 |
+| Wikipedia views: Coup d'état, attention vs. 3-year norm | Political and institutional | Attention | high (+0.9) | +2.4 | 0.3 |
 | Initial unemployment claims (NSA, sum of states), 12-month change | Jobs and financial security | Conditions | low (-1.0) | -0.5 | 1.2 |
-| News tone: violence and unrest coverage, vs. 3-year average | Public safety and unrest | Attention | normal (-0.7) | -0.8 | 0.7 |
+| News tone: violence and unrest coverage, vs. 3-year average | Public safety and unrest | Attention | normal (-0.7) | -0.7 | 0.7 |
 | Geopolitical Risk Index, daily, vs. 5-year average | Geopolitical | Attention | high (+0.9) | -0.5 | 1.0 |
 | Earthquake shock impulse (US, magnitude-weighted), level | Disasters, climate and health | Conditions | high (+1.2) | -0.8 | 0.6 |
-| Wikipedia views: Coup d'état, attention vs. 3-year norm | Political and institutional | Attention | normal (+0.0) | +1.5 | 0.3 |
-| News share: violence, protest, extremism, attention vs. 3-year norm | Public safety and unrest | Attention | normal (-0.3) | -0.3 | 1.5 |
 | Mass shooting impulse (fatality-weighted, Mother Jones database), level | Public safety and unrest | Conditions | high (+0.8) | -0.4 | 1.0 |
 | News tone: disaster and health coverage, vs. 3-year average | Disasters, climate and health | Attention | normal (+0.4) | -0.5 | 0.7 |
 | Geopolitical Risk: threats, daily, vs. 5-year average | Geopolitical | Attention | high (+1.1) | -0.7 | 0.5 |
-| News share: political crisis, scandal, shutdown, attention vs. 3-year norm | Political and institutional | Attention | normal (+0.3) | +0.2 | 1.5 |
-| Wikipedia views: Layoff, attention vs. 3-year norm | Jobs and financial security | Attention | normal (+0.2) | +0.7 | 0.5 |
+| Wikipedia views: World War III, attention vs. 3-year norm | Geopolitical | Attention | low (-0.8) | +0.6 | 0.6 |
+| News share: violence, protest, extremism, attention vs. 3-year norm | Public safety and unrest | Attention | normal (-0.2) | -0.2 | 1.5 |
+| Share of US event coverage: threats and coercion, attention vs. 3-year norm | Political and institutional | Attention | low (-1.2) | -0.5 | 0.6 |
 
 ## Most elevated right now
 
