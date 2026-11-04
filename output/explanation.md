@@ -1,8 +1,8 @@
 # Anxiety Index: week ending 2026-10-31
 
-**61 (Elevated)**, -3.2 vs last week, +8.4 vs four weeks ago. News concentration: 2th percentile (attention is spread out).
+**62 (Elevated)**, -3.0 vs last week, +9.3 vs four weeks ago. News concentration: 2th percentile (attention is spread out).
 
-**So far this week** (ending 2026-11-07, data through 2026-11-03): **56 (Elevated)**, -4.9 vs the completed week. Hottest: geopolitical 91, cost of living 75. Moving: public safety and unrest -14; disasters, climate and health -8. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
+**So far this week** (ending 2026-11-07, data through 2026-11-04): **59 (Elevated)**, -2.7 vs the completed week. Hottest: geopolitical 92, cost of living 74. Moving: public safety and unrest -14; disasters, climate and health -10. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 
@@ -10,12 +10,12 @@
 |---|---|---|---|---|
 | Geopolitical | 92 | High | -1 | 43% |
 | Cost of living | 75 | Elevated | -2 | 36% |
-| Political and institutional | 68 | Elevated | -1 | 14% |
-| Disasters, climate and health | 59 | Elevated | -6 | 4% |
-| Jobs and financial security | 45 | Moderate | -2 | 3% |
+| Political and institutional | 71 | Elevated | +0 | 14% |
+| Disasters, climate and health | 59 | Elevated | -7 | 4% |
+| Jobs and financial security | 49 | Moderate | -3 | 3% |
 | Public safety and unrest | 43 | Moderate | -19 | 1% |
 
-On the week, dimensions moved down on public safety and unrest (-19), disasters, climate and health (-6). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
+On the week, dimensions moved down on public safety and unrest (-19), disasters, climate and health (-7). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
 
 ## What changed since last week
 
