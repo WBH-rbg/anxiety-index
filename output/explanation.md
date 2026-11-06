@@ -1,8 +1,8 @@
 # Anxiety Index: week ending 2026-10-31
 
-**62 (Elevated)**, -2.9 vs last week, +9.8 vs four weeks ago. News concentration: 2th percentile (attention is spread out).
+**62 (Elevated)**, -2.7 vs last week, +9.5 vs four weeks ago. News concentration: 2th percentile (attention is spread out).
 
-**So far this week** (ending 2026-11-07, data through 2026-11-05): **61 (Elevated)**, -0.5 vs the completed week. Hottest: geopolitical 92, cost of living 75. Moving: public safety and unrest -16; disasters, climate and health -12. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
+**So far this week** (ending 2026-11-07, data through 2026-11-06): **62 (Elevated)**, +0.0 vs the completed week. Hottest: geopolitical 92, cost of living 77. Moving: public safety and unrest -18; disasters, climate and health -14. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 
@@ -10,12 +10,12 @@
 |---|---|---|---|---|
 | Geopolitical | 92 | High | -1 | 43% |
 | Cost of living | 75 | Elevated | -2 | 36% |
-| Political and institutional | 70 | Elevated | +1 | 14% |
-| Disasters, climate and health | 59 | Elevated | -7 | 4% |
+| Political and institutional | 70 | Elevated | -1 | 14% |
+| Disasters, climate and health | 59 | Elevated | -6 | 4% |
 | Jobs and financial security | 49 | Moderate | -3 | 3% |
 | Public safety and unrest | 43 | Moderate | -19 | 1% |
 
-On the week, dimensions moved down on public safety and unrest (-19), disasters, climate and health (-7). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
+On the week, dimensions moved down on public safety and unrest (-19), disasters, climate and health (-6). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
 
 ## What changed since last week
 
@@ -47,8 +47,8 @@ The signals whose moves, times their weights, did most to change the reading. Re
 | Policy uncertainty: national security, vs. 5-year average | Geopolitical | Attention | extreme (+3.0) |
 | Expected inflation, next 5 years (median), level | Cost of living | Sentiment | extreme (+2.7) |
 | US on-highway diesel retail price, % vs. 12-month average | Cost of living | Conditions | extreme (+2.6) |
+| Global Supply Chain Pressure Index, level | Cost of living | Conditions | very high (+2.5) |
 | Wikipedia views: Riot, attention vs. 3-year norm | Public safety and unrest | Attention | very high (+2.4) |
 | SCE: perceived chance US unemployment will be higher in a year, level | Jobs and financial security | Sentiment | very high (+2.4) |
-| Global Supply Chain Pressure Index, level | Cost of living | Conditions | very high (+2.4) |
 | Index of Consumer Sentiment, level | Jobs and financial security | Sentiment | very high (+2.1) |
 | SCE: expected inflation, 1 year (median), level | Cost of living | Sentiment | very high (+2.0) |

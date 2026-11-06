@@ -1,8 +1,8 @@
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
   warnings.warn(
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
   warnings.warn(
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
   warnings.warn(
 /home/runner/work/anxiety-index/anxiety-index/index/validate.py:96: Pandas4Warning: Sorting by default when concatenating all DatetimeIndex is deprecated.  In the future, pandas will respect the default of `sort=False`. Specify `sort=True` or `sort=False` to silence this message. If you see this warnings when not directly calling concat, report a bug to pandas.
   joined = pd.concat([h, x.rename("x")], axis=1).dropna()
@@ -10,13 +10,13 @@
   joined = pd.concat([h, x.rename("x")], axis=1).dropna()
 /home/runner/work/anxiety-index/anxiety-index/index/validate.py:96: Pandas4Warning: Sorting by default when concatenating all DatetimeIndex is deprecated.  In the future, pandas will respect the default of `sort=False`. Specify `sort=True` or `sort=False` to silence this message. If you see this warnings when not directly calling concat, report a bug to pandas.
   joined = pd.concat([h, x.rename("x")], axis=1).dropna()
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/google/cloud/bigquery/_pandas_helpers.py:486: FutureWarning: Loading pandas DataFrame into BigQuery will require pandas-gbq package version 0.26.1 or greater in the future. Tried to import pandas-gbq and got: No module named 'pandas_gbq'
+/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/_pandas_helpers.py:486: FutureWarning: Loading pandas DataFrame into BigQuery will require pandas-gbq package version 0.26.1 or greater in the future. Tried to import pandas-gbq and got: No module named 'pandas_gbq'
   warnings.warn(
 /home/runner/work/anxiety-index/anxiety-index/index/validate.py:132: Pandas4Warning: Series.dt.weekday is deprecated and will be removed in a future version. Use Series.dt.day_of_week instead.
   ev["week"] = ev["event_date"] + pd.to_timedelta((5 - ev["event_date"].dt.weekday) % 7, unit="D")
 # Validation report
 
-Generated 2026-11-05. Methodology v0.1 prototype.
+Generated 2026-11-06. Methodology v0.1 prototype.
 
 ## 1. Face validity
 
@@ -26,16 +26,16 @@ Does the index read tense when everyone remembers tension, and calm when they re
 |---|---|---|---|---|---|---|
 | 9/11 and aftermath | tense | 86.8 | 99.9 | 8 | 11 | pass |
 | Iraq invasion | tense | 87.4 | 93.9 | 6 | 7 | pass |
-| Mid-2000s calm | calm | 21.7 | 69.1 | 0 | 131 | pass |
+| Mid-2000s calm | calm | 21.7 | 69.0 | 0 | 131 | pass |
 | Financial crisis | tense | 86.4 | 99.8 | 20 | 29 | pass |
-| Debt-ceiling summer | tense | 70.0 | 83.1 | 1 | 7 | pass |
-| 2013-2015 calm | calm | 19.9 | 76.7 | 0 | 156 | pass |
-| COVID onset | tense | 81.8 | 88.0 | 6 | 8 | pass |
+| Debt-ceiling summer | tense | 70.1 | 83.1 | 1 | 7 | pass |
+| 2013-2015 calm | calm | 19.9 | 76.8 | 0 | 156 | pass |
+| COVID onset | tense | 81.9 | 88.1 | 6 | 8 | pass |
 | Summer 2020 | tense | 98.1 | 100.0 | 7 | 7 | pass |
-| Jan 6 week | tense | 86.1 | 90.6 | 2 | 3 | pass |
-| Ukraine invasion | tense | 98.4 | 99.1 | 5 | 5 | pass |
+| Jan 6 week | tense | 86.0 | 90.5 | 2 | 3 | pass |
+| Ukraine invasion | tense | 98.3 | 99.1 | 5 | 5 | pass |
 | Inflation peak | tense | 97.1 | 99.4 | 6 | 6 | pass |
-| Spring 2025 tariffs | tense | 95.6 | 98.0 | 4 | 4 | pass |
+| Spring 2025 tariffs | tense | 95.6 | 98.4 | 4 | 4 | pass |
 
 ## 2. External series
 
@@ -43,14 +43,14 @@ Correlation of the weekly headline with series that should track public anxiety 
 
 | Series | Weeks | Level | Detrended | lead−4 | lead−2 | lead−1 | lead+1 | lead+2 | lead+4 |
 |---|---|---|---|---|---|---|---|---|---|
-| Wikipedia views: Anxiety | 592 | -0.249 | -0.301 | -0.298 | -0.299 | -0.299 | -0.31 | -0.311 | -0.302 |
-| Wikipedia views: Anxiety disorder | 592 | -0.365 | -0.27 | -0.239 | -0.261 | -0.264 | -0.271 | -0.266 | -0.24 |
-| Wikipedia views: Panic attack | 592 | -0.284 | -0.159 | -0.138 | -0.153 | -0.152 | -0.173 | -0.183 | -0.185 |
-| News share: boycotts | 609 | -0.137 | -0.077 | -0.059 | -0.056 | -0.068 | -0.072 | -0.093 | -0.074 |
-| Average tone of all US news (sign flipped) | 609 | 0.03 | 0.144 | 0.08 | 0.117 | 0.143 | 0.041 | -0.005 | -0.061 |
-| Share of US event coverage: conflict | 1348 | -0.015 | 0.135 | 0.04 | 0.084 | 0.115 | 0.091 | 0.071 | 0.049 |
-| Hostile acts toward businesses, share of US event coverage | 1348 | 0.039 | -0.051 | -0.043 | -0.045 | -0.045 | -0.041 | -0.034 | -0.04 |
-| Hostile share of business-related coverage | 1348 | -0.081 | 0.013 | 0.009 | 0.019 | 0.022 | 0.001 | 0.01 | 0.007 |
+| Wikipedia views: Anxiety | 592 | -0.25 | -0.302 | -0.298 | -0.3 | -0.3 | -0.311 | -0.312 | -0.304 |
+| Wikipedia views: Anxiety disorder | 592 | -0.366 | -0.271 | -0.238 | -0.261 | -0.265 | -0.272 | -0.266 | -0.241 |
+| Wikipedia views: Panic attack | 592 | -0.285 | -0.161 | -0.139 | -0.154 | -0.154 | -0.174 | -0.184 | -0.186 |
+| News share: boycotts | 609 | -0.138 | -0.077 | -0.058 | -0.056 | -0.068 | -0.072 | -0.092 | -0.074 |
+| Average tone of all US news (sign flipped) | 609 | 0.029 | 0.144 | 0.081 | 0.117 | 0.144 | 0.041 | -0.004 | -0.06 |
+| Share of US event coverage: conflict | 1348 | -0.015 | 0.135 | 0.04 | 0.085 | 0.115 | 0.091 | 0.071 | 0.05 |
+| Hostile acts toward businesses, share of US event coverage | 1348 | 0.039 | -0.051 | -0.043 | -0.045 | -0.045 | -0.042 | -0.035 | -0.04 |
+| Hostile share of business-related coverage | 1348 | -0.081 | 0.014 | 0.009 | 0.019 | 0.022 | 0.001 | 0.01 | 0.007 |
 
 ## 3. Corporate backlash events (curated outcome log)
 
@@ -60,10 +60,10 @@ By severity (1 = brief viral moment, 5 = sustained national controversy):
 
 | Severity | Episodes | Mean reading the week before |
 |---|---|---|
-| 1 | 2 | 21.3 |
+| 1 | 2 | 21.6 |
 | 2 | 39 | 53.7 |
 | 3 | 44 | 66.2 |
-| 4 | 23 | 58.9 |
+| 4 | 23 | 58.6 |
 | 5 | 11 | 56.0 |
 
 Episodes in the following two weeks, per 100 weeks, by the band shown that week:
@@ -71,6 +71,6 @@ Episodes in the following two weeks, per 100 weeks, by the band shown that week:
 | Band | Weeks | Any episode | Severity ≥3 |
 |---|---|---|---|
 | Low | 60 | 30.0 | 23.3 |
-| Moderate | 167 | 43.7 | 26.9 |
-| Elevated | 217 | 41.9 | 34.6 |
-| High | 125 | 50.4 
+| Moderate | 167 | 43.1 | 26.3 |
+| Elevated | 217 | 42.4 | 35.0 |
+| High | 125 | 50.4 | 
