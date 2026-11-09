@@ -6,13 +6,13 @@
   warnings.warn(
 gas_up_10pct: 61 -> 67 (+6.3, Elevated)
 hot_cpi_print: 61 -> 67 (+6.8, Elevated)
-fed_surprise_hike: 61 -> 62 (+1.4, Elevated)
+fed_surprise_hike: 61 -> 62 (+1.3, Elevated)
 jobless_claims_spike: 61 -> 63 (+2.8, Elevated)
-major_california_quake: 61 -> 66 (+5.8, Elevated)
+major_california_quake: 61 -> 66 (+5.9, Elevated)
 gulf_hurricane_landfall: 61 -> 70 (+9.4, Elevated)
 war_coverage_doubles: 61 -> 75 (+14.8, Elevated)
-mass_shooting_national: 61 -> 67 (+6.4, Elevated)
-government_shutdown: 61 -> 66 (+5.1, Elevated)
-calm_week: 61 -> 55 (-5.6, Elevated)
+mass_shooting_national: 61 -> 70 (+9.7, Elevated)
+government_shutdown: 61 -> 66 (+5.5, Elevated)
+calm_week: 61 -> 55 (-5.9, Elevated)
 /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/_pandas_helpers.py:486: FutureWarning: Loading pandas DataFrame into BigQuery will require pandas-gbq package version 0.26.1 or greater in the future. Tried to import pandas-gbq and got: No module named 'pandas_gbq'
   warnings.warn(
