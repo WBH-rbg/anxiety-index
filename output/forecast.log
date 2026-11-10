@@ -8,24 +8,24 @@
   warnings.warn(
 # Outlook from the week ending 2026-11-07
 
-Current reading: **61 (Elevated)**. The table shows where a small statistical model expects the headline to be, with ranges taken from the model's own historical errors. Treat it as tendency, not prediction: at these horizons the model beats "no change" only modestly (see the track record below), and scheduled catalysts in `lookahead.md` can override any of it.
+Current reading: **65 (Elevated)**. The table shows where a small statistical model expects the headline to be, with ranges taken from the model's own historical errors. Treat it as tendency, not prediction: at these horizons the model beats "no change" only modestly (see the track record below), and scheduled catalysts in `lookahead.md` can override any of it.
 
 | Weeks ahead | Week ending | Expected | 50% range | 80% range | Chance up 5+ | Chance down 5+ | Chance High or Severe | Chance below 50 |
 |---|---|---|---|---|---|---|---|---|
-| 1 | 2026-11-14 | 61 (Elevated) | 57–64 | 52–71 | 20% | 19% | 4% | 7% |
-| 2 | 2026-11-21 | 62 (Elevated) | 55–68 | 47–77 | 32% | 27% | 7% | 13% |
-| 4 | 2026-12-05 | 61 (Elevated) | 52–71 | 41–83 | 38% | 35% | 13% | 22% |
-| 8 | 2027-01-02 | 59 (Elevated) | 45–75 | 29–88 | 41% | 41% | 17% | 32% |
+| 1 | 2026-11-14 | 66 (Elevated) | 61–69 | 56–76 | 19% | 22% | 6% | 2% |
+| 2 | 2026-11-21 | 66 (Elevated) | 59–72 | 52–81 | 30% | 29% | 12% | 9% |
+| 4 | 2026-12-05 | 65 (Elevated) | 55–75 | 45–87 | 36% | 37% | 17% | 16% |
+| 8 | 2027-01-02 | 62 (Elevated) | 48–78 | 32–91 | 38% | 43% | 22% | 28% |
 
 ## Why (four-week horizon)
 
 Expected change in points, by what is driving it:
 
-- Where the reading sits relative to normal, and its recent momentum: **-2.7**
+- Where the reading sits relative to normal, and its recent momentum: **-3.4**
 - How much of it is shock-driven (safety, geopolitics, disasters), which fades faster: **+0.5**
-- How much of it is background pressure (cost of living, jobs, politics), which persists: **+2.6**
+- How much of it is background pressure (cost of living, jobs, politics), which persists: **+2.5**
 
-Largest single factors: the quarter's move (-1.8); political and institutional reading (+1.4); public safety and unrest reading (+1.3); geopolitical reading (-1.0).
+Largest single factors: the quarter's move (-2.1); political and institutional reading (+1.4); public safety and unrest reading (+1.3); the headline level (-1.2).
 
 ## What has usually happened from here
 
@@ -34,16 +34,16 @@ Weeks since 2010 that showed the same band, and where the headline was afterward
 | Band now | Weeks ahead | Weeks | Average then | Average later | Higher by 5+ | Lower by 5+ | High or Severe later | Below 50 later |
 |---|---|---|---|---|---|---|---|---|
 | Low | 2 | 142 | 9.9 | 17.1 | 36% | 13% | 1% | 93% |
-| Moderate | 2 | 258 | 35.7 | 37.2 | 39% | 36% | 1% | 78% |
-| **Elevated** | 2 | 295 | 64.7 | 60.9 | 22% | 42% | 8% | 23% |
-| High | 2 | 145 | 87.6 | 86.0 | 11% | 28% | 82% | 0% |
+| Moderate | 2 | 258 | 35.7 | 37.2 | 39% | 36% | 1% | 77% |
+| **Elevated** | 2 | 295 | 64.7 | 60.9 | 23% | 40% | 8% | 23% |
+| High | 2 | 145 | 87.7 | 86.0 | 11% | 29% | 82% | 0% |
 | Severe | 2 | 38 | 97.7 | 96.1 | 0% | 11% | 100% | 0% |
 | Low | 4 | 142 | 9.9 | 21.7 | 51% | 11% | 0% | 88% |
-| Moderate | 4 | 258 | 35.7 | 39.2 | 45% | 36% | 2% | 68% |
-| **Elevated** | 4 | 293 | 64.7 | 58.5 | 26% | 48% | 14% | 33% |
-| High | 4 | 145 | 87.6 | 83.5 | 16% | 43% | 69% | 1% |
-| Severe | 4 | 38 | 97.7 | 93.5 | 0% | 29% | 95% | 0% |
+| Moderate | 4 | 258 | 35.7 | 39.2 | 45% | 35% | 2% | 67% |
+| **Elevated** | 4 | 293 | 64.7 | 58.5 | 26% | 47% | 15% | 33% |
+| High | 4 | 145 | 87.7 | 83.5 | 17% | 43% | 70% | 1% |
+| Severe | 4 | 38 | 97.7 | 93.5 | 0% | 29% | 92% | 0% |
 | Low | 8 | 142 | 9.9 | 31.1 | 67% | 11% | 0% | 75% |
 | Moderate | 8 | 256 | 35.6 | 41.0 | 55% | 34% | 4% | 59% |
-| **Elevated** | 8 | 291 | 64.7 | 55.6 | 31% | 54% | 20% | 43% |
-| High | 8 | 145 | 87.6 | 77.1 | 21% | 
+| **Elevated** | 8 | 291 | 64.7 | 55.7 | 31% | 54% | 21% | 42% |
+| High | 8 | 145 | 87.7 | 77.1 | 21% | 54
