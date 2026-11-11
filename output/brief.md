@@ -1,12 +1,12 @@
 # Anxiety Index brief: week ending 2026-11-07
 
-*Issued 2026-11-10. Data through 2026-11-10.*
+*Issued 2026-11-11. Data through 2026-11-11.*
 
-## 65 — Elevated, down 4.0 on the week
+## 65 — Elevated, down 3.9 on the week
 
 Attention is spread across many stories, so new ones find room.
 
-**So far this week:** 59 (Elevated), -6.3 against the completed week. Provisional; it will move as the week's data arrive.
+**So far this week:** 58 (Elevated), -7.0 against the completed week. Provisional; it will move as the week's data arrive.
 
 ## What is driving it
 
@@ -14,7 +14,7 @@ Attention is spread across many stories, so new ones find room.
 |---|---|---|---|---|
 | Geopolitical | 94 | High | -1 | 42% |
 | Cost of living | 76 | Elevated | +0 | 35% |
-| Political and institutional | 77 | Elevated | +8 | 14% |
+| Political and institutional | 77 | Elevated | +9 | 14% |
 | Jobs and financial security | 49 | Moderate | +1 | 5% |
 | Disasters, climate and health | 55 | Elevated | -16 | 2% |
 | Public safety and unrest | 28 | Moderate | -16 | 1% |
@@ -45,8 +45,8 @@ The headline follows an attention budget: the hottest dimension counts in full, 
 |---|---|---|---|---|---|
 | 1 | 2026-11-14 | 66 (Elevated) | 56–76 | 6% | 2% |
 | 2 | 2026-11-21 | 66 (Elevated) | 52–81 | 12% | 9% |
-| 4 | 2026-12-05 | 65 (Elevated) | 45–87 | 17% | 16% |
-| 8 | 2027-01-02 | 62 (Elevated) | 32–91 | 22% | 28% |
+| 4 | 2026-12-05 | 65 (Elevated) | 45–88 | 18% | 16% |
+| 8 | 2027-01-02 | 62 (Elevated) | 33–91 | 22% | 27% |
 
 A small statistical model with a published track record (`forecast.md`); it beats "no change" only modestly at short horizons. Readings far above normal tend to ease; shock-driven anxiety fades faster than cost-of-living and political pressure.
 
