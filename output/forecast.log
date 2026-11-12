@@ -8,14 +8,14 @@
   warnings.warn(
 # Outlook from the week ending 2026-11-07
 
-Current reading: **65 (Elevated)**. The table shows where a small statistical model expects the headline to be, with ranges taken from the model's own historical errors. Treat it as tendency, not prediction: at these horizons the model beats "no change" only modestly (see the track record below), and scheduled catalysts in `lookahead.md` can override any of it.
+Current reading: **66 (Elevated)**. The table shows where a small statistical model expects the headline to be, with ranges taken from the model's own historical errors. Treat it as tendency, not prediction: at these horizons the model beats "no change" only modestly (see the track record below), and scheduled catalysts in `lookahead.md` can override any of it.
 
 | Weeks ahead | Week ending | Expected | 50% range | 80% range | Chance up 5+ | Chance down 5+ | Chance High or Severe | Chance below 50 |
 |---|---|---|---|---|---|---|---|---|
-| 1 | 2026-11-14 | 66 (Elevated) | 61–69 | 56–76 | 19% | 21% | 6% | 2% |
-| 2 | 2026-11-21 | 66 (Elevated) | 59–72 | 52–81 | 30% | 29% | 12% | 9% |
-| 4 | 2026-12-05 | 65 (Elevated) | 55–75 | 45–88 | 36% | 36% | 18% | 16% |
-| 8 | 2027-01-02 | 62 (Elevated) | 49–78 | 33–91 | 39% | 43% | 22% | 27% |
+| 1 | 2026-11-14 | 66 (Elevated) | 61–69 | 57–76 | 20% | 21% | 6% | 2% |
+| 2 | 2026-11-21 | 66 (Elevated) | 60–72 | 52–81 | 31% | 29% | 12% | 8% |
+| 4 | 2026-12-05 | 65 (Elevated) | 56–75 | 45–88 | 36% | 36% | 18% | 16% |
+| 8 | 2027-01-02 | 62 (Elevated) | 49–78 | 33–91 | 38% | 44% | 23% | 27% |
 
 ## Why (four-week horizon)
 
@@ -33,17 +33,17 @@ Weeks since 2010 that showed the same band, and where the headline was afterward
 
 | Band now | Weeks ahead | Weeks | Average then | Average later | Higher by 5+ | Lower by 5+ | High or Severe later | Below 50 later |
 |---|---|---|---|---|---|---|---|---|
-| Low | 2 | 142 | 9.9 | 17.1 | 36% | 13% | 1% | 93% |
-| Moderate | 2 | 258 | 35.7 | 37.3 | 40% | 36% | 1% | 77% |
-| **Elevated** | 2 | 295 | 64.7 | 60.9 | 22% | 42% | 8% | 23% |
-| High | 2 | 145 | 87.6 | 85.9 | 11% | 30% | 81% | 0% |
+| Low | 2 | 142 | 9.9 | 17.1 | 36% | 12% | 1% | 93% |
+| Moderate | 2 | 258 | 35.7 | 37.2 | 39% | 36% | 1% | 78% |
+| **Elevated** | 2 | 295 | 64.7 | 60.9 | 22% | 41% | 8% | 23% |
+| High | 2 | 145 | 87.6 | 86.0 | 11% | 28% | 82% | 0% |
 | Severe | 2 | 38 | 97.7 | 96.1 | 0% | 11% | 100% | 0% |
 | Low | 4 | 142 | 9.9 | 21.7 | 51% | 11% | 0% | 88% |
-| Moderate | 4 | 258 | 35.7 | 39.3 | 45% | 35% | 2% | 67% |
-| **Elevated** | 4 | 293 | 64.7 | 58.4 | 26% | 48% | 14% | 33% |
-| High | 4 | 145 | 87.6 | 83.5 | 17% | 43% | 69% | 1% |
-| Severe | 4 | 38 | 97.7 | 93.5 | 0% | 32% | 95% | 0% |
+| Moderate | 4 | 258 | 35.7 | 39.3 | 45% | 35% | 2% | 68% |
+| **Elevated** | 4 | 293 | 64.7 | 58.5 | 26% | 48% | 14% | 33% |
+| High | 4 | 145 | 87.6 | 83.6 | 17% | 43% | 69% | 1% |
+| Severe | 4 | 38 | 97.7 | 93.5 | 0% | 29% | 95% | 0% |
 | Low | 8 | 142 | 9.9 | 31.1 | 67% | 11% | 0% | 75% |
-| Moderate | 8 | 256 | 35.6 | 41.2 | 55% | 34% | 4% | 59% |
-| **Elevated** | 8 | 291 | 64.7 | 55.5 | 31% | 54% | 20% | 43% |
-| High | 8 | 145 | 87.6 | 77.0 | 21% | 55
+| Moderate | 8 | 256 | 35.6 | 41.0 | 54% | 34% | 4% | 60% |
+| **Elevated** | 8 | 291 | 64.7 | 55.7 | 31% | 54% | 20% | 42% |
+| High | 8 | 145 | 87.6 | 77.1 | 21% | 54
