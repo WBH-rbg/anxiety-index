@@ -1,21 +1,21 @@
 {
   "week": "2026-11-07",
-  "score": 65.6,
+  "score": 65.9,
   "band": "Elevated",
   "news_concentration": 0.2,
-  "change_1w": -3.7,
+  "change_1w": -3.4,
   "nowcast": {
     "week": "2026-11-14",
-    "as_of": "2026-11-12",
-    "score": 58.4,
+    "as_of": "2026-11-13",
+    "score": 57.1,
     "band": "Elevated",
-    "change_vs_last_week": -7.2,
+    "change_vs_last_week": -8.8,
     "dimensions": {
-      "cost_of_living": 74.3,
-      "jobs_financial": 50.9,
-      "political_institutional": 74.7,
-      "safety_unrest": 25.0,
-      "disasters_health": 39.0,
+      "cost_of_living": 74.0,
+      "jobs_financial": 47.4,
+      "political_institutional": 73.2,
+      "safety_unrest": 25.5,
+      "disasters_health": 37.2,
       "geopolitical": 90.6
     },
     "shares": {
@@ -29,5 +29,5 @@
     "provisional": true
   },
   "methodology_version": "0.3",
-  "computed_at": "2026-11-12T12:54:28.146162+00:00"
+  "computed_at": "2026-11-13T12:50:33.541294+00:00"
 }

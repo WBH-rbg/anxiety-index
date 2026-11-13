@@ -1,8 +1,8 @@
 # Anxiety Index: week ending 2026-11-07
 
-**66 (Elevated)**, -3.7 vs last week, -0.8 vs four weeks ago. News concentration: 0th percentile (attention is spread out).
+**66 (Elevated)**, -3.4 vs last week, -0.4 vs four weeks ago. News concentration: 0th percentile (attention is spread out).
 
-**So far this week** (ending 2026-11-14, data through 2026-11-12): **58 (Elevated)**, -7.2 vs the completed week. Hottest: geopolitical 91, political and institutional 75. Moving: disasters, climate and health -16. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
+**So far this week** (ending 2026-11-14, data through 2026-11-13): **57 (Elevated)**, -8.8 vs the completed week. Hottest: geopolitical 91, cost of living 74. Moving: disasters, climate and health -18; political and institutional -6. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 
@@ -10,12 +10,12 @@
 |---|---|---|---|---|
 | Geopolitical | 94 | High | -1 | 42% |
 | Cost of living | 76 | Elevated | +0 | 35% |
-| Political and institutional | 78 | Elevated | +8 | 14% |
+| Political and institutional | 79 | Elevated | +9 | 14% |
 | Jobs and financial security | 49 | Moderate | +1 | 5% |
 | Disasters, climate and health | 55 | Elevated | -16 | 2% |
 | Public safety and unrest | 28 | Moderate | -16 | 1% |
 
-On the week, dimensions moved up on political and institutional (+8); down on disasters, climate and health (-16), public safety and unrest (-16). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
+On the week, dimensions moved up on political and institutional (+9); down on disasters, climate and health (-16), public safety and unrest (-16). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
 
 ## What changed since last week
 
