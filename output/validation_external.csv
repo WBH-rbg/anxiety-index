@@ -1,9 +1,9 @@
 series,weeks,corr_level,corr_detrended,corr_lead-4,corr_lead-2,corr_lead-1,corr_lead+1,corr_lead+2,corr_lead+4
-Wikipedia views: Anxiety,593,-0.264,-0.309,-0.306,-0.306,-0.306,-0.318,-0.318,-0.309
-Wikipedia views: Anxiety disorder,593,-0.377,-0.274,-0.24,-0.263,-0.267,-0.275,-0.269,-0.243
-Wikipedia views: Panic attack,593,-0.297,-0.165,-0.144,-0.158,-0.158,-0.178,-0.187,-0.189
-News share: boycotts,610,-0.14,-0.078,-0.061,-0.059,-0.071,-0.072,-0.093,-0.075
-Average tone of all US news (sign flipped),610,0.026,0.146,0.08,0.117,0.146,0.043,-0.002,-0.059
-Share of US event coverage: conflict,1349,-0.016,0.134,0.038,0.083,0.114,0.091,0.07,0.048
-"Hostile acts toward businesses, share of US event coverage",1349,0.037,-0.052,-0.044,-0.045,-0.046,-0.043,-0.036,-0.041
-Hostile share of business-related coverage,1349,-0.082,0.013,0.008,0.019,0.021,0.001,0.01,0.006
+Wikipedia views: Anxiety,594,-0.268,-0.31,-0.308,-0.309,-0.307,-0.319,-0.32,-0.31
+Wikipedia views: Anxiety disorder,594,-0.381,-0.274,-0.24,-0.263,-0.266,-0.274,-0.268,-0.243
+Wikipedia views: Panic attack,594,-0.301,-0.166,-0.146,-0.16,-0.159,-0.179,-0.188,-0.191
+News share: boycotts,611,-0.142,-0.08,-0.065,-0.063,-0.072,-0.073,-0.093,-0.075
+Average tone of all US news (sign flipped),611,0.024,0.146,0.077,0.115,0.145,0.043,-0.002,-0.06
+Share of US event coverage: conflict,1350,-0.017,0.132,0.038,0.082,0.113,0.089,0.068,0.047
+"Hostile acts toward businesses, share of US event coverage",1350,0.037,-0.051,-0.044,-0.045,-0.046,-0.042,-0.034,-0.039
+Hostile share of business-related coverage,1350,-0.083,0.014,0.008,0.018,0.02,0.002,0.011,0.008

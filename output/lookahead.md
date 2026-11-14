@@ -1,4 +1,4 @@
-# Look-ahead from the week ending 2026-11-07
+# Look-ahead from the week ending 2026-11-14
 
 Scheduled catalysts and shared cultural events in the next 21 days, with what weeks like them have done to the index historically.
 
@@ -6,7 +6,8 @@ Scheduled catalysts and shared cultural events in the next 21 days, with what we
 
 | Date | Catalyst | Past cases | Headline: two weeks before | In the week | Week after | Dimension usually moved (in the week) |
 |---|---|---|---|---|---|---|
-| 2026-11-10 | CPI for October 2026 | 140 | +0.2 | +1.2 (other weeks -0.1) | +0.0 | Cost of living +0.1 (lead-in +0.4, after +0.4) |
+| 2026-11-30 | Atlantic hurricane season ends | 23 | +0.3 | -3.0 (other weeks +0.0) | +1.5 | Disasters, climate and health -1.1 (lead-in +2.5, after -0.9) |
+| 2026-12-04 | Jobs report for November 2026 | 141 | -1.1 | +0.3 (other weeks -0.0) | +1.0 | Jobs and financial security +0.8 (lead-in -0.8, after +0.8) |
 
 ## Shared cultural events (possible distraction windows)
 
