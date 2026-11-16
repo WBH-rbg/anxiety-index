@@ -5,8 +5,8 @@ Current reading: **56 (Elevated)**. Each row changes this week's inputs as descr
 | Scenario | Headline | Band | Cost of living | Jobs and financial security | Political and institutional | Public safety and unrest | Disasters, climate and health | Geopolitical |
 |---|---|---|---|---|---|---|---|---|
 | Geopolitical flare-up: conflict coverage doubles, GPR threats +50%, Brent +15% | 56 → 72 (+16) | Elevated | +0 | +0 | +0 | +0 | +0 | +6 |
-| Mass shooting dominates the week: violence coverage +80%, shooting pageviews x10 | 56 → 66 (+10) | Elevated | +0 | +0 | +0 | +73 | +0 | +0 |
-| Major hurricane landfall: 60 counties declared, disaster coverage triples | 56 → 65 (+9) | Elevated | +0 | +0 | +0 | +0 | +40 | +0 |
+| Mass shooting dominates the week: violence coverage +80%, shooting pageviews x10 | 56 → 68 (+11) | Elevated | +0 | +0 | +0 | +74 | +0 | +0 |
+| Major hurricane landfall: 60 counties declared, disaster coverage triples | 56 → 65 (+8) | Elevated | +0 | +0 | +0 | +0 | +41 | +0 |
 | Government shutdown begins: political crisis coverage +120%, EPU +60% | 56 → 62 (+6) | Elevated | +0 | +0 | +14 | +0 | +0 | +0 |
 | Magnitude 7.0 earthquake near Los Angeles | 56 → 62 (+6) | Elevated | +0 | +0 | +0 | +0 | +36 | +0 |
 | Initial jobless claims jump 30% for the week | 56 → 61 (+5) | Elevated | +0 | +34 | +0 | +0 | +0 | +0 |
