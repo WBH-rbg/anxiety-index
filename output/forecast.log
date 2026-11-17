@@ -1,84 +1,49 @@
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "/home/runner/work/anxiety-index/anxiety-index/index/forecast.py", line 291, in <module>
-    raise SystemExit(main())
-                     ^^^^^^
-  File "/home/runner/work/anxiety-index/anxiety-index/index/forecast.py", line 263, in main
-    frame = load(client)
-            ^^^^^^^^^^^^
-  File "/home/runner/work/anxiety-index/anxiety-index/index/forecast.py", line 53, in load
-    head = client.query("SELECT week, score FROM `ai_index.headline_weekly` WHERE score IS NOT NULL ORDER BY week").to_dataframe()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/client.py", line 3728, in query
-    return _job_helpers.query_jobs_insert(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/_job_helpers.py", line 206, in query_jobs_insert
-    future = do_query()
-             ^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py", line 295, in retry_wrapped_func
-    return retry_target(
-           ^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py", line 157, in retry_target
-    next_sleep = _retry_error_helper(
-                 ^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/api_core/retry/retry_base.py", line 215, in _retry_error_helper
-    raise final_exc from source_exc
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py", line 148, in retry_target
-    result = target()
-             ^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/_job_helpers.py", line 152, in do_query
-    query_job._begin(retry=retry, timeout=timeout)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/job/query.py", line 1489, in _begin
-    super(QueryJob, self)._begin(client=client, retry=retry, timeout=timeout)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/job/base.py", line 825, in _begin
-    api_response = client._call_api(
-                   ^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/client.py", line 998, in _call_api
-    return call()
-           ^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py", line 295, in retry_wrapped_func
-    return retry_target(
-           ^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py", line 157, in retry_target
-    next_sleep = _retry_error_helper(
-                 ^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/api_core/retry/retry_base.py", line 215, in _retry_error_helper
-    raise final_exc from source_exc
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py", line 148, in retry_target
-    result = target()
-             ^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/_http/__init__.py", line 497, in api_request
-    response = self._make_request(
-               ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/_http/__init__.py", line 356, in _make_request
-    return self._do_request(
-           ^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/_http/__init__.py", line 394, in _do_request
-    return self.http.request(
-           ^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/auth/transport/requests.py", line 739, in request
-    self.credentials.before_request(auth_request, method, url, request_headers)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/auth/credentials.py", line 242, in before_request
-    self._blocking_refresh(request)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/auth/credentials.py", line 205, in _blocking_refresh
-    self.refresh(request)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/auth/identity_pool.py", line 587, in refresh
-    self._perform_refresh_token(request, cert_fingerprint=cert_fingerprint)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/auth/external_account.py", line 494, in _perform_refresh_token
-    self._impersonated_credentials.refresh(request)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/auth/credentials.py", line 519, in refresh
-    self._perform_refresh_token(request)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/auth/impersonated_credentials.py", line 297, in _perform_refresh_token
-    self._source_credentials.refresh(request)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/auth/identity_pool.py", line 587, in refresh
-    self._perform_refresh_token(request, cert_fingerprint=cert_fingerprint)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/auth/external_account.py", line 519, in _perform_refresh_token
-    subject_token=self.retrieve_subject_token(request),
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/auth/identity_pool.py", line 397, in retrieve_subject_token
-    return self._subject_token_supplier.get_subject_token(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/auth/identity_pool.py", line 135, in get_subject_token
-    raise exceptions.RefreshError(
-google.auth.exceptions.RefreshError: ('Unable to retrieve Identity Pool subject token', 'upstream connect error or disconnect/reset before headers. retried and the latest reset reason: connection timeout')
+/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/table.py:2131: UserWarning: BigQuery Storage module not found, fetch data with the REST endpoint instead.
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/google/cloud/bigquery/_pandas_helpers.py:486: FutureWarning: Loading pandas DataFrame into BigQuery will require pandas-gbq package version 0.26.1 or greater in the future. Tried to import pandas-gbq and got: No module named 'pandas_gbq'
+  warnings.warn(
+# Outlook from the week ending 2026-11-14
+
+Current reading: **55 (Elevated)**. The table shows where a small statistical model expects the headline to be, with ranges taken from the model's own historical errors. Treat it as tendency, not prediction: at these horizons the model beats "no change" only modestly (see the track record below), and scheduled catalysts in `lookahead.md` can override any of it.
+
+| Weeks ahead | Week ending | Expected | 50% range | 80% range | Chance up 5+ | Chance down 5+ | Chance High or Severe | Chance below 50 |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 2026-11-21 | 55 (Elevated) | 50–58 | 46–65 | 19% | 22% | 2% | 23% |
+| 2 | 2026-11-28 | 55 (Elevated) | 49–61 | 41–70 | 30% | 28% | 4% | 29% |
+| 4 | 2026-12-12 | 55 (Elevated) | 45–65 | 35–77 | 38% | 34% | 7% | 35% |
+| 8 | 2027-01-09 | 54 (Elevated) | 40–70 | 25–82 | 43% | 40% | 12% | 40% |
+
+## Why (four-week horizon)
+
+Expected change in points, by what is driving it:
+
+- Where the reading sits relative to normal, and its recent momentum: **-1.9**
+- How much of it is shock-driven (safety, geopolitics, disasters), which fades faster: **+0.5**
+- How much of it is background pressure (cost of living, jobs, politics), which persists: **+1.9**
+
+Largest single factors: public safety and unrest reading (+1.6); the quarter's move (-1.2); political and institutional reading (+1.1); geopolitical reading (-0.9).
+
+## What has usually happened from here
+
+Weeks since 2010 that showed the same band, and where the headline was afterwards:
+
+| Band now | Weeks ahead | Weeks | Average then | Average later | Higher by 5+ | Lower by 5+ | High or Severe later | Below 50 later |
+|---|---|---|---|---|---|---|---|---|
+| Low | 2 | 142 | 9.9 | 17.1 | 36% | 12% | 1% | 93% |
+| Moderate | 2 | 258 | 35.8 | 37.3 | 37% | 35% | 1% | 78% |
+| **Elevated** | 2 | 295 | 64.6 | 60.9 | 22% | 41% | 8% | 23% |
+| High | 2 | 146 | 87.6 | 85.8 | 11% | 29% | 82% | 0% |
+| Severe | 2 | 38 | 97.7 | 96.1 | 0% | 11% | 100% | 0% |
+| Low | 4 | 142 | 9.9 | 21.7 | 51% | 11% | 0% | 88% |
+| Moderate | 4 | 258 | 35.8 | 39.3 | 45% | 36% | 2% | 67% |
+| **Elevated** | 4 | 293 | 64.6 | 58.5 | 26% | 48% | 15% | 33% |
+| High | 4 | 146 | 87.6 | 83.3 | 16% | 43% | 69% | 1% |
+| Severe | 4 | 38 | 97.7 | 93.5 | 0% | 32% | 92% | 0% |
+| Low | 8 | 142 | 9.9 | 31.1 | 67% | 11% | 0% | 75% |
+| Moderate | 8 | 257 | 35.8 | 41.1 | 54% | 35% | 4% | 59% |
+| **Elevated** | 8 | 290 | 64.7 | 55.7 | 31% | 54% | 21% | 42% |
+| High | 8 | 146 | 87.6 | 76.9 | 21% | 
