@@ -6,8 +6,8 @@ Scheduled catalysts and shared cultural events in the next 21 days, with what we
 
 | Date | Catalyst | Past cases | Headline: two weeks before | In the week | Week after | Dimension usually moved (in the week) |
 |---|---|---|---|---|---|---|
-| 2026-11-30 | Atlantic hurricane season ends | 23 | +0.3 | -2.9 (other weeks +0.0) | +1.5 | Disasters, climate and health -1.1 (lead-in +2.5, after -0.9) |
-| 2026-12-04 | Jobs report for November 2026 | 141 | -1.0 | +0.3 (other weeks -0.0) | +1.0 | Jobs and financial security +0.8 (lead-in -0.8, after +0.8) |
+| 2026-11-30 | Atlantic hurricane season ends | 23 | +0.2 | -2.8 (other weeks +0.0) | +1.4 | Disasters, climate and health -1.1 (lead-in +2.5, after -0.9) |
+| 2026-12-04 | Jobs report for November 2026 | 141 | -1.1 | +0.3 (other weeks -0.0) | +1.0 | Jobs and financial security +0.8 (lead-in -0.8, after +0.8) |
 
 ## Shared cultural events (possible distraction windows)
 
