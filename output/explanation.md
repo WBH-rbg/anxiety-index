@@ -1,21 +1,21 @@
 # Anxiety Index: week ending 2026-11-14
 
-**55 (Elevated)**, -7.2 vs last week, -10.7 vs four weeks ago. News concentration: 7th percentile (attention is spread out).
+**56 (Elevated)**, -6.3 vs last week, -10.5 vs four weeks ago. News concentration: 7th percentile (attention is spread out).
 
-**So far this week** (ending 2026-11-21, data through 2026-11-18): **39 (Moderate)**, -15.7 vs the completed week. Hottest: geopolitical 79, cost of living 70. Moving: jobs and financial security -11; geopolitical -11. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
+**So far this week** (ending 2026-11-21, data through 2026-11-19): **41 (Moderate)**, -15.0 vs the completed week. Hottest: geopolitical 79, cost of living 70. Moving: public safety and unrest -11; geopolitical -11. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 
 | Dimension | Reading | Band | Change on the week | Share of this week's anxiety |
 |---|---|---|---|---|
-| Geopolitical | 90 | High | -1 | 42% |
+| Geopolitical | 90 | High | -0 | 42% |
 | Cost of living | 74 | Elevated | -2 | 35% |
-| Political and institutional | 72 | Elevated | -6 | 14% |
+| Political and institutional | 72 | Elevated | -5 | 14% |
 | Jobs and financial security | 53 | Elevated | -2 | 5% |
 | Disasters, climate and health | 46 | Moderate | -20 | 2% |
 | Public safety and unrest | 22 | Moderate | -6 | 1% |
 
-On the week, dimensions moved down on disasters, climate and health (-20), political and institutional (-6), public safety and unrest (-6). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
+On the week, dimensions moved down on disasters, climate and health (-20), public safety and unrest (-6), political and institutional (-5). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
 
 ## What changed since last week
 
@@ -23,8 +23,8 @@ The signals whose moves, times their weights, did most to change the reading. Re
 
 | Measure | Dimension | Lens | Now | Change | Weight |
 |---|---|---|---|---|---|
-| Wikipedia views: Mass shooting, attention vs. 3-year norm | Public safety and unrest | Attention | normal (+0.0) | +1.1 | 0.8 |
 | Initial unemployment claims (NSA, sum of states), 12-month change | Jobs and financial security | Conditions | normal (+0.0) | +0.7 | 1.2 |
+| Wikipedia views: Mass shooting, attention vs. 3-year norm | Public safety and unrest | Attention | normal (-0.0) | +1.0 | 0.8 |
 | Trade Policy Uncertainty index, vs. 5-year average | Cost of living | Attention | very high (+1.7) | -1.3 | 0.6 |
 | Disaster declaration impulse (declared counties per week), level | Disasters, climate and health | Conditions | high (+0.9) | -0.8 | 1.0 |
 | US regular gasoline retail price, % vs. 12-month average | Cost of living | Conditions | normal (+0.4) | -0.5 | 1.2 |
