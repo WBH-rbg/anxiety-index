@@ -1,6 +1,6 @@
 # Validation report
 
-Generated 2026-11-19. Methodology v0.1 prototype.
+Generated 2026-11-20. Methodology v0.1 prototype.
 
 ## 1. Face validity
 
@@ -13,13 +13,13 @@ Does the index read tense when everyone remembers tension, and calm when they re
 | Mid-2000s calm | calm | 21.7 | 69.1 | 0 | 131 | pass |
 | Financial crisis | tense | 86.4 | 99.8 | 20 | 29 | pass |
 | Debt-ceiling summer | tense | 70.1 | 83.1 | 1 | 7 | pass |
-| 2013-2015 calm | calm | 19.9 | 76.6 | 0 | 156 | pass |
-| COVID onset | tense | 81.8 | 88.0 | 6 | 8 | pass |
+| 2013-2015 calm | calm | 19.9 | 76.7 | 0 | 156 | pass |
+| COVID onset | tense | 81.9 | 88.0 | 6 | 8 | pass |
 | Summer 2020 | tense | 98.1 | 100.0 | 7 | 7 | pass |
-| Jan 6 week | tense | 86.0 | 90.5 | 2 | 3 | pass |
+| Jan 6 week | tense | 86.1 | 90.6 | 2 | 3 | pass |
 | Ukraine invasion | tense | 98.4 | 99.1 | 5 | 5 | pass |
-| Inflation peak | tense | 97.2 | 99.4 | 6 | 6 | pass |
-| Spring 2025 tariffs | tense | 95.5 | 98.1 | 4 | 4 | pass |
+| Inflation peak | tense | 97.1 | 99.4 | 6 | 6 | pass |
+| Spring 2025 tariffs | tense | 95.4 | 98.1 | 4 | 4 | pass |
 
 ## 2. External series
 
@@ -27,14 +27,14 @@ Correlation of the weekly headline with series that should track public anxiety 
 
 | Series | Weeks | Level | Detrended | lead−4 | lead−2 | lead−1 | lead+1 | lead+2 | lead+4 |
 |---|---|---|---|---|---|---|---|---|---|
-| Wikipedia views: Anxiety | 594 | -0.264 | -0.304 | -0.305 | -0.304 | -0.303 | -0.312 | -0.312 | -0.303 |
-| Wikipedia views: Anxiety disorder | 594 | -0.379 | -0.271 | -0.24 | -0.262 | -0.264 | -0.27 | -0.265 | -0.241 |
-| Wikipedia views: Panic attack | 594 | -0.301 | -0.167 | -0.147 | -0.161 | -0.16 | -0.179 | -0.188 | -0.192 |
-| News share: boycotts | 611 | -0.143 | -0.081 | -0.065 | -0.063 | -0.073 | -0.073 | -0.094 | -0.075 |
-| Average tone of all US news (sign flipped) | 611 | 0.024 | 0.145 | 0.076 | 0.113 | 0.143 | 0.042 | -0.003 | -0.059 |
-| Share of US event coverage: conflict | 1350 | -0.017 | 0.132 | 0.038 | 0.082 | 0.112 | 0.089 | 0.068 | 0.047 |
-| Hostile acts toward businesses, share of US event coverage | 1350 | 0.036 | -0.052 | -0.044 | -0.046 | -0.046 | -0.043 | -0.036 | -0.04 |
-| Hostile share of business-related coverage | 1350 | -0.083 | 0.013 | 0.008 | 0.018 | 0.021 | 0.0 | 0.009 | 0.006 |
+| Wikipedia views: Anxiety | 594 | -0.265 | -0.305 | -0.306 | -0.306 | -0.304 | -0.312 | -0.312 | -0.302 |
+| Wikipedia views: Anxiety disorder | 594 | -0.38 | -0.272 | -0.24 | -0.262 | -0.265 | -0.271 | -0.266 | -0.241 |
+| Wikipedia views: Panic attack | 594 | -0.301 | -0.167 | -0.147 | -0.162 | -0.161 | -0.18 | -0.189 | -0.193 |
+| News share: boycotts | 611 | -0.142 | -0.08 | -0.065 | -0.062 | -0.072 | -0.072 | -0.093 | -0.075 |
+| Average tone of all US news (sign flipped) | 611 | 0.024 | 0.146 | 0.075 | 0.112 | 0.144 | 0.043 | -0.002 | -0.058 |
+| Share of US event coverage: conflict | 1350 | -0.017 | 0.132 | 0.038 | 0.082 | 0.113 | 0.089 | 0.069 | 0.047 |
+| Hostile acts toward businesses, share of US event coverage | 1350 | 0.037 | -0.051 | -0.044 | -0.045 | -0.046 | -0.043 | -0.035 | -0.04 |
+| Hostile share of business-related coverage | 1350 | -0.083 | 0.013 | 0.008 | 0.018 | 0.021 | 0.001 | 0.01 | 0.007 |
 
 ## 3. Corporate backlash events (curated outcome log)
 
@@ -44,10 +44,10 @@ By severity (1 = brief viral moment, 5 = sustained national controversy):
 
 | Severity | Episodes | Mean reading the week before |
 |---|---|---|
-| 1 | 2 | 25.6 |
-| 2 | 39 | 53.9 |
-| 3 | 44 | 66.5 |
-| 4 | 23 | 58.6 |
+| 1 | 2 | 25.5 |
+| 2 | 39 | 54.1 |
+| 3 | 44 | 66.4 |
+| 4 | 23 | 58.7 |
 | 5 | 11 | 56.0 |
 
 Episodes in the following two weeks, per 100 weeks, by the band shown that week:
@@ -76,7 +76,7 @@ Dimension readings the week before episodes vs. all weeks:
 | Dimension | Before episodes | All weeks | Difference |
 |---|---|---|---|
 | Jobs and financial security | 65.5 | 59.1 | +6.4 |
-| Political and institutional | 62.8 | 56.6 | +6.2 |
+| Political and institutional | 63.0 | 56.6 | +6.4 |
 | Cost of living | 62.2 | 60.3 | +1.9 |
 | Disasters, climate and health | 54.5 | 51.7 | +2.8 |
 | Geopolitical | 51.3 | 53.9 | -2.6 |
@@ -86,13 +86,13 @@ Does the hot dimension predict the *kind* of episode? Each trigger type is paire
 
 | Trigger type | Dimension | Episodes | Dim. before this type | Before other types | All weeks | Hottest dim. before this type | Before other types |
 |---|---|---|---|---|---|---|---|
-| political_stance | Political and institutional | 35 | 67.7 | 60.8 | 56.6 | 17% | 18% |
-| executive_statement | Political and institutional | 11 | 62.3 | 62.9 | 56.6 | 18% | 18% |
+| political_stance | Political and institutional | 35 | 68.2 | 60.9 | 56.6 | 17% | 20% |
+| executive_statement | Political and institutional | 11 | 63.1 | 63.0 | 56.6 | 18% | 19% |
 | pricing | Cost of living | 9 | 60.5 | 62.4 | 60.3 | 22% | 20% |
 | labor_layoffs | Jobs and financial security | 9 | 62.9 | 65.7 | 59.1 | 33% | 25% |
-| product_safety | Disasters, climate and health | 13 | 55.0 | 54.4 | 51.7 | 15% | 12% |
-| service_incident | Disasters, climate and health | 8 | 39.8 | 55.5 | 51.7 | 0% | 14% |
-| data_privacy | Political and institutional | 6 | 60.4 | 62.9 | 56.6 | 17% | 18% |
+| product_safety | Disasters, climate and health | 13 | 55.0 | 54.4 | 51.7 | 15% | 10% |
+| service_incident | Disasters, climate and health | 8 | 39.8 | 55.5 | 51.7 | 0% | 12% |
+| data_privacy | Political and institutional | 6 | 60.1 | 63.2 | 56.6 | 17% | 19% |
 | marketing_misstep | Public safety and unrest | 16 | 36.0 | 48.7 | 46.3 | 6% | 11% |
 
 Caveats: the log is curated and incomplete, episodes cluster in recent years when the log is richer, and the index was not tuned to this log. A clean result here is encouraging, not proof; a null result means the structure needs work.

@@ -1,12 +1,12 @@
 # Anxiety Index brief: week ending 2026-11-14
 
-*Issued 2026-11-19. Data through 2026-11-19.*
+*Issued 2026-11-20. Data through 2026-11-20.*
 
-## 56 — Elevated, down 6.3 on the week
+## 56 — Elevated, down 6.5 on the week
 
-Down 10 points over four weeks. Attention is spread across many stories, so new ones find room.
+Down 11 points over four weeks. Attention is spread across many stories, so new ones find room.
 
-**So far this week:** 41 (Moderate), -15.0 against the completed week. Provisional; it will move as the week's data arrive.
+**So far this week:** 41 (Moderate), -14.5 against the completed week. Provisional; it will move as the week's data arrive.
 
 ## What is driving it
 
@@ -15,9 +15,9 @@ Down 10 points over four weeks. Attention is spread across many stories, so new 
 | Geopolitical | 90 | High | -0 | 42% |
 | Cost of living | 74 | Elevated | -2 | 35% |
 | Political and institutional | 72 | Elevated | -5 | 14% |
-| Jobs and financial security | 53 | Elevated | -2 | 5% |
+| Jobs and financial security | 50 | Elevated | -4 | 5% |
 | Disasters, climate and health | 46 | Moderate | -20 | 2% |
-| Public safety and unrest | 22 | Moderate | -6 | 1% |
+| Public safety and unrest | 22 | Moderate | -7 | 1% |
 
 The headline follows an attention budget: the hottest dimension counts in full, the next at half, the next at a quarter. Shares are exact. `explanation.md` lists the individual signals behind each move.
 
@@ -43,10 +43,10 @@ The headline follows an attention budget: the hottest dimension counts in full, 
 
 | Weeks ahead | Week ending | Expected | 80% range | Chance of High or Severe | Chance below 50 |
 |---|---|---|---|---|---|
-| 1 | 2026-11-21 | 56 (Elevated) | 47–66 | 2% | 18% |
-| 2 | 2026-11-28 | 56 (Elevated) | 42–72 | 5% | 26% |
+| 1 | 2026-11-21 | 56 (Elevated) | 47–66 | 2% | 19% |
+| 2 | 2026-11-28 | 56 (Elevated) | 42–71 | 4% | 27% |
 | 4 | 2026-12-12 | 56 (Elevated) | 36–78 | 8% | 33% |
-| 8 | 2027-01-09 | 55 (Elevated) | 25–83 | 13% | 38% |
+| 8 | 2027-01-09 | 54 (Elevated) | 26–83 | 13% | 39% |
 
 A small statistical model with a published track record (`forecast.md`); it beats "no change" only modestly at short horizons. Readings far above normal tend to ease; shock-driven anxiety fades faster than cost-of-living and political pressure.
 
@@ -54,7 +54,7 @@ A small statistical model with a published track record (`forecast.md`); it beat
 
 - Geopolitical flare-up: conflict coverage doubles, GPR threats +50%, Brent +15%: 56 → 75
 - Mass shooting dominates the week: violence coverage +80%, shooting pageviews x10: 56 → 67
-- Major hurricane landfall: 60 counties declared, disaster coverage triples: 56 → 65
+- Major hurricane landfall: 60 counties declared, disaster coverage triples: 56 → 64
 
 ---
 
