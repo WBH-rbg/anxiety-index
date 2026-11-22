@@ -1,6 +1,8 @@
 # Anxiety Index: week ending 2026-11-21
 
-**41 (Moderate)**, -14.4 vs last week, -27.3 vs four weeks ago. News concentration: 9th percentile (attention is spread out).
+**41 (Moderate)**, -14.6 vs last week, -27.8 vs four weeks ago. News concentration: 10th percentile (attention is spread out).
+
+**So far this week** (ending 2026-11-28, data through 2026-11-22): **34 (Moderate)**, -6.8 vs the completed week. Hottest: geopolitical 79, cost of living 66. Moving: public safety and unrest -7; political and institutional -6. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 
@@ -8,7 +10,7 @@
 |---|---|---|---|---|
 | Cost of living | 71 | Elevated | -3 | 62% |
 | Geopolitical | 78 | Elevated | -12 | 19% |
-| Political and institutional | 65 | Elevated | -8 | 12% |
+| Political and institutional | 64 | Elevated | -8 | 12% |
 | Jobs and financial security | 44 | Moderate | -6 | 5% |
 | Disasters, climate and health | 40 | Moderate | -6 | 2% |
 | Public safety and unrest | 17 | Low | -5 | 1% |
@@ -23,14 +25,14 @@ The signals whose moves, times their weights, did most to change the reading. Re
 |---|---|---|---|---|---|
 | Share of US event coverage: assaults, fights, mass violence, attention vs. 3-year norm | Public safety and unrest | Attention | normal (+0.2) | +1.1 | 1.0 |
 | Initial unemployment claims (NSA, sum of states), 12-month change | Jobs and financial security | Conditions | very low (-1.3) | -0.8 | 1.2 |
-| News share: jobs, markets, rates, debt, attention vs. 3-year norm | Jobs and financial security | Attention | normal (+0.0) | -0.6 | 1.5 |
+| News share: jobs, markets, rates, debt, attention vs. 3-year norm | Jobs and financial security | Attention | normal (+0.0) | -0.7 | 1.5 |
 | News share: political crisis, scandal, shutdown, attention vs. 3-year norm | Political and institutional | Attention | normal (+0.5) | -0.6 | 1.5 |
 | Cboe VIX close, level | Jobs and financial security | Sentiment | high (+1.1) | +0.8 | 1.0 |
-| Wikipedia views: Cost of living, attention vs. 3-year norm | Cost of living | Attention | very high (+2.0) | +1.5 | 0.5 |
 | Share of US event coverage: protests, attention vs. 3-year norm | Public safety and unrest | Attention | low (-0.9) | -0.6 | 1.0 |
 | Cboe VIX close, vs. 12-month average | Jobs and financial security | Sentiment | very high (+2.0) | +1.3 | 0.5 |
 | US regular gasoline retail price, % vs. 12-month average | Cost of living | Conditions | normal (-0.1) | -0.5 | 1.2 |
 | Wikipedia views: Measles, attention vs. 3-year norm | Disasters, climate and health | Attention | extreme (+3.0) | +2.0 | 0.3 |
+| Wikipedia views: Cost of living, attention vs. 3-year norm | Cost of living | Attention | very high (+1.7) | +1.2 | 0.5 |
 | News share: prices, inflation, fuel, housing costs, attention vs. 3-year norm | Cost of living | Attention | high (+0.9) | -0.4 | 1.5 |
 | Disaster declaration impulse (declared counties per week), level | Disasters, climate and health | Conditions | normal (+0.4) | -0.5 | 1.0 |
 
@@ -47,6 +49,6 @@ The signals whose moves, times their weights, did most to change the reading. Re
 | Global Supply Chain Pressure Index, level | Cost of living | Conditions | very high (+2.2) |
 | Brent crude oil spot price, 13-week change | Geopolitical | Conditions | very high (+2.2) |
 | Index of Consumer Sentiment, level | Jobs and financial security | Sentiment | very high (+2.1) |
-| Wikipedia views: Cost of living, attention vs. 3-year norm | Cost of living | Attention | very high (+2.0) |
 | Cboe VIX close, vs. 12-month average | Jobs and financial security | Sentiment | very high (+2.0) |
 | SCE: expected inflation, 1 year (median), level | Cost of living | Sentiment | very high (+2.0) |
+| 30-year fixed mortgage rate, 13-week change | Cost of living | Conditions | very high (+2.0) |

@@ -1,10 +1,12 @@
 # Anxiety Index brief: week ending 2026-11-21
 
-*Issued 2026-11-21. Data through 2026-11-21.*
+*Issued 2026-11-22. Data through 2026-11-22.*
 
-## 41 — Moderate, down 14.4 on the week
+## 41 — Moderate, down 14.6 on the week
 
-Down 27 points over four weeks. Attention is spread across many stories, so new ones find room.
+Down 28 points over four weeks. Attention is spread across many stories, so new ones find room.
+
+**So far this week:** 34 (Moderate), -6.8 against the completed week. Provisional; it will move as the week's data arrive.
 
 ## What is driving it
 
@@ -12,7 +14,7 @@ Down 27 points over four weeks. Attention is spread across many stories, so new 
 |---|---|---|---|---|
 | Cost of living | 71 | Elevated | -3 | 62% |
 | Geopolitical | 78 | Elevated | -12 | 19% |
-| Political and institutional | 65 | Elevated | -8 | 12% |
+| Political and institutional | 64 | Elevated | -8 | 12% |
 | Jobs and financial security | 44 | Moderate | -6 | 5% |
 | Disasters, climate and health | 40 | Moderate | -6 | 2% |
 | Public safety and unrest | 17 | Low | -5 | 1% |
@@ -29,7 +31,7 @@ The headline follows an attention budget: the hottest dimension counts in full, 
 
 | Date | Catalyst | Typical effect in past cases |
 |---|---|---|
-| 2026-11-30 | Atlantic hurricane season ends | headline -3 in the week, +2 the week after; disasters, climate and health -1 (23 past cases) |
+| 2026-11-30 | Atlantic hurricane season ends | headline -3 in the week, +1 the week after; disasters, climate and health -1 (23 past cases) |
 | 2026-12-04 | Jobs report for November 2026 | none to speak of (141 past cases) |
 | 2026-12-09 | FOMC decision | none to speak of (94 past cases) |
 | 2026-12-10 | CPI for November 2026 | headline +1 in the week, -0 the week after (141 past cases) |
@@ -42,17 +44,17 @@ The headline follows an attention budget: the hottest dimension counts in full, 
 
 | Weeks ahead | Week ending | Expected | 80% range | Chance of High or Severe | Chance below 50 |
 |---|---|---|---|---|---|
-| 1 | 2026-11-28 | 42 (Moderate) | 33–52 | 1% | 88% |
-| 2 | 2026-12-05 | 43 (Moderate) | 29–58 | 1% | 77% |
-| 4 | 2026-12-19 | 44 (Moderate) | 24–66 | 3% | 66% |
-| 8 | 2027-01-16 | 45 (Moderate) | 16–73 | 6% | 56% |
+| 1 | 2026-11-28 | 42 (Moderate) | 32–52 | 1% | 88% |
+| 2 | 2026-12-05 | 43 (Moderate) | 28–58 | 2% | 78% |
+| 4 | 2026-12-19 | 44 (Moderate) | 23–66 | 3% | 68% |
+| 8 | 2027-01-16 | 44 (Moderate) | 15–73 | 6% | 56% |
 
 A small statistical model with a published track record (`forecast.md`); it beats "no change" only modestly at short horizons. Readings far above normal tend to ease; shock-driven anxiety fades faster than cost-of-living and political pressure.
 
 ## If something breaks
 
 - Geopolitical flare-up: conflict coverage doubles, GPR threats +50%, Brent +15%: 41 → 65
-- Mass shooting dominates the week: violence coverage +80%, shooting pageviews x10: 41 → 63
+- Mass shooting dominates the week: violence coverage +80%, shooting pageviews x10: 41 → 62
 - Major hurricane landfall: 60 counties declared, disaster coverage triples: 41 → 55
 
 ---
