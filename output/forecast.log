@@ -13,19 +13,19 @@ Current reading: **41 (Moderate)**. The table shows where a small statistical mo
 | Weeks ahead | Week ending | Expected | 50% range | 80% range | Chance up 5+ | Chance down 5+ | Chance High or Severe | Chance below 50 |
 |---|---|---|---|---|---|---|---|---|
 | 1 | 2026-11-28 | 42 (Moderate) | 37–45 | 32–52 | 21% | 19% | 1% | 88% |
-| 2 | 2026-12-05 | 43 (Moderate) | 36–48 | 28–58 | 35% | 25% | 2% | 78% |
-| 4 | 2026-12-19 | 44 (Moderate) | 34–53 | 23–66 | 44% | 30% | 3% | 68% |
-| 8 | 2027-01-16 | 44 (Moderate) | 31–60 | 15–73 | 51% | 32% | 6% | 56% |
+| 2 | 2026-12-05 | 43 (Moderate) | 36–49 | 28–58 | 35% | 24% | 1% | 78% |
+| 4 | 2026-12-19 | 44 (Moderate) | 34–54 | 24–66 | 44% | 29% | 3% | 68% |
+| 8 | 2027-01-16 | 45 (Moderate) | 32–61 | 15–74 | 51% | 31% | 6% | 56% |
 
 ## Why (four-week horizon)
 
 Expected change in points, by what is driving it:
 
 - Where the reading sits relative to normal, and its recent momentum: **+1.0**
-- How much of it is shock-driven (safety, geopolitics, disasters), which fades faster: **+0.8**
-- How much of it is background pressure (cost of living, jobs, politics), which persists: **+1.0**
+- How much of it is shock-driven (safety, geopolitics, disasters), which fades faster: **+1.1**
+- How much of it is background pressure (cost of living, jobs, politics), which persists: **+0.9**
 
-Largest single factors: public safety and unrest reading (+1.8); political and institutional reading (+0.7); geopolitical reading (-0.7); the hottest dimension (+0.6).
+Largest single factors: public safety and unrest reading (+2.2); political and institutional reading (+0.8); geopolitical reading (-0.7); the hottest dimension (+0.6).
 
 ## What has usually happened from here
 
@@ -33,17 +33,17 @@ Weeks since 2010 that showed the same band, and where the headline was afterward
 
 | Band now | Weeks ahead | Weeks | Average then | Average later | Higher by 5+ | Lower by 5+ | High or Severe later | Below 50 later |
 |---|---|---|---|---|---|---|---|---|
-| Low | 2 | 142 | 9.9 | 17.1 | 36% | 13% | 1% | 93% |
-| **Moderate** | 2 | 258 | 35.8 | 37.4 | 38% | 35% | 1% | 78% |
-| Elevated | 2 | 297 | 64.7 | 60.8 | 22% | 42% | 8% | 23% |
-| High | 2 | 145 | 87.6 | 86.0 | 11% | 28% | 82% | 0% |
+| Low | 2 | 141 | 9.8 | 16.7 | 35% | 13% | 1% | 94% |
+| **Moderate** | 2 | 259 | 35.8 | 37.5 | 39% | 35% | 1% | 77% |
+| Elevated | 2 | 296 | 64.6 | 60.8 | 22% | 41% | 8% | 23% |
+| High | 2 | 146 | 87.6 | 85.7 | 11% | 30% | 82% | 0% |
 | Severe | 2 | 38 | 97.7 | 96.1 | 0% | 11% | 100% | 0% |
-| Low | 4 | 142 | 9.9 | 21.7 | 51% | 11% | 0% | 88% |
-| **Moderate** | 4 | 258 | 35.8 | 39.4 | 46% | 36% | 2% | 68% |
-| Elevated | 4 | 295 | 64.7 | 58.4 | 26% | 48% | 15% | 33% |
-| High | 4 | 145 | 87.6 | 83.5 | 16% | 43% | 70% | 1% |
-| Severe | 4 | 38 | 97.7 | 93.5 | 0% | 29% | 92% | 0% |
-| Low | 8 | 142 | 9.9 | 31.1 | 67% | 11% | 0% | 75% |
-| **Moderate** | 8 | 258 | 35.8 | 41.1 | 54% | 34% | 4% | 59% |
-| Elevated | 8 | 291 | 64.7 | 55.7 | 31% | 54% | 21% | 42% |
-| High | 8 | 145 | 87.6 | 77.3 | 21% 
+| Low | 4 | 141 | 9.8 | 21.5 | 51% | 11% | 0% | 88% |
+| **Moderate** | 4 | 259 | 35.8 | 39.4 | 46% | 36% | 2% | 68% |
+| Elevated | 4 | 294 | 64.7 | 58.5 | 26% | 48% | 14% | 33% |
+| High | 4 | 146 | 87.6 | 83.3 | 16% | 43% | 69% | 1% |
+| Severe | 4 | 38 | 97.7 | 93.5 | 0% | 29% | 95% | 0% |
+| Low | 8 | 141 | 9.8 | 30.8 | 67% | 11% | 0% | 76% |
+| **Moderate** | 8 | 259 | 35.8 | 41.2 | 54% | 34% | 4% | 59% |
+| Elevated | 8 | 290 | 64.7 | 55.8 | 31% | 53% | 20% | 42% |
+| High | 8 | 146 | 87.6 | 76.8 | 21% 
