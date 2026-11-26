@@ -1,16 +1,16 @@
 # Anxiety Index: week ending 2026-11-21
 
-**42 (Moderate)**, -12.4 vs last week, -24.6 vs four weeks ago. News concentration: 10th percentile (attention is spread out).
+**41 (Moderate)**, -12.1 vs last week, -24.6 vs four weeks ago. News concentration: 10th percentile (attention is spread out).
 
-**So far this week** (ending 2026-11-28, data through 2026-11-25): **28 (Moderate)**, -14.0 vs the completed week. Hottest: geopolitical 67, cost of living 63. Moving: geopolitical -13; jobs and financial security +9. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
+**So far this week** (ending 2026-11-28, data through 2026-11-26): **27 (Moderate)**, -14.6 vs the completed week. Hottest: geopolitical 64, cost of living 63. Moving: geopolitical -15; jobs and financial security +10. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 
 | Dimension | Reading | Band | Change on the week | Share of this week's anxiety |
 |---|---|---|---|---|
 | Cost of living | 71 | Elevated | -3 | 62% |
-| Geopolitical | 79 | Elevated | -10 | 19% |
-| Political and institutional | 66 | Elevated | -7 | 12% |
+| Geopolitical | 80 | Elevated | -10 | 19% |
+| Political and institutional | 64 | Elevated | -7 | 12% |
 | Jobs and financial security | 44 | Moderate | -6 | 5% |
 | Disasters, climate and health | 40 | Moderate | -6 | 2% |
 | Public safety and unrest | 12 | Low | -11 | 1% |
