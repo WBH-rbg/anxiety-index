@@ -1,8 +1,8 @@
 # Anxiety Index: week ending 2026-11-21
 
-**41 (Moderate)**, -12.1 vs last week, -24.6 vs four weeks ago. News concentration: 10th percentile (attention is spread out).
+**41 (Moderate)**, -12.7 vs last week, -25.0 vs four weeks ago. News concentration: 10th percentile (attention is spread out).
 
-**So far this week** (ending 2026-11-28, data through 2026-11-26): **27 (Moderate)**, -14.6 vs the completed week. Hottest: geopolitical 64, cost of living 63. Moving: geopolitical -15; jobs and financial security +10. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
+**So far this week** (ending 2026-11-28, data through 2026-11-27): **26 (Moderate)**, -15.5 vs the completed week. Hottest: geopolitical 63, cost of living 63. Moving: geopolitical -16; cost of living -8. Provisional: daily inputs use the trailing seven days, and the reading will move as the week's data arrive.
 
 ## Dimensions
 
@@ -10,12 +10,12 @@
 |---|---|---|---|---|
 | Cost of living | 71 | Elevated | -3 | 62% |
 | Geopolitical | 80 | Elevated | -10 | 19% |
-| Political and institutional | 64 | Elevated | -7 | 12% |
+| Political and institutional | 64 | Elevated | -8 | 12% |
 | Jobs and financial security | 44 | Moderate | -6 | 5% |
 | Disasters, climate and health | 40 | Moderate | -6 | 2% |
 | Public safety and unrest | 12 | Low | -11 | 1% |
 
-On the week, dimensions moved down on public safety and unrest (-11), geopolitical (-10), political and institutional (-7), jobs and financial security (-6), disasters, climate and health (-6). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
+On the week, dimensions moved down on public safety and unrest (-11), geopolitical (-10), political and institutional (-8), jobs and financial security (-6), disasters, climate and health (-6). The headline weights the hottest dimension most, so moves in the leading dimensions matter more than moves at the bottom of the table.
 
 ## What changed since last week
 
